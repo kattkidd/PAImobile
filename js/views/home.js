@@ -23,7 +23,7 @@ async function attachFiles(files) {
 function deviceBar() {
   const todo = X.deviceTodo(); if (!todo.length) return '';
   const cal = todo.filter(x => x.kind === 'cal'), clock = todo.filter(x => x.kind === 'clock');
-  return `<div class="devbar">${cal.length ? `<div class="row-flex"><span class="grow small">${icon('calendar', 13)} ${cal.length === 1 ? esc(cal[0].label) : cal.length + ' reminders'} not in your Calendar yet</span>${UI.btn('Send to Calendar', 'devCal', { cls: 's good' })}${UI.btn('×', 'devSkip', { cls: 's ghost', data: 'data-k="cal"' })}</div>` : ''}
+  return `<div class="devbar">${cal.length ? `<div class="row-flex"><span class="grow small">${icon('calendar', 13)} ${cal.length === 1 ? esc(cal[0].label) : cal.length + ' reminders'}: not in Calendar yet</span>${UI.btn('Send to Calendar', 'devCal', { cls: 's good' })}${UI.btn('×', 'devSkip', { cls: 's ghost', data: 'data-k="cal"' })}</div>` : ''}
     ${clock.map(t => `<div class="row-flex"><span class="grow small">${icon('timer', 13)} ${esc(t.label)} timer</span>${UI.btn('Start in Clock', 'devClock', { cls: 's good', data: `data-id="${t.id}"` })}</div>`).join('')}</div>`;
 }
 function greeting() {
@@ -89,20 +89,20 @@ export default {
     const s = state.settings; const mood = X.displayMood();
     const right = `${P.isDesktop() ? UI.btn(icon('mini', 13), 'mini', { cls: 's ghost', title: 'Mini mode' }) : ''}${state.messages.length ? `<button class="btn s" data-act="newChat" title="New chat">${icon('edit', 13)}</button>` : ''}${UI.muteBtn()}`;
     return `<div class="content pad0"><div class="home-grid">
-      <div class="col" style="min-height:0">
+      <div class="col homecol" style="min-height:0">
         ${UI.win(X.ownerTitle(), `<div style="padding:14px;position:relative" id="statuswin">
           <div class="row-flex" style="gap:16px;align-items:center">
-            <div data-act="examine" style="cursor:pointer" data-anim-unit>${UI.unit({ size: 120, mood, live: true, cls: '' })}</div>
-            <div class="grow"><div class="clock" id="clock">${fmtTime(new Date())}</div><div class="small dim" id="date">${fmtDate(new Date())}</div><div class="b" style="margin-top:6px">${esc(greeting())}</div></div>
+            <div data-act="examine" style="cursor:pointer" data-anim-unit>${UI.unit({ size: matchMedia('(max-width: 760px)').matches ? 58 : 120, mood, live: true, cls: '' })}</div>
+            <div class="grow"><div class="clock" id="clock">${fmtTime(new Date())}</div><div class="small dim" id="date">${fmtDate(new Date())}</div><div class="b greet" style="margin-top:6px">${esc(greeting())}</div></div>
           </div>
           <div class="row-flex" style="flex-wrap:wrap;gap:6px;margin-top:12px" id="chips">${chips()}</div>
           <div id="bubble"></div><div id="examine"></div>
-        </div>`, { right })}
-        ${UI.section('You', `<div class="row-flex" style="padding:10px;gap:14px">
+        </div>`, { right, cls: 'homestatus' })}
+        <div class="homeyou">${UI.section('You', `<div class="row-flex" style="padding:10px;gap:14px">
           <div class="floor" style="width:96px;height:96px;cursor:pointer;flex:none" data-act="charEmote" title="Click to emote"><div data-anim-char style="width:100%;height:100%">${C.img(state.profile.character, state.profile.stationJob, 0)}</div></div>
           <div class="col grow" style="gap:6px"><div class="b">${esc(C.species(state.profile.character.species).name)} · ${esc(job(state.profile.stationJob).name)}</div>
             <div class="small dim">Type *flip, *scream, *laugh… in chat, or click your character.</div>
-            <div class="row-flex">${UI.btn(icon('edit', 13) + ' Edit character', 'editChar', { cls: 's good' })}${UI.btn('*flip', 'quickEmote', { cls: 's ghost', data: 'data-e="flip"' })}${UI.btn('*spin', 'quickEmote', { cls: 's ghost', data: 'data-e="spin"' })}</div></div></div>`)}
+            <div class="row-flex">${UI.btn(icon('edit', 13) + ' Edit character', 'editChar', { cls: 's good' })}${UI.btn('*flip', 'quickEmote', { cls: 's ghost', data: 'data-e="flip"' })}${UI.btn('*spin', 'quickEmote', { cls: 's ghost', data: 'data-e="spin"' })}</div></div></div>`)}</div>
       </div>
       <div class="chatbox">${deviceBar()}
         <div class="chatlog" id="chatlog">${chatHTML()}</div>
@@ -111,7 +111,7 @@ export default {
           ${UI.btn(icon('mic', 13) + ' Talk', 'talk', { cls: 's ghost', title: 'Speak to ' + X.paiName() })}<span class="grow"></span><span id="pendingfiles">${pendingChips()}</span></div>
         <div class="inputbar">
           <span class="chan" data-act="emoteMenu" title="Emotes">${X.isAI() ? 'AI' : s.form === 'terminal' ? '&gt;_' : 'Say'} ▾</span>
-          <textarea class="field" id="chatinput" rows="1" placeholder="Message ${esc(X.paiName())}… (Enter to send, *emote)" style="resize:none;min-height:38px;max-height:140px"></textarea>
+          <textarea class="field" id="chatinput" rows="1" placeholder="${matchMedia('(max-width: 760px)').matches ? `Message ${esc(X.paiName())}…` : `Message ${esc(X.paiName())}… (Enter to send, *emote)`}" style="resize:none;min-height:38px;max-height:140px"></textarea>
           ${UI.btn(icon('send', 15), 'send', { cls: 'good', title: 'Send' })}
         </div>
       </div></div></div>`;

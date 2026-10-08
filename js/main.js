@@ -196,6 +196,7 @@ async function start() {
     if (ev === 'tray') { if (id === 'open') P.show(); if (id === 'mini') { P.show(); setMini(!document.body.classList.contains('mini')); } if (id === 'quit') P.quit(); }
   });
   await loadAll(); P.persistStorage();
+  fitViewport();
   await Promise.all([C.loadCharacters(), A.loadAudio()]);
   if (!state.profile.character) { state.profile.character = C.starter(); commit('profile', true); }
   applyTheme(); import('./events.js').then(E => E.applyAntagLook());
@@ -232,6 +233,21 @@ function tapToStart() {
     document.body.appendChild(el);
     el.addEventListener('click', () => { A.unlockAudio(); if (!state.settings.bootSequence) A.sfx('power_on'); el.style.opacity = '0'; setTimeout(() => { el.remove(); done(); }, 250); }, { once: true });
   });
+}
+/** Phones: size the app to the *visible* area so the on-screen keyboard never covers the message box. */
+function fitViewport() {
+  const vv = window.visualViewport; const root = document.documentElement;
+  const upd = () => {
+    const h = vv ? vv.height : innerHeight;
+    root.style.setProperty('--vvh', h + 'px'); root.style.setProperty('--vvt', (vv ? vv.offsetTop : 0) + 'px');
+    const kbd = innerHeight - h > 120 && /^(TEXTAREA|INPUT)$/.test(document.activeElement?.tagName || '');
+    if (kbd !== document.body.classList.contains('kbd')) {
+      document.body.classList.toggle('kbd', kbd);
+      const log = document.getElementById('chatlog'); if (log) requestAnimationFrame(() => { log.scrollTop = log.scrollHeight; });
+    }
+  };
+  upd(); vv?.addEventListener('resize', upd); vv?.addEventListener('scroll', upd); addEventListener('resize', upd);
+  document.addEventListener('focusin', () => setTimeout(upd, 50)); document.addEventListener('focusout', () => setTimeout(upd, 120));
 }
 let sideMusicTimer = 0;
 function updateSideMusic() {

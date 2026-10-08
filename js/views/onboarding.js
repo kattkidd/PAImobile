@@ -25,7 +25,7 @@ export function runOnboarding() {
     function page(s) {
       switch (s) {
         case 'welcome': return `<div class="col" style="align-items:center;text-align:center;gap:18px;padding-top:6vh"><div class="logo" style="width:72px;height:72px"></div>
-          <div class="b" style="font-size:32px;letter-spacing:4px">NANOTRASEN</div><div class="dim">Personal assistance division · desktop terminal</div>
+          <div class="b" style="font-size:32px;letter-spacing:4px">NANOTRASEN</div><div class="dim">Personal assistance division · ${P.isDesktop() ? 'desktop terminal' : 'pocket edition'}</div>
           <div class="row-flex" style="gap:30px;align-items:flex-end">${UI.unit({ form: 'pai', mood: 'happy', size: 90 })}${UI.unit({ form: 'stationAI', size: 90 })}${UI.unit({ form: 'terminal', size: 90 })}</div>
           <div style="max-width:480px">Welcome aboard, crew member. Let's get your silicon assistant installed and registered to your ID.</div></div>`;
         case 'style': return title('Pick a style', 'Each server is a Space Station 14 fork. Applying one sets its look, voice, sounds and personality, but every fork’s species, jobs, laws, accents and music are always available. Mix and match any time in Settings.') + `<div>${presetCards()}</div>`;
@@ -37,7 +37,10 @@ export function runOnboarding() {
           <div class="srow click alt" data-ob="jobs"><span class="lab">Station job</span>${UI.jobIcon(job(state.profile.stationJob), 18)}<span class="grow">${esc(job(state.profile.stationJob).name)}</span><span class="dim">›</span></div>`);
         case 'character': return title('Create your character', `Your SS14 crew member appears on your ID card, in chat and next to your unit, and reacts to emotes like *flip and *scream. ${C.DB.species.length} species from SS14, Goob Station, Starlight and Nuclear 14.`) + characterCard();
         case 'laws': return title('Upload a lawset', 'Station AIs follow laws. Pick the board to install.') + `<div class="col" style="gap:0">${lawsetPicker()}</div>`;
-        case 'alerts': return title('Station alerts', 'Reminders and timers pop up as Windows notifications while PAI is running (it keeps running in the tray when you close the window).') +
+        case 'alerts': if (!P.isDesktop()) return title('Station alerts', 'Phones pause apps in the background, so PAI hands reminders and timers to your phone’s own apps, which alert you any time.') +
+          UI.section('Phone', `${UI.toggle('Put new reminders in my Calendar app', 'settings.calendarSync', state.settings.calendarSync)}${UI.toggle('Play sounds even when my phone is on silent', 'settings.playWhenSilent', state.settings.playWhenSilent)}${UI.toggle('Notifications while PAI is open', 'settings.notifications', state.settings.notifications)}<div class="srow">${UI.btn(icon('bell', 14) + ' Send a test notification', '', { cls: 'good', data: 'data-ob="notify"' })}</div>`,
+            { footer: 'Timers can also start in the iPhone Clock app: see Settings → System → iPhone Clock (one-minute setup).' });
+          return title('Station alerts', 'Reminders and timers pop up as Windows notifications while PAI is running (it keeps running in the tray when you close the window).') +
           UI.section('Desktop', `${UI.toggle('Keep running in the tray when I close the window', 'settings.trayOnClose', state.settings.trayOnClose)}${UI.toggle('Start PAI when Windows starts', 'settings.startWithWindows', state.settings.startWithWindows)}<div class="srow">${UI.btn(icon('bell', 14) + ' Send a test notification', '', { cls: 'good', data: 'data-ob="notify"' })}</div>`);
         case 'mind': return title('Install a mind', `Optional. Without one, ${esc(X.paiName())} runs on backup circuits: clock, calendar and timers only.`) +
           UI.section('Claude API key', `<div class="srow"><input class="field" type="password" id="ob_key" placeholder="sk-ant-…">${UI.btn(state.apiKey ? 'Installed ✓' : 'Install', '', { cls: state.apiKey ? 'good' : '', data: 'data-ob="key"' })}</div>`,
@@ -48,9 +51,9 @@ export function runOnboarding() {
     }
     function draw(dirFwd = true) {
       const list = steps(); const cur = list[step];
-      el.innerHTML = `<div style="width:min(860px,94vw);display:flex;gap:5px;padding:14px 0 6px">${list.map((s2, i) => `<div class="cham" style="flex:1;height:6px;background:${i <= step ? 'var(--good)' : 'var(--btn)'};transition:background .3s"></div>`).join('')}</div>
+      el.innerHTML = `<div style="width:min(860px,94vw);display:flex;gap:5px;padding:calc(14px + var(--sat)) 0 6px">${list.map((s2, i) => `<div class="cham" style="flex:1;height:6px;background:${i <= step ? 'var(--good)' : 'var(--btn)'};transition:background .3s"></div>`).join('')}</div>
         <div style="flex:1;overflow-y:auto;width:min(860px,94vw)" id="obpage"><div class="col screen ${dirFwd ? '' : 'back'}" style="padding:12px 0 30px">${page(cur)}</div></div>
-        <div class="row-flex" style="width:min(860px,94vw);padding:12px 0 18px">${step > 0 && cur !== 'done' ? UI.btn('Back', '', { data: 'data-ob="back"' }) : ''}<span class="grow"></span>
+        <div class="row-flex" style="width:min(860px,94vw);padding:12px 0 calc(18px + var(--sab))">${step > 0 && cur !== 'done' ? UI.btn('Back', '', { data: 'data-ob="back"' }) : ''}<span class="grow"></span>
           ${cur === 'mind' && !state.apiKey ? UI.btn('Skip', '', { cls: 'ghost', data: 'data-ob="next"' }) : ''}
           ${UI.btn(cur === 'welcome' ? 'Begin' : cur === 'done' ? 'Start shift' : 'Next', '', { cls: 'good', data: 'data-ob="next"', disabled: cur === 'search' && !found })}</div>`;
       if (cur === 'search' && !found) setTimeout(() => { found = true; A.unitSpeech('Found!'); draw(); }, 1800);
