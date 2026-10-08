@@ -31,7 +31,7 @@ function dayList() {
     <span class="b mono" style="color:var(--accent);width:74px">${fmtTime(t)}</span>
     <div class="grow"><div>${esc(r.title)}</div>${r.notes ? `<div class="small dim">${esc(r.notes)}</div>` : ''}</div>
     ${r.repeat !== 'none' ? `<span class="tiny dim">${REPEAT[r.repeat]}</span>` : ''}
-    <button class="btn s" data-act="ics" data-id="${r.id}" title="Add to my phone/computer calendar">${icon('calendar', 13)}</button>
+    <button class="btn s ${X.inCalendar(r) ? 'good' : ''}" data-act="ics" data-id="${r.id}" title="${X.inCalendar(r) ? 'In your Calendar app (tap to send again)' : 'Add to my phone/computer calendar'}">${icon('calendar', 13)}</button>
     <button class="btn s caution" data-act="del" data-id="${r.id}" title="Delete">${icon('trash', 13)}</button></div>`).join('');
 }
 
@@ -67,8 +67,8 @@ export default {
     nextMonth() { month = new Date(month.getFullYear(), month.getMonth() + 1, 1); slide = 'fwd'; this._re(); },
     today() { selected = new Date(); month = new Date(selected.getFullYear(), selected.getMonth(), 1); slide = ''; this._re(); },
     add() { editor(null); },
-    ics(a, e) { e?.stopPropagation(); const r = state.reminders.find(x => x.id === a.dataset.id); if (r) { A.sfx('print_rip'); P.exportToCalendar([r], r.title); } },
-    icsAll() { A.sfx('print_rip'); P.exportToCalendar(state.reminders); },
+    ics(a, e) { e?.stopPropagation(); X.sendToCalendar([a.dataset.id]); },
+    icsAll() { X.sendToCalendar(); },
     edit(a, e) { if (e.target.closest('[data-act="del"],[data-act="ics"]')) return; editor(state.reminders.find(r => r.id === a.dataset.id)); },
     del(a, e) { e.stopPropagation(); X.deleteReminder(a.dataset.id); },
     delInModal(a) { UI.closeModal(); X.deleteReminder(a.dataset.id); },
@@ -76,8 +76,9 @@ export default {
       const title = document.getElementById('r_title').value.trim(); if (!title) { A.sfx('deny'); return; }
       const [y, mo, d] = document.getElementById('r_date').value.split('-').map(Number); const [h, mi] = document.getElementById('r_time').value.split(':').map(Number);
       const date = new Date(y, mo - 1, d, h, mi);
-      X.upsertReminder({ id: a.dataset.id || undefined, title, date: date.getTime(), repeat: document.getElementById('r_rep').value, notes: document.getElementById('r_notes').value });
+      const rem = X.upsertReminder({ id: a.dataset.id || undefined, title, date: date.getTime(), repeat: document.getElementById('r_rep').value, notes: document.getElementById('r_notes').value });
       selected = date; month = new Date(date.getFullYear(), date.getMonth(), 1); UI.closeModal();
+      if (X.onPhone() && state.settings.calendarSync && !X.inCalendar(rem)) X.sendToCalendar([rem.id]);
     },
     _re() { import('../main.js').then(m => m.rerender()); },
   },

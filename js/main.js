@@ -190,7 +190,7 @@ async function start() {
     if (ev === 'close') { if (state.settings.trayOnClose && P.isDesktop()) P.hide(); else P.quit(); }
     if (ev === 'tray') { if (id === 'open') P.show(); if (id === 'mini') { P.show(); setMini(!document.body.classList.contains('mini')); } if (id === 'quit') P.quit(); }
   });
-  await loadAll();
+  await loadAll(); P.persistStorage();
   await Promise.all([C.loadCharacters(), A.loadAudio()]);
   if (!state.profile.character) { state.profile.character = C.starter(); commit('profile', true); }
   applyTheme();

@@ -256,3 +256,12 @@ body.mini .clock { font-size: 34px; }
   .srow > .field { min-width: 0; }
   .srow input.field[type="number"], .srow input.field { flex: 1 1 60px; width: auto; }
 }
+.devbar { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; background: color-mix(in srgb, var(--accent) 14%, var(--pd)); border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); animation: lineIn .3s; }
+@media (max-width: 760px) {
+  .timer-card { flex-wrap: wrap; }
+  .timer-card > .grow { flex: 1 1 calc(100% - 90px); min-width: 0; }
+  .timer-card > .btn { flex: 1 1 auto; }
+  .srow > select.field { flex: 1 1 0; min-width: 0; }
+  .srow > .lab { flex: 0 0 100%; }
+}
+@media (max-width: 760px) { #t_label { flex: 1 1 100% !important; } }

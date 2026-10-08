@@ -11,6 +11,7 @@ export function defaultSettings() {
     fork: 'vanilla', bootStyle: 'vanilla', accent: 'none', theme: 'nanotrasen', unitVoice: 'auto', unitBark: '',
     soundPack: 'ss14', personality: 'standard', radioBlips: false, highlightPing: true, emoteSounds: true,
     crtEffects: true, animations: true, trayOnClose: true, startWithWindows: false, notifications: true,
+    reminderSound: 'announce', timerSound: 'timer_done', alarmLength: 20, alarmVolume: 0.8, calendarSync: true, clockTimers: false, clockShortcut: 'PAI Timer',
     music: { enabled: true, muted: false, volume: 0.45, shuffle: true, playlists: [], ambience: null, ambienceVolume: 0.35, autoplay: true },
   };
 }
@@ -105,3 +106,20 @@ export const userName = () => {
   const p = state.profile;
   return (p.preferredName || '').trim() || (p.fullName || '').trim().split(' ')[0] || '';
 };
+
+// ---------------------------------------------------------------- backup file (move your PAI between PC and phone)
+export function backupJSON(includeKey = true) {
+  return JSON.stringify({ pai: 1, saved: new Date().toISOString(), state: {
+    profile: state.profile, reminders: state.reminders, timers: state.timers, messages: state.messages.slice(-300), settings: state.settings,
+  }, apiKey: includeKey ? state.apiKey : undefined }, null, 1);
+}
+export async function restoreBackup(text) {
+  const b = JSON.parse(text);
+  if (!b || b.pai !== 1 || !b.state) throw new Error("That isn't a PAI backup file.");
+  const s = b.state; const local = state.settings;
+  // Keep this device's own device settings (tray, startup) when moving between PC and phone.
+  for (const k of ['trayOnClose', 'startWithWindows']) if (s.settings) s.settings[k] = local[k];
+  P.save('state', { ...s, lastResponseID: null });
+  if (b.apiKey) P.save('apikey', b.apiKey);
+  await P.flush();
+}

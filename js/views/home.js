@@ -4,11 +4,18 @@ import * as X from '../actions.js';
 import * as A from '../audio.js';
 import * as C from '../character.js';
 import * as UI from '../ui.js';
+import * as P from '../platform.js';
 import { esc, icon, fmtTime, fmtDate, relative, fmtDuration, pick } from '../util.js';
 import { styled, verb, userVerb, job, deptText, NOT_INSTALLED } from '../ss14.js';
 
 const SUGGEST = ["What's the weather today?", 'Set a 10 minute timer', "What's on my calendar?", 'Remind me tomorrow at 9am to drink water', "What's in the news?"];
 
+function deviceBar() {
+  const todo = X.deviceTodo(); if (!todo.length) return '';
+  const cal = todo.filter(x => x.kind === 'cal'), clock = todo.filter(x => x.kind === 'clock');
+  return `<div class="devbar">${cal.length ? `<div class="row-flex"><span class="grow small">${icon('calendar', 13)} ${cal.length === 1 ? esc(cal[0].label) : cal.length + ' reminders'} not in your Calendar yet</span>${UI.btn('Send to Calendar', 'devCal', { cls: 's good' })}${UI.btn('×', 'devSkip', { cls: 's ghost', data: 'data-k="cal"' })}</div>` : ''}
+    ${clock.map(t => `<div class="row-flex"><span class="grow small">${icon('timer', 13)} ${esc(t.label)} timer</span>${UI.btn('Start in Clock', 'devClock', { cls: 's good', data: `data-id="${t.id}"` })}</div>`).join('')}</div>`;
+}
 function greeting() {
   const h = new Date().getHours(); const g = h >= 5 && h < 12 ? 'Good morning' : h < 17 && h >= 12 ? 'Good afternoon' : h >= 17 && h < 22 ? 'Good evening' : 'Late shift';
   const n = userName();
@@ -66,7 +73,7 @@ function chips() {
 export default {
   render() {
     const s = state.settings; const mood = X.displayMood();
-    const right = `${UI.btn(icon('mini', 13), 'mini', { cls: 's ghost', title: 'Mini mode' })}${state.messages.length ? `<button class="btn s" data-act="newChat" title="New chat">${icon('edit', 13)}</button>` : ''}${UI.muteBtn()}`;
+    const right = `${P.isDesktop() ? UI.btn(icon('mini', 13), 'mini', { cls: 's ghost', title: 'Mini mode' }) : ''}${state.messages.length ? `<button class="btn s" data-act="newChat" title="New chat">${icon('edit', 13)}</button>` : ''}${UI.muteBtn()}`;
     return `<div class="content pad0"><div class="home-grid">
       <div class="col" style="min-height:0">
         ${UI.win(X.ownerTitle(), `<div style="padding:14px;position:relative" id="statuswin">
@@ -83,7 +90,7 @@ export default {
             <div class="small dim">Type *flip, *scream, *laugh… in chat, or click your character.</div>
             <div class="row-flex">${UI.btn(icon('edit', 13) + ' Edit character', 'editChar', { cls: 's good' })}${UI.btn('*flip', 'quickEmote', { cls: 's ghost', data: 'data-e="flip"' })}${UI.btn('*spin', 'quickEmote', { cls: 's ghost', data: 'data-e="spin"' })}</div></div></div>`)}
       </div>
-      <div class="chatbox">
+      <div class="chatbox">${deviceBar()}
         <div class="chatlog" id="chatlog">${chatHTML()}</div>
         <div class="inputbar">
           <span class="chan" data-act="emoteMenu" title="Emotes">${X.isAI() ? 'AI' : s.form === 'terminal' ? '&gt;_' : 'Say'} ▾</span>
@@ -123,6 +130,9 @@ export default {
     clearTimeout(this._bt); this._bt = setTimeout(() => { b.innerHTML = ''; }, Math.min(9000, 3000 + text.length * 40));
   },
   act: {
+    devCal() { X.sendToCalendar(X.deviceTodo().filter(x => x.kind === 'cal').map(x => x.id)); },
+    devClock(a) { X.sendTimerToClock(a.dataset.id); },
+    devSkip() { for (const x of X.deviceTodo()) { const r = state.reminders.find(y => y.id === x.id); if (r) r.calSig = `${r.title}|${r.date}|${r.repeat}|${r.notes}`; } import('../store.js').then(m => m.commit('reminders')); },
     send() {
       const inp = document.getElementById('chatinput'); const t = inp.value; if (!t.trim()) return;
       inp.value = ''; inp.style.height = 'auto'; X.send(t);

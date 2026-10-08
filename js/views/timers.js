@@ -19,6 +19,7 @@ function timerList() {
   if (!state.timers.length) return `<div class="srow dim">No timers yet. Pick a preset above, or ask ${esc(X.paiName())} (“15 minute pasta timer”).</div>`;
   return state.timers.map(t => `<div class="timer-card ${t.finished ? 'done-flash' : ''}">${ring(t)}
     <div class="grow"><div class="b">${esc(t.label)}</div><div class="bignum mono" data-tl="${t.id}" style="color:${t.finished ? '#FF6B6B' : 'var(--accent)'}">${t.finished ? 'DONE' : fmtDuration(timerRemaining(t))}</div></div>
+    ${state.settings.clockTimers && X.onPhone() && t.end && !t.finished ? UI.btn(icon('timer', 13) + (t.inClock ? ' In Clock' : ' Clock'), 'clock', { cls: 's' + (t.inClock ? ' good' : ''), data: `data-id="${t.id}"`, title: 'Start this timer in the iPhone Clock app' }) : ''}
     ${t.finished ? UI.btn('Restart', 'restart', { cls: 's', data: `data-id="${t.id}"` }) : t.end ? UI.btn(icon('pause', 13) + ' Pause', 'pause', { cls: 's', data: `data-id="${t.id}"` }) : UI.btn(icon('play', 13) + ' Resume', 'resume', { cls: 's good', data: `data-id="${t.id}"` })}
     <button class="btn s caution" data-act="del" data-id="${t.id}">${icon('trash', 13)}</button></div>`).join('');
 }
@@ -47,11 +48,12 @@ export default {
   },
   act: {
     mode(a) { mode = a.dataset.m; re(); },
-    preset(a) { X.startTimer(+a.dataset.s, a.dataset.l || ''); },
+    preset(a) { const t = X.startTimer(+a.dataset.s, a.dataset.l || ''); toClock(t); },
     custom() {
       const s = (parseInt(document.getElementById('t_min').value) || 0) * 60 + (parseInt(document.getElementById('t_sec').value) || 0);
-      if (s <= 0) return A.sfx('deny'); X.startTimer(s, document.getElementById('t_label').value);
+      if (s <= 0) return A.sfx('deny'); toClock(X.startTimer(s, document.getElementById('t_label').value));
     },
+    clock(a) { X.sendTimerToClock(a.dataset.id); },
     pause(a) { X.pauseTimer(a.dataset.id); }, resume(a) { X.resumeTimer(a.dataset.id); }, restart(a) { X.restartTimer(a.dataset.id); }, del(a) { X.deleteTimer(a.dataset.id); },
     swStart() { sw.start = Date.now(); A.sfx('timer_start'); re(); tickSW(); },
     swStop() { sw.acc = swElapsed(); sw.start = null; A.sfx('button'); re(); },
@@ -64,3 +66,5 @@ function tickSW() {
   const el = document.getElementById('swtime'); if (el) el.textContent = fmtSW(swElapsed());
   if (sw.start) requestAnimationFrame(tickSW);
 }
+
+function toClock(t) { if (t && state.settings.clockTimers && X.onPhone()) X.sendTimerToClock(t.id); }

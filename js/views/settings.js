@@ -1,5 +1,5 @@
 // Settings: Customise (every fork's features), Sound & music, Mind (Claude API key), System.
-import { state, commit } from '../store.js';
+import { state, commit, backupJSON, restoreBackup } from '../store.js';
 import * as X from '../actions.js';
 import * as A from '../audio.js';
 import * as UI from '../ui.js';
@@ -85,12 +85,28 @@ function customise() {
   ${UI.section('Boot screen', `<div class="row-flex" style="padding:10px;flex-wrap:wrap">${Object.entries(FORKS).map(([id, f]) => UI.btn(f.name, 'boot', { cls: 's ' + (st.bootStyle === id ? 'sel' : ''), data: `data-f="${id}"` })).join('')}</div>${UI.toggle('Boot sequence on launch', 'settings.bootSequence', st.bootSequence)}`)}`;
 }
 
+function alarmSelect(kind) {
+  const cur = s()[kind + 'Sound'];
+  const opt = (v, l) => `<option value="${esc(v)}" ${cur === v ? 'selected' : ''}>${esc(l)}</option>`;
+  const songs = {};
+  for (const t of A.AUDIO.music) (songs[t.playlist] ||= []).push(t);
+  return `<select class="field" data-model="settings.${kind}Sound">${opt('none', 'Silent')}<optgroup label="SS14 sounds">${A.ALARM_SOUNDS.map(([v, l]) => opt(v, l)).join('')}</optgroup>
+    ${Object.entries(songs).map(([pl, ts]) => `<optgroup label="Songs · ${esc(pl)}">${ts.map(t => opt('music:' + t.file, `${t.title} (${t.artist})`)).join('')}</optgroup>`).join('')}</select>`;
+}
+function alarms() {
+  const st = s();
+  return UI.section('Alarms', `<div class="srow"><span class="lab">Reminders</span>${alarmSelect('reminder')}${UI.btn(icon('play', 12), 'testAlarm', { cls: 's', data: 'data-k="reminder"', title: 'Preview' })}</div>
+    <div class="srow alt"><span class="lab">Timers</span>${alarmSelect('timer')}${UI.btn(icon('play', 12), 'testAlarm', { cls: 's', data: 'data-k="timer"', title: 'Preview' })}</div>
+    <div class="srow"><span class="lab">Song length</span><input type="range" min="5" max="120" step="5" value="${st.alarmLength}" data-model="settings.alarmLength"><span class="small dim" style="width:44px">${st.alarmLength}s</span></div>
+    <div class="srow alt"><span class="lab">Alarm volume</span><input type="range" min="0.1" max="1" step="0.05" value="${st.alarmVolume}" data-model="settings.alarmVolume"></div>`,
+    { footer: 'Pick any SS14 sound or any lobby song. Songs play until you tap the screen or the time runs out, then your music carries on. These play inside PAI; your phone’s own Calendar and Clock alerts use the phone’s sounds.' });
+}
 function audio() {
   const st = s(); const m = A.music; const ms = st.music;
   const tracks = m.tracks.map((t, i) => `<div class="srow click ${i % 2 ? 'alt' : ''}" data-act="track" data-f="${t.file}"><span style="color:${m.current?.file === t.file ? 'var(--accent)' : 'var(--dim)'}">${m.current?.file === t.file ? '♪' : '▷'}</span>
     <div class="grow"><div class="small">${esc(t.title)}</div><div class="tiny dim">${esc(t.artist)} · ${esc(t.license)}</div></div><span class="tiny dis">${esc(t.playlist)}</span></div>`).join('');
   const style = st.unitVoice === 'bark' || (st.unitVoice === 'auto' && st.form === 'terminal');
-  return `${UI.section('Lobby music', `<div style="padding:12px" class="col" id="musicpanel">${musicNow()}</div>
+  return `${alarms()}${UI.section('Lobby music', `<div style="padding:12px" class="col" id="musicpanel">${musicNow()}</div>
     ${UI.toggle('Music enabled', 'settings.music.enabled', ms.enabled)}${UI.toggle('Play on launch', 'settings.music.autoplay', ms.autoplay)}${UI.toggle('Shuffle', 'settings.music.shuffle', ms.shuffle)}
     <div class="srow alt"><span class="lab">Playlists</span><div class="row-flex" style="flex-wrap:wrap">${m.playlists.map(p => UI.btn(esc(p), 'playlist', { cls: 's ' + (!ms.playlists.length || ms.playlists.includes(p) ? 'sel' : ''), data: `data-p="${esc(p)}"` })).join('')}</div></div>
     <div class="srow"><span class="lab">Ambience</span><select class="field" id="amb" style="max-width:240px"><option value="">Off</option>${A.AUDIO.ambience.map(a => `<option value="${a.file}" ${ms.ambience === a.file ? 'selected' : ''}>${esc(a.name)}</option>`).join('')}</select>
@@ -135,13 +151,30 @@ function system() {
     ${UI.toggle('Start PAI when Windows starts', 'settings.startWithWindows', st.startWithWindows)}${UI.toggle('Windows notifications for reminders & timers', 'settings.notifications', st.notifications)}
     <div class="srow alt">${UI.btn(icon('mini', 13) + ' Mini mode', 'mini', { cls: 's' })}<span class="small dim">A small always-on-top window with your unit, clock, next reminder and timers.</span></div>
     <div class="srow">${UI.btn('Test notification', 'testNotify', { cls: 's' })}</div>`)
-    : UI.section('Phone', `${UI.toggle('Notifications for reminders & timers (while PAI is open)', 'settings.notifications', st.notifications)}
-    <div class="srow alt">${UI.btn('Test notification', 'testNotify', { cls: 's' })}${state.reminders.length ? UI.btn(icon('calendar', 13) + ' Put all reminders in my Calendar', 'icsAll', { cls: 's' }) : ''}</div>
+    : `${UI.section('Phone', `${UI.toggle('Notifications for reminders & timers (while PAI is open)', 'settings.notifications', st.notifications)}
+    <div class="srow alt">${UI.btn('Test notification', 'testNotify', { cls: 's' })}</div>
     ${P.isIOS() && !P.isStandalone() ? `<div class="srow" style="color:var(--caution)">Tip: tap Share → Add to Home Screen in Safari to install PAI as an app.</div>` : ''}`,
-      { footer: 'Phones pause web apps in the background, so PAI can only alert you while it is open. For alerts any time, use the calendar button on a reminder: your phone’s Calendar app will remind you instead.' });
+      { footer: 'Phones pause web apps in the background, so PAI itself can only ring while it is open. The two options below hand your reminders and timers to the phone’s own apps, which alert you any time.' })}
+    ${UI.section('iPhone Calendar (reminders)', `${UI.toggle('Send new reminders to my Calendar app', 'settings.calendarSync', st.calendarSync)}
+    <div class="srow alt">${state.reminders.length ? UI.btn(icon('calendar', 13) + ' Send all reminders now', 'icsAll', { cls: 's' }) : '<span class="small dim">No reminders yet.</span>'}</div>`,
+      { footer: 'When you save a reminder, iPhone shows an “Add to Calendar” screen. Tap Add and Calendar alerts you at that time, even with PAI closed. Reminders PAI makes from chat show a “Send to Calendar” button on the chat screen.' })}
+    ${UI.section('iPhone Clock (timers)', `${UI.toggle('Also start timers in the Clock app', 'settings.clockTimers', st.clockTimers)}
+      ${UI.field('Shortcut name', 'settings.clockShortcut', st.clockShortcut, 'PAI Timer', { alt: true })}
+      <div class="srow">${UI.btn('Test (10 second timer)', 'clockTest', { cls: 's' })}</div>
+      <div class="srow alt" style="display:block;line-height:1.55"><b>One-time setup (1 minute):</b><br>
+        1. Open the <b>Shortcuts</b> app and tap <b>+</b>.<br>
+        2. Name it <b>PAI Timer</b> (tap the name at the top).<br>
+        3. Search for the action <b>Start Timer</b> and add it.<br>
+        4. Tap the <b>30</b> in it, choose <b>Select Variable → Shortcut Input</b>, then tap <b>minutes</b> and change it to <b>seconds</b>.<br>
+        5. Tap <b>Done</b>. Then press <b>Test</b> above.</div>`,
+      { footer: 'PAI opens Shortcuts for a moment to start the real Clock timer, then swipe back to PAI. The Clock app rings with your phone’s timer sound even if PAI is closed.' })}`;
   return `${device}
   ${UI.section('Chat', `${UI.toggle('Highlight my name & job in chat', 'settings.highlights', st.highlights)}<div class="srow alt">${UI.btn('Run setup again', 'rerunSetup', { cls: 's' })}<span class="small dim">Takes effect next launch</span></div>`,
     { footer: "Highlights work like SS14's chat highlights: your name and your station job's keywords show in #17FFC1." })}
+  ${UI.section('Backup & move', `<div class="row-flex" style="padding:10px;flex-wrap:wrap">${UI.btn(icon('plus', 13) + ' Save backup file', 'backup', { cls: 's good' })}
+      <label class="btn s" style="cursor:pointer">Load backup file<input type="file" id="restorefile" accept=".json,application/json" style="display:none"></label>
+      <span class="small ${P.saveError ? '' : 'dim'}" style="${P.saveError ? 'color:#FF6B6B' : ''}">${P.saveError ? 'Last save failed: storage is full.' : '✔ Everything saves automatically on this device.'}</span></div>`,
+    { footer: 'A backup holds your ID, character, reminders, timers, chat, settings and your API key, so keep it private. Save one on your PC, send it to your phone (email, OneDrive, iCloud Drive…), then Load it in PAI on the phone. Loading replaces what is on this device.' })}
   ${UI.section('Data', `<div class="row-flex" style="padding:10px">${UI.btn('Credits', 'credits', { cls: 's' })}${UI.btn('Clear chat', 'clearChat', { cls: 's' })}<span class="grow"></span>${UI.btn('Reset all', 'reset', { cls: 's caution' })}</div>`)}`;
 }
 
@@ -153,6 +186,13 @@ export default {
       <div class="content"><div class="col" style="max-width:860px">${{ customise, audio, mind, system }[page]()}</div></div>`;
   },
   mounted(root) {
+    root.querySelector('#restorefile')?.addEventListener('change', (e) => {
+      const f = e.target.files?.[0]; e.target.value = ''; if (!f) return;
+      const rd = new FileReader(); rd.onload = async () => {
+        try { await restoreBackup(String(rd.result)); A.sfx('id_insert'); X.popup('Backup loaded, restarting…', '#2CDB2C'); setTimeout(() => location.reload(), 900); }
+        catch (err) { A.sfx('deny'); UI.modal('Could not load backup', `<div style="padding:14px">${esc(err.message || String(err))}</div>`); }
+      }; rd.readAsText(f);
+    });
     root.querySelector('#amb')?.addEventListener('change', (e) => { const prev = { ...s().music }; s().music.ambience = e.target.value || null; A.music.apply(prev); commit('settings'); });
     root.querySelector('#keydraft')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') this.act.saveKey(); });
   },
@@ -194,7 +234,10 @@ export default {
       catch (e) { testResult = '✗ ' + e.message; X.flash('sad'); A.sfx('buzz_two'); }
       el.textContent = testResult;
     },
-    icsAll() { P.exportToCalendar(state.reminders); A.sfx('print_rip'); },
+    testAlarm(a) { if (A.alarmPlaying) return A.stopAlarm(); if (Date.now() - A.lastStop < 600) return; A.alarm(a.dataset.k); },
+    async backup() { const d = new Date(); const ok = await P.saveFile(`PAI backup ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.json`, backupJSON(true)); if (ok) { A.sfx('print_rip'); X.popup('Backup saved', '#2CDB2C'); } },
+    icsAll() { X.sendToCalendar(); },
+    clockTest() { P.openURL(X.clockURL(10)); },
     testNotify() { P.notify(`${X.paiName()} · Test`, 'Notifications are working. Beep boop!'); A.sfx('announce'); },
     rerunSetup() { s().onboarded = false; A.sfx('boot_beep'); commit('settings'); X.popup('Setup runs on next launch'); },
     credits() { creditsWindow(); },

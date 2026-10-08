@@ -262,7 +262,7 @@ export function startTimer(seconds, label) {
 }
 export function pauseTimer(id) { const t = state.timers.find(x => x.id === id); if (!t?.end) return; t.paused = timerRemaining(t); t.end = null; A.sfx('button'); commit('timers'); }
 export function resumeTimer(id) { const t = state.timers.find(x => x.id === id); if (!t || t.end || t.finished) return; t.end = Date.now() + (t.paused ?? t.duration) * 1000; t.paused = null; A.sfx('button'); commit('timers'); }
-export function restartTimer(id) { const t = state.timers.find(x => x.id === id); if (!t) return; t.finished = false; t.paused = null; t.end = Date.now() + t.duration * 1000; A.sfx('timer_start'); commit('timers'); }
+export function restartTimer(id) { const t = state.timers.find(x => x.id === id); if (!t) return; t.finished = false; t.inClock = false; t.paused = null; t.end = Date.now() + t.duration * 1000; A.sfx('timer_start'); commit('timers'); }
 export function deleteTimer(id) { state.timers = state.timers.filter(t => t.id !== id); A.sfx('pop'); commit('timers'); }
 
 /** Called every second: finishes timers and fires reminders. */
@@ -271,7 +271,7 @@ export function tick() {
   for (const t of state.timers) {
     if (t.end && !t.finished && t.end <= now.getTime()) {
       t.finished = true; changed = true;
-      A.sfx('timer_done'); popup(`${t.label} is done!`, '#FF6B6B'); emote('beeps.'); flash('alert', 6);
+      A.alarm('timer'); popup(`${t.label} is done!` + (state.settings.timerSound?.startsWith('music:') ? ' (tap to stop)' : ''), '#FF6B6B'); emote('beeps.'); flash('alert', 6);
       say(`Your **${t.label}** timer is done${userName() ? ', ' + userName() : ''}!`, { sound: false });
       if (state.settings.notifications) P.notify(`${paiName()} · Timer done`, `Your "${t.label}" timer is finished.`);
     }
@@ -281,7 +281,7 @@ export function tick() {
     if (due && due.getTime() > (r.lastFired || 0)) {
       r.lastFired = now.getTime(); changed = true;
       if (now - due < 15 * 60000) {
-        A.sfx('announce'); flash('alert', 6); popup('Reminder: ' + r.title, '#FFD966');
+        A.alarm('reminder'); flash('alert', 6); popup('Reminder: ' + r.title + (state.settings.reminderSound?.startsWith('music:') ? ' (tap to stop)' : ''), '#FFD966');
         say(`${userName() ? userName() + ', y' : 'Y'}ou asked me to remind you: **${r.title}**${r.notes ? ` (${r.notes})` : ''}`, { sound: false });
         if (state.settings.notifications) P.notify(`${paiName()} · Reminder`, `${userName() ? userName() + ', ' : ''}you asked me to remind you: ${r.title}`);
       }
@@ -328,4 +328,34 @@ export async function resetEverything() {
   state.settings = defaultSettings(); state.profile = defaultProfile();
   commit('all', true); await P.flush();
   location.reload();
+}
+
+// ---------------------------------------------------------------- phone: hand reminders/timers to the real Calendar & Clock apps
+const calSig = (r) => `${r.title}|${r.date}|${r.repeat}|${r.notes}`;
+export const onPhone = () => !P.isDesktop() && (P.isIOS() || /Android/i.test(navigator.userAgent));
+export function inCalendar(r) { return r.calSig === calSig(r); }
+/** Things PAI made that aren't in the phone's own apps yet (a tap is needed to hand them over). */
+export function deviceTodo() {
+  if (P.isDesktop()) return [];
+  const s = state.settings, now = new Date(), out = [];
+  if (s.calendarSync) for (const r of state.reminders) if (!inCalendar(r) && nextOccurrence(r, now)) out.push({ kind: 'cal', id: r.id, label: r.title });
+  if (s.clockTimers && P.isIOS()) for (const t of state.timers) if (t.end && !t.finished && !t.inClock && timerRemaining(t) > 5) out.push({ kind: 'clock', id: t.id, label: t.label });
+  return out;
+}
+/** Must be called from a tap. */
+export function sendToCalendar(ids) {
+  const rs = state.reminders.filter(r => !ids || ids.includes(r.id)); if (!rs.length) return;
+  P.exportToCalendar(rs, rs.length === 1 ? rs[0].title : 'PAI reminders');
+  for (const r of rs) r.calSig = calSig(r);
+  A.sfx('print_rip'); commit('reminders');
+}
+export function clockURL(seconds) {
+  return `shortcuts://run-shortcut?name=${encodeURIComponent(state.settings.clockShortcut || 'PAI Timer')}&input=text&text=${Math.round(seconds)}`;
+}
+/** Must be called from a tap. Starts the same countdown in the iPhone Clock app via the "PAI Timer" shortcut. */
+export function sendTimerToClock(id) {
+  const t = state.timers.find(x => x.id === id); if (!t) return;
+  const secs = t.end ? timerRemaining(t) : t.duration;
+  t.inClock = true; commit('timers');
+  P.openURL(clockURL(secs));
 }

@@ -27,13 +27,46 @@ export function save(key, value) {
   clearTimeout(timer);
   timer = setTimeout(flush, 250);
 }
+export let saveError = null;
+function writeLocal(k, v) {
+  try { localStorage.setItem('pai.' + k, JSON.stringify(v)); saveError = null; return; } catch (e) { saveError = e; }
+  // Storage full: drop old chat lines first, then the photo, and try again (everything else is small).
+  if (k === 'state' && v && typeof v === 'object') {
+    for (const shrink of [(x) => ({ ...x, messages: (x.messages || []).slice(-60) }), (x) => ({ ...x, messages: [], profile: { ...x.profile, photo: null } })]) {
+      try { localStorage.setItem('pai.' + k, JSON.stringify(shrink(v))); saveError = null; return; } catch (e) { saveError = e; }
+    }
+  }
+  console.warn('save failed', k, saveError);
+}
 export async function flush() {
-  const p = pending; pending = {};
+  const p = pending; pending = {}; clearTimeout(timer);
   for (const [k, v] of Object.entries(p)) {
     const s = JSON.stringify(v);
-    try { localStorage.setItem('pai.' + k, s); } catch { }
+    writeLocal(k, v);
     const n = N(); if (n) { try { await n.storage.setData(k, s); } catch (e) { console.warn('save', e); } }
   }
+}
+
+// Save right away when the app is backgrounded or closed (phones can kill it a moment later).
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(); });
+  window.addEventListener('pagehide', () => flush());
+}
+/** Ask the browser to never auto-delete PAI's saved data. */
+export async function persistStorage() {
+  try { if (navigator.storage?.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch { }
+}
+/** Save a text file: Save dialog on PC, the Share sheet (Save to Files / AirDrop) on phones, a download elsewhere. */
+export async function saveFile(name, text, type = 'application/json') {
+  const n = N();
+  if (n) {
+    try { const f = await n.os.showSaveDialog('Save PAI backup', { defaultPath: name, filters: [{ name: 'PAI backup', extensions: ['json'] }] }); if (f) { await n.filesystem.writeFile(f, text); return true; } return false; }
+    catch (e) { console.warn(e); }
+  }
+  const file = new File([text], name, { type });
+  if (isIOS() && navigator.canShare?.({ files: [file] })) { try { await navigator.share({ files: [file], title: name }); return true; } catch (e) { if (e.name === 'AbortError') return false; } }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000); return true;
 }
 
 export async function notify(title, body) {
@@ -126,6 +159,9 @@ export async function postJSON(url, headers, body, signal) {
   }
 }
 
+/** Navigate to a URL (calendar file, Shortcuts link). Tests can intercept via window.__paiOpen. */
+export function openURL(url) { (window.__paiOpen || ((u) => { window.location.href = u; }))(url); }
+
 // ---------------------------------------------------------------- calendar export (.ics)
 const icsDate = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}00`;
 const icsText = (s) => String(s || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
@@ -145,7 +181,11 @@ export function reminderICS(reminders) {
 /** Hand reminders to the phone's / computer's own calendar app so it alerts even when PAI is closed. */
 export async function exportToCalendar(reminders, name = 'PAI reminders') {
   const ics = reminderICS(reminders);
-  if (isIOS()) { window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics); return; }
+  if (isIOS()) {
+    // Served by our service worker as a real text/calendar page: iPhone then shows its "Add to Calendar" sheet.
+    if (navigator.serviceWorker?.controller) return openURL('pai-event.ics?d=' + encodeURIComponent(ics));
+    return openURL('data:text/calendar;charset=utf-8,' + encodeURIComponent(ics));
+  }
   const n = N();
   if (n) {
     try {

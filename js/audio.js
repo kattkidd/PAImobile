@@ -199,3 +199,53 @@ class Music {
   }
 }
 export const music = new Music();
+
+// ---------------------------------------------------------------- alarms (reminder / timer sounds, can be any lobby song)
+export const ALARM_SOUNDS = [
+  ['announce', 'Station announcement'], ['sl_announce2', 'Starlight announcement'], ['attention', 'Attention'], ['sl_attention', 'Starlight attention'],
+  ['timer_done', 'Microwave ding'], ['ding', 'Ding'], ['chime', 'Chime'], ['ping', 'Ping'], ['goob_ping', 'Goob ping'], ['twobeep', 'Two beeps'],
+  ['quickbeep', 'Quick beep'], ['n14_bark_ring', 'Wasteland ring'], ['welcome', 'Welcome'], ['power_on', 'Power on'],
+];
+export function alarmLabel(v) {
+  if (!v || v === 'none') return 'Silent';
+  if (v.startsWith('music:')) { const t = AUDIO.music.find(x => x.file === v.slice(6)); return t ? `♪ ${t.title}` : 'Song'; }
+  return ALARM_SOUNDS.find(([id]) => id === v)?.[1] || v;
+}
+// One shared element, "unlocked" on the first tap: phones only let audio start without a tap if the element was played by a tap before.
+const alarmEl = typeof Audio !== 'undefined' ? new Audio() : null;
+let unlocked = false, stopTimer = null, resumeMusic = false, fadeTimer = null;
+export let alarmPlaying = false;
+export let lastStop = 0;
+function unlock() {
+  if (unlocked || !alarmEl) return; unlocked = true;
+  alarmEl.src = `sfx/click.${EXT}`; alarmEl.volume = 0; alarmEl.play().then(() => alarmEl.pause()).catch(() => { unlocked = false; });
+  try { ac(); } catch { }
+}
+if (typeof document !== 'undefined') {
+  document.addEventListener('pointerdown', () => { if (alarmPlaying) stopAlarm(); unlock(); }, true);
+  document.addEventListener('keydown', () => { if (alarmPlaying) stopAlarm(); }, true);
+}
+export function stopAlarm() {
+  if (!alarmEl) return;
+  if (alarmPlaying) lastStop = Date.now();
+  clearTimeout(stopTimer); clearInterval(fadeTimer); alarmEl.pause(); alarmPlaying = false;
+  if (resumeMusic) { resumeMusic = false; music.play(); }
+  music.changed();
+}
+/** kind: 'reminder' | 'timer'. Plays the chosen alert; songs play for alarmLength seconds or until you tap. */
+export async function alarm(kind, override) {
+  const s = state.settings; const v = override ?? s[kind + 'Sound'];
+  if (!s.sounds || !v || v === 'none') return;
+  if (!v.startsWith('music:') || !alarmEl) return play(v, Math.min(1, s.alarmVolume + 0.1));
+  stopAlarm();
+  const src = await musicURL(v.slice(6));
+  resumeMusic = music.playing; if (resumeMusic) music.pause();
+  alarmEl.src = src; alarmEl.currentTime = 0; alarmEl.loop = true; alarmEl.volume = s.alarmVolume;
+  alarmPlaying = true; music.changed();
+  try { await alarmEl.play(); }
+  catch { alarmPlaying = false; play(kind === 'timer' ? 'timer_done' : 'announce'); return; }
+  const len = Math.max(3, s.alarmLength || 20) * 1000;
+  stopTimer = setTimeout(() => { // fade out
+    let vol = alarmEl.volume; fadeTimer = setInterval(() => { vol -= 0.05; if (vol <= 0) stopAlarm(); else alarmEl.volume = vol; }, 100);
+  }, len);
+}
