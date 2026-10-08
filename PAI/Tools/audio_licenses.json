@@ -1,0 +1,2450 @@
+{
+"p58c5e198b6": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Starlight",
+"path": "Audio/Voice/Talk/speak_2.ogg"
+},
+"p9f122b5550": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Starlight",
+"path": "Audio/Voice/Talk/speak_2_ask.ogg"
+},
+"pf67f073807": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Starlight",
+"path": "Audio/Voice/Talk/speak_2_exclaim.ogg"
+},
+"ad2b81249ca": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/malescream_1.ogg"
+},
+"a20f130d8a7": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/malescream_2.ogg"
+},
+"a0ef64b8d0c": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/malescream_3.ogg"
+},
+"a4fa242916a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/malescream_4.ogg"
+},
+"a3f087fde25": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/manlaugh1.ogg"
+},
+"add9446f5b5": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/manlaugh2.ogg"
+},
+"a6fce017b97": {
+"license": "CC-BY-4.0",
+"copyright": "InspectorJ (www.jshaw.co.uk) of Freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/male_sneeze_1.ogg"
+},
+"ad54aa342ee": {
+"license": "CC0-1.0",
+"copyright": "dastudiospr on freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/male_cough_1.ogg"
+},
+"abcecd2e76b": {
+"license": "CC0-1.0",
+"copyright": "qubodup on freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/male_cough_2.ogg"
+},
+"ad6d7598910": {
+"license": "CC-BY-3.0",
+"copyright": "Modified from 'Meow 4.wav' by freesound user 'TRNGLE. The original audio was trimmed, split to mono, and converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/cat_meow.ogg"
+},
+"a7c1c2888ec": {
+"license": "CC0-1.0",
+"copyright": "Modified from 'Meow 4.wav' by freesound user 'TRNGLE'. The original audio was trimmed, split to mono, and converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/cat_hiss.ogg"
+},
+"a7ca235c97c": {
+"license": "CC-BY-NC-4.0",
+"copyright": "\"Howler Monkey - Single, Close, Costa Rica\" by TRAVELcandies of Freesound.org",
+"source": "Goob Station",
+"path": "Audio/Effects/Diseases/monkey1.ogg"
+},
+"a847a1157da": {
+"license": "CC0-1.0",
+"copyright": "\"Monkey screaming.wav\" by Archeos of Freesound.org",
+"source": "Goob Station",
+"path": "Audio/Effects/Diseases/monkey2.ogg"
+},
+"aee74acbbe7": {
+"license": "CC0-1.0",
+"copyright": "\"beep boop.mp3\" by Fidjo20 of Freesound.org",
+"source": "Goob Station",
+"path": "Audio/Effects/Diseases/beepboop.ogg"
+},
+"af1b64d208d": {
+"license": "CC-BY-4.0",
+"copyright": "ckvoiceover on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/male_yawn_1.ogg"
+},
+"a0e3cca8fed": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/snore1.ogg"
+},
+"a4be745041f": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/snore2.ogg"
+},
+"a3c9e71798e": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Starlight",
+"path": "Audio/Voice/Human/snore3.ogg"
+},
+"a1dcb912c62": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Items/bikehorn.ogg"
+},
+"ac3e30c33ec": {
+"license": "CC-BY-3.0",
+"copyright": "https://github.com/ss220-space/Paradise/",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/male_sigh.ogg"
+},
+"a06a3eea3f3": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_male_1.ogg"
+},
+"a6c51693512": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_male_2.ogg"
+},
+"a65bed89fb0": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_male_3.ogg"
+},
+"aaac63f36cf": {
+"license": "CC-BY-4.0",
+"copyright": "Taken from https://freesound.org/. Converted from FLAC to OGG, some part of the sound is taken.",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_male_4.ogg"
+},
+"ad062785718": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Starlight",
+"path": "Audio/Voice/Human/whistle_1.ogg"
+},
+"a00a686dd1a": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Starlight",
+"path": "Audio/Voice/Human/whistle_2.ogg"
+},
+"ad2e00ccc4f": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Starlight",
+"path": "Audio/Voice/Human/whistle_3.ogg"
+},
+"acbf196e239": {
+"license": "Custom",
+"copyright": "Sampling Plus 1.0 license. Taken from https://freesound.org/",
+"source": "Starlight",
+"path": "Audio/Voice/Human/whistle_4.ogg"
+},
+"a1d4c623977": {
+"license": "CC0-1.0",
+"copyright": "Created by BlackMajor (github) for ss14, muffled_weh.ogg modified from weh.ogg by Slorkito (ss14 discord)",
+"source": "Starlight",
+"path": "Audio/Items/Toys/weh.ogg"
+},
+"ad68d91c3ac": {
+"license": "CC0-1.0",
+"copyright": "Modified from weh.ogg by ArtisticRoomba",
+"source": "Starlight",
+"path": "Audio/Items/Toys/hew.ogg"
+},
+"acc4b9d9189": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/f7a49c4068f1277e6857baf0892d355f1c055974",
+"source": "Starlight",
+"path": "Audio/Effects/Gasp/gasp_male1.ogg"
+},
+"a388d65dda0": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/f7a49c4068f1277e6857baf0892d355f1c055974",
+"source": "Starlight",
+"path": "Audio/Effects/Gasp/gasp_male2.ogg"
+},
+"afc4d190ae9": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/clap1.ogg"
+},
+"a216bb56370": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/clap2.ogg"
+},
+"a013038adc8": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/clap3.ogg"
+},
+"a253829a1ed": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/clap4.ogg"
+},
+"ae9b91b18d6": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from Citadel Station at https://github.com/Citadel-Station-13/Citadel-Station-13/commit/e145bdafe83e2cf38d148c39f073da5e7b0cb456",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/clap-single.ogg"
+},
+"a8f77c1a51b": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/snap1.ogg"
+},
+"a891c9fd96d": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/snap2.ogg"
+},
+"ad0f32df269": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/snap3.ogg"
+},
+"ae3c4e41f2d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/infinitystation/Baystation12/commit/e639451bef42230a3838c085a6c782376e693499. No changes were made",
+"source": "Starlight",
+"path": "Audio/Effects/Emotes/salute.ogg"
+},
+"a22627a0361": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/tgstation/tgstation/commit/31c19654e0f641166ecd80c672ea05362fd19488",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Chitinid/moth_scream.ogg"
+},
+"a305aff6641": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/BeeStation/BeeStation-Hornet/commit/11ba3fa04105c93dd96a63ad4afaef4b20c02d0d",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Chitinid/moth_laugh.ogg"
+},
+"ad2d293b1e6": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Moth/moth_chitter.ogg"
+},
+"a856b66776d": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Voice/Moth/moth_squeak.ogg"
+},
+"a60968a673a": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/people/Godowan/sounds/240476/",
+"source": "Space Station 14",
+"path": "Audio/Voice/Moth/moth_flap.ogg"
+},
+"pcedf47bd81": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/slime.ogg"
+},
+"p12c73504cb": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/slime_ask.ogg"
+},
+"p12f8654639": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/slime_exclaim.ogg"
+},
+"abdfe09554d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/ParadiseSS13/Paradise/commit/60d27e07de73f0fe72f4cff78b9c4100fd1d3b19",
+"source": "Space Station 14",
+"path": "Audio/Voice/Slime/slime_squish.ogg"
+},
+"a8e22b72398": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/femalescream_1.ogg"
+},
+"a15e7cc13ea": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/femalescream_2.ogg"
+},
+"a9e8385313e": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/femalescream_3.ogg"
+},
+"a49ec232e0a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/femalescream_4.ogg"
+},
+"aa22df1b0e5": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/womanlaugh.ogg"
+},
+"ad28a696afe": {
+"license": "CC0-1.0",
+"copyright": "sherby168 on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/female_sneeze_1.ogg"
+},
+"ade7d830baa": {
+"license": "CC0-1.0",
+"copyright": "Ashe Kirk",
+"source": "Space Station 14",
+"path": "Audio/Voice/Human/female_cough_1.ogg"
+},
+"aef7a5c795e": {
+"license": "CC0-1.0",
+"copyright": "thatkellytrna on freesound.org",
+"source": "Space Station 14",
+"path": "Audio/Voice/Human/female_cough_2.ogg"
+},
+"afb6e180eed": {
+"license": "CC0-1.0",
+"copyright": "Reitanna on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/female_yawn_1.ogg"
+},
+"a682e62e567": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/brokenbikehorn.ogg"
+},
+"a3c7fbf7b4d": {
+"license": "CC-BY-3.0",
+"copyright": "https://github.com/ss220-space/Paradise/",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/female_sigh.ogg"
+},
+"a888e98817c": {
+"license": "CC-BY-NC-3.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_female_1.ogg"
+},
+"a807f2af339": {
+"license": "CC-BY-NC-3.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_female_2.ogg"
+},
+"a99a05ffb90": {
+"license": "CC-BY-NC-4.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_female_3.ogg"
+},
+"a38fa412ccc": {
+"license": "CC-BY-NC-4.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/cry_female_4.ogg"
+},
+"a7ad0af10e1": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/f7a49c4068f1277e6857baf0892d355f1c055974",
+"source": "Goob Station",
+"path": "Audio/Effects/Gasp/gasp_female1.ogg"
+},
+"a4d6c4b1ae1": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/f7a49c4068f1277e6857baf0892d355f1c055974",
+"source": "Goob Station",
+"path": "Audio/Effects/Gasp/gasp_female2.ogg"
+},
+"a63ee3a2fc0": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/f7a49c4068f1277e6857baf0892d355f1c055974",
+"source": "Goob Station",
+"path": "Audio/Effects/Gasp/gasp_female3.ogg"
+},
+"a07632095f6": {
+"license": "CC-BY-4.0",
+"copyright": "Made by InspectorJ (http://www.jshaw.co.uk/) of freesound.org. Modified by Morb0 for SS14 with the following modifications: Noise reduced, cropped, converted to mono",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_scream.ogg"
+},
+"ae731e57bc6": {
+"license": "CC0-1.0",
+"copyright": "Made by nicoproson on freesound.org. The three files were cropped out of the source file and re-encoded to Ogg Vorbis.",
+"source": "Goob Station",
+"path": "Audio/Voice/Diona/diona_rustle1.ogg"
+},
+"a8e1a380d4e": {
+"license": "CC0-1.0",
+"copyright": "Made by nicoproson on freesound.org. The three files were cropped out of the source file and re-encoded to Ogg Vorbis.",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_rustle2.ogg"
+},
+"a5bd4338661": {
+"license": "CC0-1.0",
+"copyright": "Made by nicoproson on freesound.org. The three files were cropped out of the source file and re-encoded to Ogg Vorbis.",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_rustle3.ogg"
+},
+"a0f5b1df2c1": {
+"license": "CC0-1.0",
+"copyright": "Made by shatterstars on freesound.org. Modified by Minemoder5000 on github by cropping, converting to mono, and re-encoding to Ogg Vorbis",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_sneeze.ogg"
+},
+"ab8f6fc27ac": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from ParadiseSS13",
+"source": "Space Station 14",
+"path": "Audio/Animals/nymph_chirp.ogg"
+},
+"a435eb32394": {
+"license": "CC0-1.0",
+"copyright": "Made by Alexbuk on freesound.org. Modified by cropping and re-encoding to Ogg Vorbis.",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_clap.ogg"
+},
+"a43a0fc8320": {
+"license": "CC-BY-3.0",
+"copyright": "Made by JasonElrod on freesound.org. Modified by cropping and re-encoding to Ogg Vorbis.",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_snap.ogg"
+},
+"aaef218016b": {
+"license": "CC-BY-3.0",
+"copyright": "Taken from tgstation",
+"source": "Space Station 14",
+"path": "Audio/Voice/Diona/diona_salute.ogg"
+},
+"pb76873f651": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/lizard.ogg"
+},
+"pafbf9a7ffa": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/lizard_ask.ogg"
+},
+"p134418c16f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/lizard_exclaim.ogg"
+},
+"a0255570411": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Voice/Reptilian/reptilian_scream.ogg"
+},
+"abf0f34de92": {
+"license": "CC-BY-NC-SA-4.0",
+"copyright": "Provided by DaturoDewitt. Created using transformed and layered samples bundled with Logic Pro X",
+"source": "Space Station 14",
+"path": "Audio/Animals/lizard_happy.ogg"
+},
+"a8568f6d1df": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/Voice/Reptilian/reptilian_tailthump.ogg"
+},
+"p7c97916fd1": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Derived from shriek1.ogg (originally from Paradise Station) by Errant",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vox.ogg"
+},
+"p0c6fe9073a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Derived from shriek1.ogg (originally from Paradise Station) by Errant",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vox_ask.ogg"
+},
+"p278cc738fd": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Derived from shriek1.ogg (originally from Paradise Station) by Errant",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vox_exclaim.ogg"
+},
+"a96d873a35a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/ParadiseSS13/Paradise/blob/master/sound/voice/shriek1.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/shriek1.ogg"
+},
+"acc15929aa8": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Made by Errant, modified from shriek1.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_laugh.ogg"
+},
+"ad412109653": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Mix of vox_laugh.ogg and vox_cough.ogg, edited by ScarKy0.",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_sneeze.ogg"
+},
+"a099adaf992": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Made by TrixxedHeart, modified from vox_laugh.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_cough.ogg"
+},
+"ab1942c1650": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Made by TrixxedHeart, modified from shriek1.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_sigh.ogg"
+},
+"a3f0bc4a4ee": {
+"license": "CC0-1.0",
+"copyright": "Storks bill-clapping by Breviceps",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_click.ogg"
+},
+"a91d2762cf1": {
+"license": "CC0-1.0",
+"copyright": "dinosaur.wav by JhennaSide",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_chitter.ogg"
+},
+"a5824189e35": {
+"license": "CC0-1.0",
+"copyright": "raptorgoesextinct.wav by Nerdwizard78",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_cry.ogg"
+},
+"a90191941d4": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Made by TrixxedHeart, modified from shriek1.ogg",
+"source": "Space Station 14",
+"path": "Audio/Effects/Gasp/vox_gasp.ogg"
+},
+"aaab0f1f8e9": {
+"license": "CC0-1.0",
+"copyright": "Barn Owl Hiss 2.aiff by Proxmo_Kashacir",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_hiss.ogg"
+},
+"a8ac9c84817": {
+"license": "CC SAMPLING+ 1.0",
+"copyright": "crow.wav by vixuss",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vox/vox_caw.ogg"
+},
+"p7f3ff0dc09": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vulp.ogg"
+},
+"p865c175fcf": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vulp_ask.ogg"
+},
+"p419442268c": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/vulp_exclaim.ogg"
+},
+"a94a6484678": {
+"license": "CC0-1.0",
+"copyright": "Original sound by blukotek on freesound.org, Modified by Minemoder5000 on github by cleaning the audio, cropping, and re-encoding to Ogg Vorbis",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_sneeze.ogg"
+},
+"a4c5178f215": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/jinxycat49/sounds/490164/, cleaned up, cut, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_yawn1.ogg"
+},
+"ad845e3946a": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/qubodup/sounds/827660/, cleaned up, cut, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_yawn2.ogg"
+},
+"a4181dc4441": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/lordomega/sounds/514959/ - cut out four clips, cleaned up, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_scream1.ogg"
+},
+"aeaefe35d49": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/lordomega/sounds/514959/ - cut out four clips, cleaned up, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_scream2.ogg"
+},
+"a5000649f51": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/lordomega/sounds/514959/ - cut out four clips, cleaned up, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_scream3.ogg"
+},
+"a032a5de9c0": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/lordomega/sounds/514959/ - cut out four clips, cleaned up, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/vulp_scream4.ogg"
+},
+"ac56ed0b9cf": {
+"license": "CC0-1.0",
+"copyright": "Original sound by GlitchedTones at https://freesound.org/people/Glitchedtones/sounds/372533/ - cut out three clips of dog growling, cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_growl1.ogg"
+},
+"aef42f82190": {
+"license": "CC0-1.0",
+"copyright": "Original sound by GlitchedTones at https://freesound.org/people/Glitchedtones/sounds/372533/ - cut out three clips of dog growling, cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_growl2.ogg"
+},
+"a4ec4b77288": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/Glitchedtones/sounds/372533/ - cut out three clips of dog growling, cleaned up, converted to ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/dog_growl3.ogg"
+},
+"a11106c54d1": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Original sound taken from Paradise Station. Renamed to dog_growl4.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/dog_growl4.ogg"
+},
+"ae59071aae4": {
+"license": "CC0-1.0",
+"copyright": "Original sound by strongbot at https://freesound.org/people/strongbot/sounds/341090/ - cut out three clips of dog snarling, cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_snarl1.ogg"
+},
+"ab5c2dafe0a": {
+"license": "CC0-1.0",
+"copyright": "Original sound by strongbot at https://freesound.org/people/strongbot/sounds/341090/ - cut out three clips of dog snarling, cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_snarl2.ogg"
+},
+"aba4f0bfd4f": {
+"license": "CC0-1.0",
+"copyright": "Original sound by strongbot at https://freesound.org/people/strongbot/sounds/341090/ - cut out three clips of dog snarling, cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_snarl3.ogg"
+},
+"a11647da97c": {
+"license": "CC0-1.0",
+"copyright": "Original sound by abhisheky948 at https://freesound.org/people/abhisheky948/sounds/625497/",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_bark1.ogg"
+},
+"afc8e254206": {
+"license": "CC0-1.0",
+"copyright": "Original sound by abhisheky948 at https://freesound.org/people/abhisheky948/sounds/625497/",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_bark2.ogg"
+},
+"a33e959c0fc": {
+"license": "CC0-1.0",
+"copyright": "Original sound by abhisheky948 at https://freesound.org/people/abhisheky948/sounds/625497/",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_bark3.ogg"
+},
+"a4df384c187": {
+"license": "CC0-1.0",
+"copyright": "Original sound by Sruddi1 at https://freesound.org/people/Sruddi1/sounds/34878/ - cleaned up, converted to ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/dog_whine.ogg"
+},
+"adf6b865099": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Original sound taken from Goonstation. Renamed to howl.ogg",
+"source": "Space Station 14",
+"path": "Audio/Voice/Vulpkanin/howl.ogg"
+},
+"p25071ca678": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_4.ogg"
+},
+"p9da73ae086": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_4_ask.ogg"
+},
+"p71ab160105": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_4_exclaim.ogg"
+},
+"pb546347dcf": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/arachnid.ogg"
+},
+"pb77c2429e4": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/arachnid_ask.ogg"
+},
+"p1b5e52a0c3": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/arachnid_exclaim.ogg"
+},
+"a55d00c02e8": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit",
+"source": "Goob Station",
+"path": "Audio/Voice/Arachnid/arachnid_scream.ogg"
+},
+"a899eb813fc": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit",
+"source": "Space Station 14",
+"path": "Audio/Voice/Arachnid/arachnid_laugh.ogg"
+},
+"a6455ec8fe4": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit, modified by Dutch-VanDerLinde",
+"source": "Goob Station",
+"path": "Audio/Voice/Arachnid/arachnid_chitter.ogg"
+},
+"aa7c40ba0ee": {
+"license": "CC-BY-4.0",
+"copyright": "Recorded by https://github.com/PixelTheKermit, modified by Dutch-VanDerLinde",
+"source": "Goob Station",
+"path": "Audio/Voice/Arachnid/arachnid_click.ogg"
+},
+"af4fac219c1": {
+"license": "CC0-1.0",
+"copyright": "NyuSan on freesound.org",
+"source": "Goob Station",
+"path": "Audio/_NF/Voice/Human/belch_1.ogg"
+},
+"ab1679eab05": {
+"license": "CC0-1.0",
+"copyright": "jimbo555 on freesound.org",
+"source": "Goob Station",
+"path": "Audio/_NF/Voice/Human/belch_2.ogg"
+},
+"a95f3ca9303": {
+"license": "CC0-1.0",
+"copyright": "josetb on freesound.org",
+"source": "Goob Station",
+"path": "Audio/_NF/Voice/Human/belch_3.ogg"
+},
+"a775d2e1177": {
+"license": "CC0-1.0",
+"copyright": "Stock sounds from Pixabay, converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Human/gulp.ogg"
+},
+"ad62edf0e82": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/surprised.ogg"
+},
+"a10ef2f947d": {
+"license": "CC0-1.0",
+"copyright": "Ashe Kirk",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/female_cough_1.ogg"
+},
+"a5dd8c095f1": {
+"license": "CC0-1.0",
+"copyright": "thatkellytrna on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Voice/Human/female_cough_2.ogg"
+},
+"aecb6a4eb3b": {
+"license": "CC-BY-4.0",
+"copyright": "Made by CGEffex on freesound.org. Shortened and cut by lewcc.",
+"source": "Goob Station",
+"path": "Audio/_Impstation/Effects/Emotes/knuckles.ogg"
+},
+"adc70944fa6": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_scream2.ogg"
+},
+"af90565bada": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_scream3.ogg"
+},
+"aa7d9fddcba": {
+"license": "CC-BY-4.0",
+"copyright": "Original sound by https://freesound.org/people/secondbody/ - cut out two clips of cat hissing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_hiss1.ogg"
+},
+"a670f21898c": {
+"license": "CC-BY-4.0",
+"copyright": "Original sound by https://freesound.org/people/secondbody/ - cut out two clips of cat hissing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_hiss2.ogg"
+},
+"a5465c05e27": {
+"license": "CC-BY-3.0",
+"copyright": "Original sound by https://freesound.org/people/ignotus/ - cut out three clips of cat meowing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_meow1.ogg"
+},
+"a8fdb0af850": {
+"license": "CC-BY-3.0",
+"copyright": "Original sound by https://freesound.org/people/ignotus/ - cut out three clips of cat meowing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_meow2.ogg"
+},
+"a937676da24": {
+"license": "CC-BY-3.0",
+"copyright": "Original sound by https://freesound.org/people/ignotus/ - cut out three clips of cat meowing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_meow3.ogg"
+},
+"a4a79bb3b7a": {
+"license": "CC0-1.0",
+"copyright": "Sound taken from https://youtu.be/MnURI2mo6Wg and turned into a Mono .ogg by @krawh",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Tajaran/deep_meow.ogg"
+},
+"a0992019fed": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/videog/ - cut out two clips of kittens mewing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_mew1.ogg"
+},
+"a940d7ac4d8": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/videog/ - cut out two clips of kittens mewing, cleaned up, and converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_mew2.ogg"
+},
+"a049ee0cc16": {
+"license": "CC0-1.0",
+"copyright": "Original sound by https://freesound.org/people/Zabuhailo/ - fade in and out, converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_growl1.ogg"
+},
+"a563311236e": {
+"license": "CC-BY-4.0",
+"copyright": "Original sound by https://freesound.org/people/klangstrand/ - cut out short clip, fade in and out, converted to ogg.",
+"source": "Goob Station",
+"path": "Audio/Nyanotrasen/Voice/Felinid/cat_purr1.ogg"
+},
+"ac41cf2d4b1": {
+"license": "CC0-1.0",
+"copyright": "Stock sounds from Pixabay, converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/gulpexotic.ogg"
+},
+"a0f2518dcba": {
+"license": "MIT",
+"copyright": "Taken from https://github.com/Simple-Station/Parkstation/commit/38c203cde0c915e029573e96fe9c97986bb6a036",
+"source": "Goob Station",
+"path": "Audio/Voice/Slime/slime_scream_m1.ogg"
+},
+"a1fb308b268": {
+"license": "MIT",
+"copyright": "Taken from https://github.com/Simple-Station/Parkstation/commit/38c203cde0c915e029573e96fe9c97986bb6a036",
+"source": "Goob Station",
+"path": "Audio/Voice/Slime/slime_scream_m2.ogg"
+},
+"ace472a6560": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from CHOMPStation",
+"source": "Goob Station",
+"path": "Audio/_EinsteinEngines/Voice/Shadowkin/mar.ogg"
+},
+"a91a8852c03": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from 'FD-NewBay' - Other places link to freesound.org. warble.ogg converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Resomi/wurble.ogg"
+},
+"abe0730f829": {
+"license": "MIT",
+"copyright": "Taken from https://github.com/Simple-Station/Parkstation/commit/38c203cde0c915e029573e96fe9c97986bb6a036",
+"source": "Goob Station",
+"path": "Audio/Voice/Slime/slime_scream_f1.ogg"
+},
+"a367b75d844": {
+"license": "MIT",
+"copyright": "Taken from https://github.com/Goob-Station/Goob-Station-MRP/commit/d3eeaba490a3b89004b411fd3f24aceb1e633ad3",
+"source": "Goob Station",
+"path": "Audio/Voice/Slime/slime_scream_f2.ogg"
+},
+"a8eed8f0b9d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/tgstation/tgstation/commit/436ba869ebcd0b60b63973fb7562f447ee655205 and volume reduced by Skubman",
+"source": "Goob Station",
+"path": "Audio/Voice/Plasmaman/plasmaman_scream_1.ogg"
+},
+"ad7fe68cf11": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/tgstation/tgstation/commit/436ba869ebcd0b60b63973fb7562f447ee655205 and volume reduced by Skubman",
+"source": "Goob Station",
+"path": "Audio/Voice/Plasmaman/plasmaman_scream_2.ogg"
+},
+"a44c33f3e6c": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/tgstation/tgstation/commit/436ba869ebcd0b60b63973fb7562f447ee655205 and volume reduced by Skubman",
+"source": "Goob Station",
+"path": "Audio/Voice/Plasmaman/plasmaman_scream_3.ogg"
+},
+"p69bc6fbb93": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_1.ogg"
+},
+"pd08ea8c65f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_1_ask.ogg"
+},
+"p057dc3383f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_1_exclaim.ogg"
+},
+"ac2808e8fe7": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Animals/snake_hiss.ogg"
+},
+"p1f050f075c": {
+"license": "CC0-1.0",
+"copyright": "Modified from 'Cartoon - Bat / Mouse Squeak' by freesound user 'Breviceps'. The original audio was converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/mouse_squeak.ogg"
+},
+"a1f050f075c": {
+"license": "CC0-1.0",
+"copyright": "Modified from 'Cartoon - Bat / Mouse Squeak' by freesound user 'Breviceps'. The original audio was converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/mouse_squeak.ogg"
+},
+"pee898e544d": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Original sound by https://xeno-canto.org/797998",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Harpy/chirp1.ogg"
+},
+"a03b0802d2f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from goonstation",
+"source": "Space Station 14",
+"path": "Audio/Animals/monkey_scream.ogg"
+},
+"a39aa97626a": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/Toys/meow1.ogg"
+},
+"a460def3480": {
+"license": "CC-BY-3.0",
+"copyright": "Audio is recorded by 'Nagaty Studio'. The original audio was reverbed",
+"source": "Space Station 14",
+"path": "Audio/Animals/bear.ogg"
+},
+"a3241d68a75": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from TG station.",
+"source": "Space Station 14",
+"path": "Audio/Mecha/sound_mecha_hydraulic.ogg"
+},
+"a57d4279505": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Omu/Voice/Reptilian/Reptilian_lizard_purr.ogg"
+},
+"a3212ac5d37": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Created by SamKolber, shortened and converted to OGG and mono",
+"source": "Goob Station",
+"path": "Audio/Items/desk_bell_ring.ogg"
+},
+"a731eb7feb0": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from /tg/station",
+"source": "Goob Station",
+"path": "Audio/Items/ring.ogg"
+},
+"adfa6ba37cc": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Machines/ding.ogg"
+},
+"a815f30dc0a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from TG station.",
+"source": "Goob Station",
+"path": "Audio/Machines/warning_buzzer.ogg"
+},
+"a63b71bf81e": {
+"license": "CC0-1.0",
+"copyright": "Created by P\u00f3l, converted to OGG and Mono by EmoGarbage",
+"source": "Goob Station",
+"path": "Audio/Items/beep.ogg"
+},
+"ab720951c2d": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/flashlight_pda.ogg"
+},
+"aafbec58c3e": {
+"license": "CC0-1.0",
+"copyright": "Created by MATRIXXX_, converted to OGG, shortened, sped up, and pitched up by EmoGarbage404 (github)",
+"source": "Goob Station",
+"path": "Audio/Items/locator_beep.ogg"
+},
+"abed314b175": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Machines/blender.ogg"
+},
+"a4d133c2cdc": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Machines/juicer.ogg"
+},
+"a5ea0aa0970": {
+"license": "CC0-1.0",
+"copyright": "cmorris035",
+"source": "Goob Station",
+"path": "Audio/Machines/reclaimer_startup.ogg"
+},
+"accae806048": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/deconstruct.ogg"
+},
+"aa5301e6d05": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/flashlight_off.ogg"
+},
+"aea6c2b368f": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/flashlight_on.ogg"
+},
+"abdb29fe45f": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/Items/pistol_cock.ogg"
+},
+"af07a1165f2": {
+"license": "CC0-1.0",
+"copyright": "OroborosNZ on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Machines/circuitprinter.ogg"
+},
+"acd7b92cf5f": {
+"license": "CC0-1.0",
+"copyright": "RobSp1derp1g on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Machines/diagnoser_printing.ogg"
+},
+"ae131a957d6": {
+"license": "CC0-1.0",
+"copyright": "sukaton on freesound.org",
+"source": "Goob Station",
+"path": "Audio/Machines/uniformprinter.ogg"
+},
+"a8c07fde5c7": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Harpy/caw1.ogg"
+},
+"aee898e544d": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Original sound by https://xeno-canto.org/797998",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Harpy/chirp1.ogg"
+},
+"ad46c97564b": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Goob Station",
+"path": "Audio/Voice/Talk/pai.ogg"
+},
+"a3c306b376b": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Goob Station",
+"path": "Audio/Voice/Talk/pai_ask.ogg"
+},
+"a771edfefa6": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Goob Station",
+"path": "Audio/Voice/Talk/pai_exclaim.ogg"
+},
+"ac0dbc57d50": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Original sound taken from Goonstation. Renamed to howl.ogg",
+"source": "Goob Station",
+"path": "Audio/_DV/Voice/Vulpkanin/howl.ogg"
+},
+"a32d00f7e79": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Floofstation/Voice/Harpy/harpy_coo1.ogg"
+},
+"ad666b1fc82": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Floofstation/Voice/Harpy/harpy_coo2.ogg"
+},
+"a5ae2e75581": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Floofstation/Voice/Harpy/harpy_coo3.ogg"
+},
+"a4b91640eda": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Floofstation/Voice/Harpy/harpy_coo4.ogg"
+},
+"afa70b9cce2": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from 'FD-NewBay' - Other places link to freesound.org. warble.ogg converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Resomi/trill.ogg"
+},
+"a4c405a6bba": {
+"license": "CC-BY-3.0",
+"copyright": "Original sound added by https://github.com/NopemanMcHalt",
+"source": "Goob Station",
+"path": "Audio/_Floofstation/Voice/Reptilian/yip.ogg"
+},
+"afb949e876e": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from 'FD-NewBay' - Other places link to freesound.org. warble.ogg converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Resomi/warble.ogg"
+},
+"a87ba61dd2c": {
+"license": "CC-BY-4.0",
+"copyright": "created by FairlySadPanda",
+"source": "Space Station 14",
+"path": "Audio/Animals/wawa_yawn.ogg"
+},
+"a6cacaf0ef6": {
+"license": "CC0-1.0",
+"copyright": "Shartmok made this dogwater, Prehistoric bird sounds by Mastersoundboy2005",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Vox/vox_yawn.ogg"
+},
+"a531e43bd2c": {
+"license": "CC-BY-SA-3.0",
+"copyright": "tgstation ss13",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/bagawk.ogg"
+},
+"a6166f11ff8": {
+"license": "CC0-1.0",
+"copyright": "taken from https://freesound.org/people/Godowan/sounds/240476/ and converted to mono by @deltanedas (github)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Moth/moth_flap.ogg"
+},
+"ac329244952": {
+"license": "CC-BY-SA-3.0",
+"copyright": "\"demon_attack1.ogg\", \"demon_consume.ogg\", \"demon_dies.ogg\", and \"bite.ogg\" by /tg/station",
+"source": "Goob Station",
+"path": "Audio/Effects/bite.ogg"
+},
+"a6a1f65f7b6": {
+"license": "CC0-1.0",
+"copyright": "Sound uploaded to freesound.org by faxfaxfax and slightly edited",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Harpy/owl_hoot.ogg"
+},
+"ad9ee005a3e": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from TG station.",
+"source": "Space Station 14",
+"path": "Audio/Machines/chime.ogg"
+},
+"ae44e7ba778": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from TG station.",
+"source": "Space Station 14",
+"path": "Audio/Machines/buzz-sigh.ogg"
+},
+"a5d485ddc8a": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Machines/buzz-two.ogg"
+},
+"a49bed785b2": {
+"license": "CC-BY-SA-3.0",
+"copyright": "\"buzz_sigh.ogg\", \"buzz_two.ogg\", and \"ping.ogg\" by /tg/station",
+"source": "Space Station 14",
+"path": "Audio/Effects/Cargo/ping.ogg"
+},
+"aedee9787eb": {
+"license": "CC0-1.0",
+"copyright": "Synthesized in Audacity by BasedUser.",
+"source": "Goob Station",
+"path": "Audio/_EinsteinEngines/Voice/IPC/beep_500.ogg"
+},
+"a14665c21f8": {
+"license": "CC0-1.0",
+"copyright": "Taken from source, spectrally modified and clipped",
+"source": "Goob Station",
+"path": "Audio/_EinsteinEngines/Voice/IPC/whirr1.ogg"
+},
+"a1eb3e8bfff": {
+"license": "CC0-1.0",
+"copyright": "Taken from source, spectrally modified and clipped",
+"source": "Goob Station",
+"path": "Audio/_EinsteinEngines/Voice/IPC/whirr2.ogg"
+},
+"a0c1855a233": {
+"license": "CC0-1.0",
+"copyright": "Taken from source, spectrally modified and clipped",
+"source": "Goob Station",
+"path": "Audio/_EinsteinEngines/Voice/IPC/whirr3.ogg"
+},
+"aaf48067816": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/ParadiseSS13/Paradise/commit/60d27e07de73f0fe72f4cff78b9c4100fd1d3b19",
+"source": "Goob Station",
+"path": "Audio/Voice/Slime/slime_squish.ogg"
+},
+"a21db0b3742": {
+"license": "CC-BY-4.0",
+"copyright": "Audiolarx on freesound.org. Shortened and cut by lewcc.",
+"source": "Goob Station",
+"path": "Audio/_Impstation/Voice/Slime/s_bubble.ogg"
+},
+"ab10aef56f6": {
+"license": "CC0-1.0",
+"copyright": "greenvwbeetle on freesound.org",
+"source": "Goob Station",
+"path": "Audio/_Impstation/Voice/Slime/s_pop.ogg"
+},
+"pe10a689b0b": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_3.ogg"
+},
+"pd5794dd800": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_3_ask.ogg"
+},
+"p156ddbb823": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/speak_3_exclaim.ogg"
+},
+"p08dbc402f0": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-say-1.ogg"
+},
+"p4b4cd992d3": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-ask-1.ogg"
+},
+"p0bc7ca0cf2": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-exclaim-1.ogg"
+},
+"af11ae1206e": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-scream-1.ogg"
+},
+"a382ed0fd0d": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-scream-2.ogg"
+},
+"aaa150faac7": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-scream-3.ogg"
+},
+"a56bc23241e": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-scream-4.ogg"
+},
+"a288381caa3": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-laugh-1.ogg"
+},
+"a5aff7a771a": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-cry-1.ogg"
+},
+"ac0446f7e51": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-sigh-1.ogg"
+},
+"aa7cf6333ae": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-sigh-2.ogg"
+},
+"a200213a032": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-sigh-3.ogg"
+},
+"a6ab6dd334f": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-gasp-1.ogg"
+},
+"a2a97bd4ff5": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-gasp-2.ogg"
+},
+"ab41a4b5995": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-trill-1.ogg"
+},
+"afc328dbc9f": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-wurble-1.ogg"
+},
+"a25055ca5c7": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-cough-1.ogg"
+},
+"a5928c77e0f": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-yawn-1.ogg"
+},
+"a67f6200d3e": {
+"license": "CC0-1.0",
+"copyright": "made by bitcrushing",
+"source": "Goob Station",
+"path": "Audio/_Mono/Voice/Hydrakin/hydrakin-whistle-1.ogg"
+},
+"p53b121ed88": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Lagomorph/bunny_talk2.ogg"
+},
+"p60e2de07ff": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Lagomorph/bunny_talk3.ogg"
+},
+"p1a03df3a0b": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Lagomorph/bunny_talk1.ogg"
+},
+"a5f8d63c9d8": {
+"license": "CC0-1.0",
+"copyright": "Made by Rarenth on freesound.org.",
+"source": "Starlight",
+"path": "Audio/_Starlight/Effects/Emotes/blink.ogg"
+},
+"a8f2f308f79": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Experiment/canine_yawn2.ogg"
+},
+"a14ee1d535c": {
+"license": "CC-BY-4.0",
+"copyright": "by Glaneur de sons",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Thaven/thaven-bubble.ogg"
+},
+"pd7633142a4": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Talk/resomi_1.ogg"
+},
+"p4f4a518122": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Talk/resomi_1_ask.ogg"
+},
+"p054c56a50b": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Talk/resomi_1_exclaim.ogg"
+},
+"p8a96950726": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Avali/avali_1.ogg"
+},
+"pea2b115205": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Avali/avali_1_ask.ogg"
+},
+"p6c8a1babc0": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Starlight",
+"path": "Audio/_Starlight/Voice/Avali/avali_1_exclaim.ogg"
+},
+"a74a4bc3f51": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/clap1.ogg"
+},
+"a701fd4fd06": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/clap2.ogg"
+},
+"af2460c3014": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/clap3.ogg"
+},
+"ac5acbdd27d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/e1142f20f5e4661cb6845cfcf2dd69f864d67432",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/clap4.ogg"
+},
+"a1939d143b6": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/snap1.ogg"
+},
+"a4267968551": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/snap2.ogg"
+},
+"a497637a377": {
+"license": "CC-BY-4.0",
+"copyright": "Finger Snaps Pack by Snapper4298. Converted from WAV to OGG and downmixed to 1 channel.",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/snap3.ogg"
+},
+"a93c26c8a67": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from https://github.com/infinitystation/Baystation12/commit/e639451bef42230a3838c085a6c782376e693499. No changes were made",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Emotes/salute.ogg"
+},
+"p34130a3ec1": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Talk/lizard.ogg"
+},
+"pa7175329ec": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Talk/lizard_ask.ogg"
+},
+"p7319809c33": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Goonstation, Modified by Whisper",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Talk/lizard_exclaim.ogg"
+},
+"a750a65868a": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Reptilian/reptilian_scream.ogg"
+},
+"a422c3d3f11": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/Items/bikehorn.ogg"
+},
+"ac55e8237fd": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/whistle_1.ogg"
+},
+"a002352425a": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/whistle_2.ogg"
+},
+"ae5d8dc3852": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/whistle_3.ogg"
+},
+"a284814e5fc": {
+"license": "Custom",
+"copyright": "Sampling Plus 1.0 license. Taken from https://freesound.org/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/whistle_4.ogg"
+},
+"afe1285539b": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_male_1.ogg"
+},
+"a4e7a97138b": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_male_2.ogg"
+},
+"a9782f34651": {
+"license": "CC0-1.0",
+"copyright": "Taken from https://freesound.org/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_male_3.ogg"
+},
+"a8860e7e8dd": {
+"license": "CC-BY-4.0",
+"copyright": "Taken from https://freesound.org/. Converted from FLAC to OGG, some part of the sound is taken.",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_male_4.ogg"
+},
+"ab820bcb13d": {
+"license": "CC0-1.0",
+"copyright": "Created by BlackMajor (github) for ss14, muffled_weh.ogg modified from weh.ogg by Slorkito (ss14 discord)",
+"source": "Nuclear 14",
+"path": "Audio/Items/Toys/weh.ogg"
+},
+"a347f55161e": {
+"license": "CC-BY-4.0",
+"copyright": "InspectorJ (www.jshaw.co.uk) of Freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/male_sneeze_1.ogg"
+},
+"a5265db1167": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/male_cough_1.ogg"
+},
+"ad72c6a90ac": {
+"license": "CC0-1.0",
+"copyright": "Harris85 on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/male_cough_2.ogg"
+},
+"a139352f7fb": {
+"license": "CC-BY-NC-4.0",
+"copyright": "\"Howler Monkey - Single, Close, Costa Rica\" by TRAVELcandies of Freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Diseases/monkey1.ogg"
+},
+"a588d2ebac9": {
+"license": "CC0-1.0",
+"copyright": "\"Monkey screaming.wav\" by Archeos of Freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Diseases/monkey2.ogg"
+},
+"a6e7b220473": {
+"license": "CC0-1.0",
+"copyright": "\"beep boop.mp3\" by Fidjo20 of Freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Effects/Diseases/beepboop.ogg"
+},
+"a88dac7acd0": {
+"license": "CC-BY-4.0",
+"copyright": "ckvoiceover on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/male_yawn_1.ogg"
+},
+"a00fa9b2801": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/snore1.ogg"
+},
+"aa233e3e81d": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/snore2.ogg"
+},
+"a01863fb4f0": {
+"license": "CC0-1.0",
+"copyright": "mattyharm on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/snore3.ogg"
+},
+"a738521c942": {
+"license": "CC-BY-3.0",
+"copyright": "https://github.com/ss220-space/Paradise/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/male_sigh.ogg"
+},
+"a7ef7f8308a": {
+"license": "CC-BY-NC-3.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_female_1.ogg"
+},
+"a22108d6e44": {
+"license": "CC-BY-NC-3.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_female_2.ogg"
+},
+"ac700703c4a": {
+"license": "CC-BY-NC-4.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_female_3.ogg"
+},
+"ab7d48d88d8": {
+"license": "CC-BY-NC-4.0",
+"copyright": "Taken from https://freesound.org/. Convert from WAV to OGG, is divided into several parts.",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/cry_female_4.ogg"
+},
+"a11ce33f7c0": {
+"license": "CC0-1.0",
+"copyright": "sherby168 on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/female_sneeze_1.ogg"
+},
+"a86d6a6266e": {
+"license": "CC0-1.0",
+"copyright": "Ashe Kirk",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/female_cough_1.ogg"
+},
+"a19500520c3": {
+"license": "CC0-1.0",
+"copyright": "thatkellytrna on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/female_cough_2.ogg"
+},
+"a7e3cbf06ae": {
+"license": "CC0-1.0",
+"copyright": "Reitanna on freesound.org",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/female_yawn_1.ogg"
+},
+"aba85da5f2a": {
+"license": "CC-BY-3.0",
+"copyright": "https://github.com/ss220-space/Paradise/",
+"source": "Nuclear 14",
+"path": "Audio/Voice/Human/female_sigh.ogg"
+},
+"ae7a7e2aaf4": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station and modified by AsnDen",
+"source": "Space Station 14",
+"path": "Audio/Machines/robotscream_1.ogg"
+},
+"a155c39d946": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station and modified by AsnDen",
+"source": "Space Station 14",
+"path": "Audio/Machines/robotscream_2.ogg"
+},
+"a52fad09ebf": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station and modified by AsnDen",
+"source": "Space Station 14",
+"path": "Audio/Machines/robotscream_3.ogg"
+},
+"ac067d71482": {
+"license": "CC-BY-SA-3.0",
+"copyright": "/tg/station and modified by AsnDen",
+"source": "Space Station 14",
+"path": "Audio/Machines/robotscream_4.ogg"
+},
+"a0371994b05": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from TG station.",
+"source": "Space Station 14",
+"path": "Audio/Machines/twobeep.ogg"
+},
+"p251ea5dcc8": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Space Station 14",
+"path": "Audio/Machines/vending_jingle.ogg"
+},
+"pad4d6cbd82": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/borg.ogg"
+},
+"p656d50e3fd": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/borg_ask.ogg"
+},
+"pe058db8a39": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/borg_exclaim.ogg"
+},
+"p984a3f04c4": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/syndieborg.ogg"
+},
+"p3903e75478": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/syndieborg_ask.ogg"
+},
+"p80fe5f04a5": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by https://github.com/MilenVolf",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/Silicon/syndieborg_exclaim.ogg"
+},
+"p477dbb0d3c": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by DarkIcedCoffe (Discord)",
+"source": "Space Station 14",
+"path": "Audio/Voice/Xenoborg/xenoborg_talk.ogg"
+},
+"p1b6bc98ee1": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by DarkIcedCoffe (Discord)",
+"source": "Space Station 14",
+"path": "Audio/Voice/Xenoborg/xenoborg_ask.ogg"
+},
+"pb4968aa898": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Recorded and mixed by DarkIcedCoffe (Discord)",
+"source": "Space Station 14",
+"path": "Audio/Voice/Xenoborg/xenoborg_exclaim.ogg"
+},
+"pd46c97564b": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/pai.ogg"
+},
+"p3c306b376b": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/pai_ask.ogg"
+},
+"p771edfefa6": {
+"license": "CC-BY-3.0",
+"copyright": "hubismal on GitHub",
+"source": "Space Station 14",
+"path": "Audio/Voice/Talk/pai_exclaim.ogg"
+},
+"p03b0802d2f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Taken from goonstation",
+"source": "Space Station 14",
+"path": "Audio/Animals/monkey_scream.ogg"
+},
+"pb20856abfa": {
+"license": "CC-BY-3.0",
+"copyright": "Modified and used from 'Parrot 1 raught 2.wav' by freesound user 'Coral_Island_Studios'. The original audio was converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/parrot_raught.ogg"
+},
+"p76228b3ee3": {
+"license": "CC-BY-3.0",
+"copyright": "Created by freesound user 'TRNGLE. The original audio split to mono, and converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/cat_meow2.ogg"
+},
+"pd6d7598910": {
+"license": "CC-BY-3.0",
+"copyright": "Modified from 'Meow 4.wav' by freesound user 'TRNGLE. The original audio was trimmed, split to mono, and converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/cat_meow.ogg"
+},
+"p2bd0a3edd3": {
+"license": "CC0-1.0",
+"copyright": "Audio is recorded/created by KFerentchak 'FreeSound.org'. The original audio was trimmed and renamed",
+"source": "Space Station 14",
+"path": "Audio/Animals/dog_bark1.ogg"
+},
+"pc7aa069c41": {
+"license": "CC0-1.0",
+"copyright": "Audio is recorded/created by KFerentchak 'FreeSound.org'. The original audio was trimmed and renamed",
+"source": "Space Station 14",
+"path": "Audio/Animals/dog_bark3.ogg"
+},
+"p8581ce1dc2": {
+"license": "CC0-1.0",
+"copyright": "Audio is recorded/created by KFerentchak 'FreeSound.org'. The original audio was trimmed and renamed",
+"source": "Space Station 14",
+"path": "Audio/Animals/dog_bark2.ogg"
+},
+"p9a5a010489": {
+"license": "CC0-1.0",
+"copyright": "Modified from 'Chicken Single Alarm Call' by freesound user 'Rudmer_Rotteveel'. The original audio was trimmed and converted from WAV to OGG format",
+"source": "Space Station 14",
+"path": "Audio/Animals/chicken_cluck_happy.ogg"
+},
+"p27934c2a28": {
+"license": "CC-BY-3.0",
+"copyright": "Audio is created by youtube user 'Winry Marini'",
+"source": "Space Station 14",
+"path": "Audio/Animals/goat_bah.ogg"
+},
+"p924df8b663": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/sheep1.ogg"
+},
+"paf71285aa6": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/sheep2.ogg"
+},
+"p51c0ddf2be": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/sheep3.ogg"
+},
+"pdfb09131b4": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/spacesheep1.ogg"
+},
+"p74b73b1903": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/spacesheep2.ogg"
+},
+"p6627a127b8": {
+"license": "CC0-1.0",
+"copyright": "Audio is created by freesound.org user 'milkotz', then cut and modified by dragomagol. Space sheep variants have a reverb effect added by Baa.",
+"source": "Space Station 14",
+"path": "Audio/Animals/spacesheep3.ogg"
+},
+"p37b4eb9e51": {
+"license": "CC-BY-4.0",
+"copyright": "created by FairlySadPanda",
+"source": "Space Station 14",
+"path": "Audio/Animals/wawa_statement.ogg"
+},
+"p12aa99b500": {
+"license": "CC-BY-4.0",
+"copyright": "created by FairlySadPanda",
+"source": "Space Station 14",
+"path": "Audio/Animals/wawa_question.ogg"
+},
+"p7651a8c850": {
+"license": "CC-BY-4.0",
+"copyright": "created by FairlySadPanda",
+"source": "Space Station 14",
+"path": "Audio/Animals/wawa_exclaim.ogg"
+},
+"pcf0b654c90": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Nuclear 14",
+"path": "Audio/_Misfits/Voice/Barks/Bang-Howdy/voice_key_typed.ogg"
+},
+"p226de2e95b": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Gingiva/Middens by myformerselves",
+"source": "Nuclear 14",
+"path": "Audio/_Misfits/Voice/Barks/Middens-Gingiva/voice_ring.ogg"
+},
+"pf947d4d0a0": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Grey Havens, LLC",
+"source": "Nuclear 14",
+"path": "Audio/_Misfits/Voice/Barks/Whirled/voice_book.ogg"
+},
+"pcf6051bf78": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/aa_blip_typewriter.ogg"
+},
+"p61597582d7": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bark1.ogg"
+},
+"p73e614b3aa": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bloop.ogg"
+},
+"pdb1f47ba26": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/blub.ogg"
+},
+"p557e653d96": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bottalk_1.ogg"
+},
+"p713c0fe602": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bottalk_2.ogg"
+},
+"pd24db49109": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bottalk_3.ogg"
+},
+"p9a4f3d9071": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/bottalk_4.ogg"
+},
+"p7d0136e855": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/buwoo.ogg"
+},
+"p4e983b23a5": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/c2.ogg"
+},
+"p27779d9477": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/c3.ogg"
+},
+"pca9b2b554d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/c4.ogg"
+},
+"p54200edfe4": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/cn3.ogg"
+},
+"pf87c8b734f": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/cn4.ogg"
+},
+"p2bdd2097ee": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/faucet.ogg"
+},
+"p6c93b3179d": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/faucet2.ogg"
+},
+"pac00989746": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/integration_cog_install.ogg"
+},
+"p00a7f99d2e": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/lizard.ogg"
+},
+"p8c142c96cb": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/mothsqueak.ogg"
+},
+"pd797d75963": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/pug.ogg"
+},
+"pd7be092dc5": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/pugg.ogg"
+},
+"pcb151eb9af": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/radio.ogg"
+},
+"pde542cf397": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/radio2.ogg"
+},
+"p52432e3adb": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/radio_ai.ogg"
+},
+"pce63b0f4db": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/skelly.ogg"
+},
+"pcb390b4f0e": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/speak_1.ogg"
+},
+"pe8a8831be6": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/speak_2.ogg"
+},
+"p5717140ff1": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/speak_3.ogg"
+},
+"pbf28d8f64a": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Taken from BlueMoon",
+"source": "Nuclear 14",
+"path": "Audio/_NC/Voice/Barks/speak_4.ogg"
+},
+"p11647da97c": {
+"license": "CC0-1.0",
+"copyright": "Original sound by abhisheky948 at https://freesound.org/people/abhisheky948/sounds/625497/",
+"source": "Starlight",
+"path": "Audio/_Starlight/Effects/Bark/dog_bark1.ogg"
+},
+"pfc8e254206": {
+"license": "CC0-1.0",
+"copyright": "Original sound by michael_grinnell at https://freesound.org/people/michael_grinnell/sounds/464400/",
+"source": "Starlight",
+"path": "Audio/_Starlight/Effects/Bark/dog_bark2.ogg"
+},
+"p33e959c0fc": {
+"license": "CC0-1.0",
+"copyright": "Original sound by Geoff-Bremner-Audio at https://freesound.org/people/Geoff-Bremner-Audio/sounds/688201/",
+"source": "Starlight",
+"path": "Audio/_Starlight/Effects/Bark/dog_bark3.ogg"
+},
+"p97a23edcfa": {
+"license": "CC0-1.0",
+"copyright": "Made by Aviu",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Barks/aviu1/1.ogg"
+},
+"p9f20ded264": {
+"license": "CC0-1.0",
+"copyright": "Made by Aviu",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Barks/aviu2/1.ogg"
+},
+"p7054b3d201": {
+"license": "CC0-1.0",
+"copyright": "Made by Aviu",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Barks/aviu3/1.ogg"
+},
+"pe61c0e4d8c": {
+"license": "CC0-1.0",
+"copyright": "Made by Aviu",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Voice/Barks/aviu4/1.ogg"
+},
+"m3dbb23300f": {
+"license": "CC-BY-3.0",
+"copyright": "Endless Space by SolusLunes. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/endless_space.ogg"
+},
+"m2b153a9105": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Absconditus by ZhayTee. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/absconditus.ogg"
+},
+"m28fc625c0f": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Atomic Amnesia MMX by Philip Dyer. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/atomicamnesiammx.ogg"
+},
+"m81e5060815": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Singuloose by Janis Schiedkov\u00e1. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/singuloose.ogg"
+},
+"m5db338bee5": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Comet Haley by Stellardrone. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/comet_haley.ogg"
+},
+"m9f444d2c48": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Title3 by Cuboos. It is a remix of the song 'Tintin on the Moon'. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/title3.ogg"
+},
+"m4c5d23d7fe": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Spac Stac by Hayabusa. Converted from MP3 to OGG.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/Spac_Stac.ogg"
+},
+"m58a674eed5": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "phoron will make us rich by Sunbeamstress/Lauren Loveless.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/pwmur.ogg"
+},
+"mb0c99094a0": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "lasers rip apart the bulkhead by Sunbeamstress/Lauren Loveless.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/lasers_rip_apart_the_bulkhead.ogg"
+},
+"ma82a5d31aa": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "every light is blinking at once by Sunbeamstress/Lauren Loveless.",
+"source": "Space Station 14",
+"path": "Audio/Lobby/every_light_is_blinking_at_once.ogg"
+},
+"m5d061858f8": {
+"license": "CC-BY-3.0",
+"copyright": "Original music by @mrjajkes, (youtube)",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/the_gray_tide_song.ogg"
+},
+"m744fb11492": {
+"license": "CC-BY-3.0",
+"copyright": "Original music by Waterflame",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/91476_Glorious_morning.ogg"
+},
+"ma7cf29c283": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Original music by Crockitz",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/Abductor.ogg"
+},
+"mdd8eeafb56": {
+"license": "CC-BY-4.0",
+"copyright": "Original music by @Bobik-music",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/Black_Swarm.ogg"
+},
+"md54db9abed": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Created by Merct",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/future_perception.ogg"
+},
+"m1061e889ff": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Created by Merct",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/mind_crawler.ogg"
+},
+"m711d20dd6e": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Clown Always Wins by N\u0418TRODE",
+"source": "Goob Station",
+"path": "Audio/Lobby/clownalwayswins.ogg"
+},
+"m09d294d775": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Honk! by SlendyMawn, Remastered by Scruq",
+"source": "Goob Station",
+"path": "Audio/Lobby/horn.ogg"
+},
+"m1656ff3348": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "skubstep by finket.",
+"source": "Goob Station",
+"path": "Audio/Lobby/skubstep.ogg"
+},
+"mf9b7c595e0": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "The Future Soon by Jonathan Coulton",
+"source": "Goob Station",
+"path": "Audio/Lobby/the_future_soon.ogg"
+},
+"m74755556b2": {
+"license": "CC0-1.0",
+"copyright": "Created by A-Guy173",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/thestation.ogg"
+},
+"m22678a3fec": {
+"license": "CC-BY-3.0",
+"copyright": "Timefracture by Bad History, shortened by InanimateIJK.",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/timefracture.ogg"
+},
+"mb8eeba4eff": {
+"license": "CC-BY-3.0",
+"copyright": "Bolgarich, allowed if referred as the creator to the piece. Slowed version of original.",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/Liberation.ogg"
+},
+"m87eaece8e9": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Bluespace by Beptol Corporation Acoustics",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/Bluespace.ogg"
+},
+"mf4bed8f81e": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Redefining Lines by Beptol Corporation Acoustics",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/RedefiningLines.ogg"
+},
+"m91aaa21cee": {
+"license": "CC-BY-NC-SA-3.0",
+"copyright": "Null Scar Gaze by Beptol Corporation Acoustics",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/Null_Scar_Gaze.ogg"
+},
+"m29ed44cbc5": {
+"license": "CC0-1.0",
+"copyright": "JAM, https://modarchive.org/index.php?request=view_profile&query=81691",
+"source": "Starlight",
+"path": "Audio/_Starlight/Music/Jukebox/drunk_reflections_by_JAM.ogg"
+},
+"m6f96b68074": {
+"license": "CC-BY-4.0",
+"copyright": "Stench of Whiskey, by hermitsabee",
+"source": "Starlight",
+"path": "Audio/_Starlight/Lobby/stenchOfWhiskey.ogg"
+},
+"mda9d464f35": {
+"license": "CC-BY-4.0",
+"copyright": "Original music by SOULFULJAMTRACKS",
+"source": "Goob Station",
+"path": "Audio/_Goobstation/Music/cowboy_western_background.ogg"
+},
+"m82d4364e62": {
+"license": "CC-BY-4.0",
+"copyright": "A.D.R (Lagoona rmx) by Andreas Viklund, converted to mono",
+"source": "Nuclear 14",
+"path": "Audio/DeltaV/Jukebox/a_different_reality_lagoona_remix.xm-MONO.ogg"
+},
+"m0821b815fa": {
+"license": "CC-BY-SA-3.0",
+"copyright": "Minute by Patricia Taxxon off the album 'Aeroplane,' converted to mono",
+"source": "Nuclear 14",
+"path": "Audio/DeltaV/Jukebox/Patricia_Taxxon_-_Minute_-_MONO.ogg"
+},
+"ma7ba0119c3": {
+"license": "CC-BY-SA-4.0",
+"copyright": "Scratch Post by Ghirardelli7 on SoundCloud, used with the understanding that credit is given to the artist.",
+"source": "Nuclear 14",
+"path": "Audio/DeltaV/Jukebox/Scratch_Post_-_OST_MONO.ogg"
+},
+"mfa2e03e482": {
+"license": "CC-BY-NC-SA-4.0",
+"copyright": "Nymphs of the forest by Psirius, converted to mono",
+"source": "Nuclear 14",
+"path": "Audio/DeltaV/Jukebox/psirius_-_nymphs_of_the_forest.mptm-MONO.ogg"
+},
+"m59335b33b9": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Ambience/ambigen1.ogg"
+},
+"me80e402abf": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Ambience/ambigen8.ogg"
+},
+"m8b766dfd0f": {
+"license": "CC-BY-SA-3.0 (repository default)",
+"copyright": "",
+"source": "Space Station 14",
+"path": "Audio/Ambience/ambiatmos.ogg"
+}
+}
