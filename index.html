@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="nanotrasen">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PAI">
+  <meta name="theme-color" content="#101018">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <script>window.PAI_AUDIO_EXT = "m4a";</script>
+  <title>PAI</title>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app" style="display:none">
+    <nav id="side"></nav>
+    <main id="main"></main>
+  </div>
+  <div id="overlay" style="position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88)"></div>
+  <div id="modal"></div>
+  <div id="popups"></div>
+  <div id="sweep"></div>
+  <div id="scan"></div>
+
+  <script type="module" src="js/main.js"></script>
+  <script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));</script>
+</body>
+</html>
