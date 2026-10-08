@@ -226,7 +226,7 @@ function tapToStart() {
     el.innerHTML = `<div class="logo" style="width:72px;height:72px"></div><div class="b" style="font-size:22px;letter-spacing:3px;margin-top:18px">${esc(X.paiName())}</div>
       <div class="btn good" style="margin-top:26px;padding:14px 28px;font-size:17px">Tap to power on</div><div class="small dim" style="margin-top:14px">Turns on sound too</div>`;
     document.body.appendChild(el);
-    el.addEventListener('click', () => { A.unlockAudio(); A.sfx('power_on'); el.style.opacity = '0'; setTimeout(() => { el.remove(); done(); }, 250); }, { once: true });
+    el.addEventListener('click', () => { A.unlockAudio(); if (!state.settings.bootSequence) A.sfx('power_on'); el.style.opacity = '0'; setTimeout(() => { el.remove(); done(); }, 250); }, { once: true });
   });
 }
 let sideMusicTimer = 0;

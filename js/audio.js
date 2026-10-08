@@ -16,6 +16,17 @@ function setSession() {
   try { if (navigator.audioSession) navigator.audioSession.type = state.settings.playWhenSilent === false ? 'ambient' : 'playback'; } catch { }
 }
 function ac() { if (!ctx) { setSession(); ctx = new (window.AudioContext || window.webkitAudioContext)(); } if (ctx.state === 'suspended' || ctx.state === 'interrupted') ctx.resume().catch(() => { }); return ctx; }
+// iPhones ignore <audio>.volume, so there the music/alarm players are routed through a Web Audio gain node instead.
+const IOS_VOL = typeof navigator !== 'undefined' && (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+const gains = new WeakMap();
+export function setVol(el, v) {
+  v = Math.max(0, Math.min(1, v));
+  if (!IOS_VOL) { el.volume = v; return; }
+  let g = gains.get(el);
+  if (!g && ctx) { try { g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g).connect(ctx.destination); gains.set(el, g); } catch { } }
+  if (g) g.gain.value = v; else el.volume = v;
+}
+const getVol = (el) => gains.get(el)?.gain.value ?? el.volume;
 /** Call from inside a tap. Phones only allow audio after a real tap (touchend/click), so this wakes everything up. */
 export function unlockAudio() {
   setSession();
@@ -148,7 +159,7 @@ class Music {
   changed() { for (const fn of this.listeners) fn(); }
   audible() { return this.s.enabled && !this.s.muted && state.settings.sounds; }
   apply(prev) {
-    this.el.volume = this.s.volume;
+    setVol(this.el, this.s.volume);
     if (!this.audible()) { if (this.playing) this.el.pause(); }
     else if (!this.playing) {
       const unmuted = prev && ((prev.muted && !this.s.muted) || (!prev.enabled && this.s.enabled));
@@ -194,13 +205,13 @@ class Music {
     const src = await musicURL(t.file);
     if (this.current !== t) return;
     this.el.src = src;
-    this.el.volume = 0;
+    setVol(this.el, 0);
     if (!this.audible()) return;
     this.el.play().then(() => this.fadeIn()).catch(() => this.waitForClick());
   }
   fadeIn() {
     const target = this.s.volume; let v = 0;
-    const step = () => { v = Math.min(target, v + target / 24); this.el.volume = v; if (v < target) setTimeout(step, 50); };
+    const step = () => { v = Math.min(target, v + target / 24); setVol(this.el, v); if (v < target) setTimeout(step, 50); };
     step();
   }
   updateAmbience() {
@@ -208,7 +219,7 @@ class Music {
     if (!f || !this.s.enabled || this.s.muted || !state.settings.sounds) { this.amb.pause(); return; }
     const src = `game/audio/${f}.${EXT}`;
     if (!this.amb.src.endsWith(src)) this.amb.src = src;
-    this.amb.volume = this.s.ambienceVolume;
+    setVol(this.amb, this.s.ambienceVolume);
     this.amb.play().catch(() => this.waitForClick());
   }
 }
@@ -233,9 +244,9 @@ export let lastStop = 0;
 function unlock() {
   try { ac(); } catch { }
   if (unlocked || !alarmEl) return; unlocked = true;
-  alarmEl.src = `sfx/click.${EXT}`; alarmEl.volume = 0; alarmEl.play().then(() => alarmEl.pause()).catch(() => { unlocked = false; });
+  alarmEl.src = `sfx/click.${EXT}`; alarmEl.muted = true; alarmEl.play().then(() => { alarmEl.pause(); alarmEl.muted = false; }).catch(() => { alarmEl.muted = false; unlocked = false; });
   // The music player needs the same one-time tap on phones.
-  if (music.el.paused && !music.el.src) { music.el.src = `sfx/click.${EXT}`; music.el.volume = 0; music.el.play().then(() => { music.el.pause(); music.el.removeAttribute('src'); }).catch(() => { }); }
+  if (music.el.paused && !music.el.src) { music.el.src = `sfx/click.${EXT}`; music.el.muted = true; music.el.play().then(() => { music.el.pause(); music.el.muted = false; music.el.removeAttribute('src'); }).catch(() => { music.el.muted = false; }); }
 }
 if (typeof document !== 'undefined') {
   document.addEventListener('pointerdown', () => { if (alarmPlaying) stopAlarm(); }, true);
@@ -258,13 +269,13 @@ export async function alarm(kind, override) {
   stopAlarm();
   const src = await musicURL(v.slice(6));
   resumeMusic = music.playing; if (resumeMusic) music.pause();
-  alarmEl.src = src; alarmEl.currentTime = 0; alarmEl.loop = true; alarmEl.volume = s.alarmVolume;
+  alarmEl.src = src; alarmEl.currentTime = 0; alarmEl.loop = true; alarmEl.muted = false; setVol(alarmEl, s.alarmVolume);
   alarmPlaying = true; music.changed();
   try { await alarmEl.play(); }
   catch { alarmPlaying = false; play(kind === 'timer' ? 'timer_done' : 'announce'); return; }
   const len = Math.max(3, s.alarmLength || 20) * 1000;
   stopTimer = setTimeout(() => { // fade out
-    let vol = alarmEl.volume; fadeTimer = setInterval(() => { vol -= 0.05; if (vol <= 0) stopAlarm(); else alarmEl.volume = vol; }, 100);
+    let vol = getVol(alarmEl); fadeTimer = setInterval(() => { vol -= 0.05; if (vol <= 0) stopAlarm(); else setVol(alarmEl, vol); }, 100);
   }, len);
 }
 export const audioState = () => ctx?.state || 'none';
