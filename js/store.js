@@ -11,7 +11,7 @@ export function defaultSettings() {
     fork: 'vanilla', bootStyle: 'vanilla', accent: 'none', theme: 'nanotrasen', unitVoice: 'auto', unitBark: '',
     soundPack: 'ss14', personality: 'standard', radioBlips: false, highlightPing: true, emoteSounds: true,
     crtEffects: true, animations: true, trayOnClose: true, startWithWindows: false, notifications: true,
-    reminderSound: 'announce', timerSound: 'timer_done', alarmLength: 20, alarmVolume: 0.8, calendarSync: true, clockTimers: false, clockShortcut: 'PAI Timer',
+    reminderSound: 'announce', timerSound: 'timer_done', alarmLength: 20, alarmVolume: 0.8, calendarSync: true, clockTimers: false, playWhenSilent: true, clockShortcut: 'PAI Timer',
     music: { enabled: true, muted: false, volume: 0.45, shuffle: true, playlists: [], ambience: null, ambienceVolume: 0.35, autoplay: true },
   };
 }

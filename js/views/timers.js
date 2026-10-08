@@ -35,7 +35,7 @@ export default {
       </div></div>`;
     }
     return `${UI.header('Timers', 'Microwave-grade countdowns', tabs)}<div class="content"><div class="col" style="max-width:820px">
-      ${UI.section('Presets', `<div class="row-flex" style="flex-wrap:wrap;padding:10px">${PRESETS.map(([s, l]) => UI.btn(l, 'preset', { data: `data-s="${s}" data-l="${l === 'Pomodoro' ? 'Pomodoro' : ''}"` })).join('')}</div>
+      ${UI.section('Presets', `<div class="row-flex" style="flex-wrap:wrap;padding:10px">${PRESETS.map(([s, l]) => UI.btn(l, 'timerPreset', { data: `data-s="${s}" data-l="${l === 'Pomodoro' ? 'Pomodoro' : ''}"` })).join('')}</div>
         <div class="srow alt"><span class="lab">Custom</span><input class="field" id="t_label" placeholder="Label (optional)" style="flex:2"><input class="field" id="t_min" type="number" min="0" value="5" style="width:80px;flex:none"><span class="dim">min</span><input class="field" id="t_sec" type="number" min="0" max="59" value="0" style="width:70px;flex:none"><span class="dim">sec</span>${UI.btn('Start', 'custom', { cls: 'good' })}</div>`)}
       ${UI.section('Running', timerList(), { trailing: `${state.timers.filter(t => t.end && !t.finished).length} running` })}
     </div></div>`;
@@ -48,7 +48,7 @@ export default {
   },
   act: {
     mode(a) { mode = a.dataset.m; re(); },
-    preset(a) { const t = X.startTimer(+a.dataset.s, a.dataset.l || ''); toClock(t); },
+    timerPreset(a) { const t = X.startTimer(+a.dataset.s, a.dataset.l || ''); toClock(t); },
     custom() {
       const s = (parseInt(document.getElementById('t_min').value) || 0) * 60 + (parseInt(document.getElementById('t_sec').value) || 0);
       if (s <= 0) return A.sfx('deny'); toClock(X.startTimer(s, document.getElementById('t_label').value));

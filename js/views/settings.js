@@ -151,10 +151,10 @@ function system() {
     ${UI.toggle('Start PAI when Windows starts', 'settings.startWithWindows', st.startWithWindows)}${UI.toggle('Windows notifications for reminders & timers', 'settings.notifications', st.notifications)}
     <div class="srow alt">${UI.btn(icon('mini', 13) + ' Mini mode', 'mini', { cls: 's' })}<span class="small dim">A small always-on-top window with your unit, clock, next reminder and timers.</span></div>
     <div class="srow">${UI.btn('Test notification', 'testNotify', { cls: 's' })}</div>`)
-    : `${UI.section('Phone', `${UI.toggle('Notifications for reminders & timers (while PAI is open)', 'settings.notifications', st.notifications)}
+    : `${UI.section('Phone', `${UI.toggle('Play sounds even when my iPhone is on silent', 'settings.playWhenSilent', st.playWhenSilent)}${UI.toggle('Notifications for reminders & timers (while PAI is open)', 'settings.notifications', st.notifications)}
     <div class="srow alt">${UI.btn('Test notification', 'testNotify', { cls: 's' })}</div>
     ${P.isIOS() && !P.isStandalone() ? `<div class="srow" style="color:var(--caution)">Tip: tap Share → Add to Home Screen in Safari to install PAI as an app.</div>` : ''}`,
-      { footer: 'Phones pause web apps in the background, so PAI itself can only ring while it is open. The two options below hand your reminders and timers to the phone’s own apps, which alert you any time.' })}
+      { footer: 'With “play on silent” on, PAI’s sounds pause other audio (like Spotify) while they play; turn it off to let the silent switch mute PAI instead. Phones pause web apps in the background, so PAI itself can only ring while it is open. The two options below hand your reminders and timers to the phone’s own apps, which alert you any time.' })}
     ${UI.section('iPhone Calendar (reminders)', `${UI.toggle('Send new reminders to my Calendar app', 'settings.calendarSync', st.calendarSync)}
     <div class="srow alt">${state.reminders.length ? UI.btn(icon('calendar', 13) + ' Send all reminders now', 'icsAll', { cls: 's' }) : '<span class="small dim">No reminders yet.</span>'}</div>`,
       { footer: 'When you save a reminder, iPhone shows an “Add to Calendar” screen. Tap Add and Calendar alerts you at that time, even with PAI closed. Reminders PAI makes from chat show a “Send to Calendar” button on the chat screen.' })}

@@ -11,7 +11,20 @@ export async function loadAudio() {
 
 // Web Audio for low-latency, overlapping one-shots.
 let ctx = null; const buffers = new Map(); const loading = new Map();
-function ac() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+function setSession() {
+  // iPhone: 'playback' keeps sounds audible when the ring/silent switch is on silent; 'ambient' obeys it and mixes with other apps.
+  try { if (navigator.audioSession) navigator.audioSession.type = state.settings.playWhenSilent === false ? 'ambient' : 'playback'; } catch { }
+}
+function ac() { if (!ctx) { setSession(); ctx = new (window.AudioContext || window.webkitAudioContext)(); } if (ctx.state === 'suspended' || ctx.state === 'interrupted') ctx.resume().catch(() => { }); return ctx; }
+/** Call from inside a tap. Phones only allow audio after a real tap (touchend/click), so this wakes everything up. */
+export function unlockAudio() {
+  setSession();
+  try {
+    const c = ac();
+    const b = c.createBuffer(1, 1, 22050); const src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(0);
+  } catch { }
+  unlock();
+}
 function urlFor(name) { return name.startsWith('game:') ? `game/audio/${name.slice(5)}.${EXT}` : /^[pam][0-9a-f]{10}$/.test(name) ? `game/audio/${name}.${EXT}` : `sfx/${name}.${EXT}`; }
 async function buffer(name) {
   if (buffers.has(name)) return buffers.get(name);
@@ -23,6 +36,7 @@ async function buffer(name) {
 }
 export async function play(name, volume = 0.8, rate = 1) {
   if (!state.settings.sounds || !name) return;
+  setSession();
   const b = await buffer(name); if (!b) return;
   const c = ac(); const src = c.createBufferSource(); const g = c.createGain();
   src.buffer = b; src.playbackRate.value = rate; g.gain.value = volume;
@@ -151,8 +165,8 @@ class Music {
   }
   waitForClick() {
     // Webviews may block autoplay until the first click.
-    const go = () => { document.removeEventListener('pointerdown', go); if (this.audible()) this.el.play().catch(() => { }); this.updateAmbience(); };
-    document.addEventListener('pointerdown', go);
+    const go = () => { for (const ev of ['pointerdown', 'touchend', 'click']) document.removeEventListener(ev, go, true); if (this.audible()) this.el.play().then(() => this.fadeIn()).catch(() => { }); this.updateAmbience(); };
+    for (const ev of ['pointerdown', 'touchend', 'click']) document.addEventListener(ev, go, true);
   }
   pause() { this.el.pause(); }
   toggle() { this.playing ? this.pause() : this.play(); }
@@ -217,12 +231,16 @@ let unlocked = false, stopTimer = null, resumeMusic = false, fadeTimer = null;
 export let alarmPlaying = false;
 export let lastStop = 0;
 function unlock() {
+  try { ac(); } catch { }
   if (unlocked || !alarmEl) return; unlocked = true;
   alarmEl.src = `sfx/click.${EXT}`; alarmEl.volume = 0; alarmEl.play().then(() => alarmEl.pause()).catch(() => { unlocked = false; });
-  try { ac(); } catch { }
+  // The music player needs the same one-time tap on phones.
+  if (music.el.paused && !music.el.src) { music.el.src = `sfx/click.${EXT}`; music.el.volume = 0; music.el.play().then(() => { music.el.pause(); music.el.removeAttribute('src'); }).catch(() => { }); }
 }
 if (typeof document !== 'undefined') {
-  document.addEventListener('pointerdown', () => { if (alarmPlaying) stopAlarm(); unlock(); }, true);
+  document.addEventListener('pointerdown', () => { if (alarmPlaying) stopAlarm(); }, true);
+  // iPhone only counts touchend / click as a real tap for audio.
+  for (const ev of ['touchend', 'click']) document.addEventListener(ev, () => { if (!ctx || ctx.state !== 'running' || !unlocked) unlockAudio(); }, true);
   document.addEventListener('keydown', () => { if (alarmPlaying) stopAlarm(); }, true);
 }
 export function stopAlarm() {
@@ -249,3 +267,4 @@ export async function alarm(kind, override) {
     let vol = alarmEl.volume; fadeTimer = setInterval(() => { vol -= 0.05; if (vol <= 0) stopAlarm(); else alarmEl.volume = vol; }, 100);
   }, len);
 }
+export const audioState = () => ctx?.state || 'none';

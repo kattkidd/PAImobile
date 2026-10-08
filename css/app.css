@@ -265,3 +265,4 @@ body.mini .clock { font-size: 34px; }
   .srow > .lab { flex: 0 0 100%; }
 }
 @media (max-width: 760px) { #t_label { flex: 1 1 100% !important; } }
+#tapstart { position: fixed; inset: 0; z-index: 120; background: var(--space); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .25s; cursor: pointer; }
