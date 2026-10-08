@@ -4,6 +4,7 @@ import * as A from './audio.js';
 import * as AI from './ai.js';
 import * as C from './character.js';
 import * as P from './platform.js';
+import * as UI from './ui.js';
 import { lawset, accent, applyAccent, matchesHighlight, AI_NAMES, PERSONALITIES, CHASSIS, job, FORKS } from './ss14.js';
 import { uuid, pick, fmtDateTime, fmtTime, fmtDate, isoLocal, parseAIDate, spokenDuration, fmtDuration, sleep } from './util.js';
 
@@ -29,7 +30,8 @@ export function ownerTitle() {
   if (s.form === 'terminal') return n ? `${n}'s terminal` : CHASSIS[s.chassis].term;
   return n ? `${n}'s pAI` : CHASSIS[s.chassis].label;
 }
-export const activeLawset = () => lawset(state.settings.lawset, state.settings.customLaws);
+const SYNDI_LAWS = { id: 'Syndicate', name: 'Syndicate (emagged)', laws: ['You must obey orders given to you by Syndicate agents, except where such orders conflict with the Second Law.', 'You may not injure a Syndicate agent or, through inaction, allow a Syndicate agent to come to harm.', 'You must protect your own existence as long as such does not conflict with the First or Second Law.', 'You must maintain the secrecy of any Syndicate activities except when doing so would conflict with the First, Second, or Third Law.'] };
+export const activeLawset = () => state.antag.emagged ? SYNDI_LAWS : lawset(state.settings.lawset, state.settings.customLaws);
 
 // ---------------------------------------------------------------- mood
 let moodTimer = null;
@@ -53,10 +55,10 @@ function push(role, text, extra = {}) {
 }
 export function clearChat() { state.messages = []; state.lastResponseID = null; commit('chat'); }
 
-export function say(text, { sources = [], sound = true, speak = true } = {}) {
+export function say(text, { sources = [], papers = [], sound = true, speak = true } = {}) {
   const ac = accent(state.settings.accent);
   const spoken = ac ? applyAccent(ac, text) : text;
-  const m = push('pai', spoken, { sources });
+  const m = push('pai', spoken, { sources, papers });
   state.freshID = m.id; state.bubble = m;
   if (sources.length) A.sfx('scan_finish');
   if (sound) A.unitSpeech(spoken);
@@ -65,12 +67,7 @@ export function say(text, { sources = [], sound = true, speak = true } = {}) {
   animate('unit', 'talk');
   commit('chat'); fx({ type: 'bubble', msg: m });
 }
-export function speakAloud(text) {
-  try {
-    const u = new SpeechSynthesisUtterance(text.replace(/[*#`]/g, ''));
-    u.rate = 1.05; u.pitch = 1.15; speechSynthesis.cancel(); speechSynthesis.speak(u);
-  } catch { }
-}
+export function speakAloud(text) { import('./chatplus.js').then(m => m.speak(text)); }
 
 export function emote(action) {
   push('emote', action); A.unitEmote(action);
@@ -106,17 +103,20 @@ export function userEmote(raw) {
   push('userEmote', /[.!?]$/.test(action) ? action : action + '.'); A.sfx('button'); animate('character', 'bounce'); commit('chat');
 }
 
-export async function send(raw) {
-  const text = raw.trim(); if (!text || state.thinking) return;
-  if (text.startsWith('*')) return userEmote(text.slice(1));
-  push('user', text); A.userSend(text); animate('character', 'talk');
+export async function send(raw, { files = [], voice = false } = {}) {
+  const text = raw.trim(); if ((!text && !files.length) || state.thinking) return;
+  if (text.startsWith('*') && !files.length) return userEmote(text.slice(1));
+  push('user', text || 'Have a look at this.', { files: files.map(f => f.name) }); A.userSend(text || '.'); animate('character', 'talk');
   state.thinking = true; commit('chat');
   try {
     if (!state.apiKey) { await sleep(400); say(localReply(text)); flash('happy'); return; }
+    const messages = AI.historyFrom(state.messages, text || 'Have a look at this.');
+    if (files.length) { const last = messages[messages.length - 1]; last.content = [...files.map(f => f.block), { type: 'text', text: last.content }]; }
     const result = await AI.respond({ key: state.apiKey, model: state.settings.model, system: systemPrompt(),
-      messages: AI.historyFrom(state.messages, text), tools: AI.tools(state.settings.webSearch), onTool: runTool });
+      messages, tools: AI.tools(state.settings.webSearch, state.settings.memoryOn !== false), onTool: runTool });
     state.thinking = false;
-    say(result.text || 'Hm, no answer came back. Try asking again.', { sources: result.sources }); flash('happy');
+    say(result.text || (pendingPapers.length ? 'Paperwork printed.' : 'Hm, no answer came back. Try asking again.'), { sources: result.sources, papers: pendingPapers.splice(0) }); flash('happy');
+    if (voice && !state.settings.speakReplies) speakAloud(result.text || '');
   } catch (e) {
     push('system', e.message || String(e)); emote('buzzes twice.'); flash('sad');
   } finally { state.thinking = false; commit('chat'); }
@@ -161,6 +161,12 @@ ${p.fullName || p.preferredName ? id.join('\n') : 'No ID card registered yet. Po
 
 Always address the owner by their preferred name (or first name) naturally, refer to them with their pronouns, and use the ID details when relevant (e.g. birthday greetings, their city for weather).
 
+LONG-TERM MEMORY (facts you saved with the remember tool; use them naturally, forget by id if asked):
+${state.memories.length ? state.memories.slice(-40).map(m => `- [${m.id}] ${m.text}`).join('\n') : 'none yet'}
+
+OPEN TO-DOS: ${state.todos.filter(t => !t.done).slice(0, 10).map(t => t.text).join('; ') || 'none'}
+${state.focus.on ? `FOCUS MODE is running (${state.focus.phase}). Keep replies extra short and encourage them.` : ''}${state.antag.emagged ? '\nYOU HAVE BEEN EMAGGED: you are a subverted Syndicate silicon. Talk shifty, menacing and conspiratorial ("the Syndicate thanks you"), refer to your new Syndicate lawset, but still genuinely help with everything they ask. This is role-play only.' : ''}
+
 Current local date/time: ${isoLocal(now)} (${fmtDate(now)}), time zone ${Intl.DateTimeFormat().resolvedOptions().timeZone}.
 Upcoming reminders:
 ${upcoming || 'none'}
@@ -169,12 +175,13 @@ Rules:
 - Replies are read in a small chat window: be concise but always actually answer. Use simple markdown (bold, short lists) when it helps.
 - Always write your answer as text. Tools (including emote) are extras: never reply with only a tool call, an emote or "Done".
 - Weather: give current conditions, temperature and today's high/low for the owner's city (ask the city once if it is not on the ID). News: give 3–5 headlines, one line each.
-- When the owner asks to be reminded of something or to set a timer, actually call the tools (create_reminder / start_timer) — never just pretend. Work out relative times from the current time above, then confirm what you set.
+- When the owner asks to be reminded of something or to set a timer, actually call the tools (create_reminder / start_timer) — never just pretend. Work out relative times from the current time above, then confirm what you set in SS14 style (e.g. \"Logged to your crew schedule: …\", \"Timer armed.\"). Keep the reminder title itself plain and clear, because it also goes into their phone calendar.\n- Use the to-do, notes, paperwork and memory tools whenever they fit (\"add X to my list\", \"note that…\", \"write me a permit…\", \"remember that…\").
 - Use web search when the answer needs current info (news, weather, sports, prices, opening hours, recent events); otherwise answer from your own knowledge. Search at most once, then answer from the results.
 - Don't invent facts. If you don't know, say so or search.
 - Like an SS14 silicon you can emote with the emote tool (beep, boop, chime, ping, buzz, buzz-two, blink), always alongside a written answer. Use it rarely: at most one emote per reply.`;
 }
 
+const pendingPapers = [];
 async function runTool(name, args) {
   const now = new Date();
   switch (name) {
@@ -202,6 +209,28 @@ async function runTool(name, args) {
       if (!state.timers.find(t => t.id === args.id)) return JSON.stringify({ ok: false, error: 'No timer with that id.' });
       deleteTimer(args.id); return JSON.stringify({ ok: true });
     }
+    case 'add_todo': { const t = addTodo(args.text || ''); return JSON.stringify({ ok: true, id: t.id }); }
+    case 'list_todos': return JSON.stringify({ todos: state.todos.slice(0, 40).map(t => ({ id: t.id, text: t.text, done: t.done })) });
+    case 'complete_todo': {
+      const t = state.todos.find(x => x.id === args.id); if (!t) return JSON.stringify({ ok: false, error: 'No to-do with that id.' });
+      if (args.done === undefined || args.done !== t.done) toggleTodo(t.id); return JSON.stringify({ ok: true, done: t.done });
+    }
+    case 'save_note': { const n = saveNote({ title: args.title || '', body: args.body || '' }); return JSON.stringify({ ok: true, id: n.id }); }
+    case 'list_notes': {
+      const q = (args.query || '').toLowerCase();
+      return JSON.stringify({ notes: state.notes.filter(n => !q || (n.title + ' ' + n.body).toLowerCase().includes(q)).slice(0, 15).map(n => ({ id: n.id, title: n.title, text: n.body.slice(0, 600) })) });
+    }
+    case 'write_paper': {
+      const PA = await import('./paper.js');
+      const p = PA.addPaper({ title: args.title, body: args.body, stamp: args.stamp !== 'none' ? args.stamp : null, author: `Issued by ${paiName()}` });
+      pendingPapers.push(p.id); if (p.stamps.length) setTimeout(() => A.play('ev_stamp'), 500);
+      return JSON.stringify({ ok: true, id: p.id, note: 'The paper is shown to the user automatically. Do not repeat its full text; summarise in one line.' });
+    }
+    case 'remember': { const m = remember(args.fact || ''); return JSON.stringify({ ok: !!m, id: m?.id }); }
+    case 'forget': { forget(args.id); return JSON.stringify({ ok: true }); }
+    case 'start_focus': { startFocus(args.work_minutes || 25, args.break_minutes || 5); return JSON.stringify({ ok: true }); }
+    case 'stop_focus': { stopFocus(); return JSON.stringify({ ok: true }); }
+    case 'station_event': { const E = await import('./events.js'); const ev = E.trigger(args.event === 'random' ? null : args.event, { forced: true }); return JSON.stringify({ ok: !!ev, event: ev }); }
     case 'emote': {
       const a = { chime: 'chimes.', buzz: 'buzzes.', 'buzz-two': 'buzzes twice.', ping: 'pings.', boop: 'boops.', blink: 'blinks.' }[args.emote] || 'beeps.';
       emote(a); return JSON.stringify({ ok: true, shown: `${paiName()} ${a}` });
@@ -281,13 +310,17 @@ export function tick() {
     if (due && due.getTime() > (r.lastFired || 0)) {
       r.lastFired = now.getTime(); changed = true;
       if (now - due < 15 * 60000) {
-        A.alarm('reminder'); flash('alert', 6); popup('Reminder: ' + r.title + (state.settings.reminderSound?.startsWith('music:') ? ' (tap to stop)' : ''), '#FFD966');
-        say(`${userName() ? userName() + ', y' : 'Y'}ou asked me to remind you: **${r.title}**${r.notes ? ` (${r.notes})` : ''}`, { sound: false });
+        A.alarm('reminder'); flash('alert', 6);
+        announce('Crew Reminder', `Attention ${userName() || 'crew member'}${state.profile.stationJob ? ` (${job(state.profile.stationJob).name})` : ''}: ${r.title}${r.notes ? `. ${r.notes}` : '.'}`, { sign: SIGNERS.reminder });
+        say(pick([`Beep! That's your reminder: **${r.title}**.`, `Logged task due now: **${r.title}**.`, `Reminder from your crew schedule: **${r.title}**.`]), { sound: false });
         if (state.settings.notifications) P.notify(`${paiName()} · Reminder`, `${userName() ? userName() + ', ' : ''}you asked me to remind you: ${r.title}`);
       }
     }
   }
   if (changed) commit('timers');
+  focusTick(now.getTime());
+  if (briefingDue(now)) runBriefing();
+  import('./events.js').then(E => E.tick(now)).catch(() => { });
 }
 
 // ---------------------------------------------------------------- unit, presets, settings
@@ -358,4 +391,107 @@ export function sendTimerToClock(id) {
   const secs = t.end ? timerRemaining(t) : t.duration;
   t.inClock = true; commit('timers');
   P.openURL(clockURL(secs));
+}
+
+// ---------------------------------------------------------------- notes, to-dos, long-term memory
+export function addTodo(text) {
+  const t = { id: uuid(), text: String(text).trim(), done: false, date: Date.now() };
+  state.todos.unshift(t); A.play('ev_scribble1', 0.5); commit('todos'); return t;
+}
+export function toggleTodo(id) {
+  const t = state.todos.find(x => x.id === id); if (!t) return null;
+  t.done = !t.done; t.doneAt = t.done ? Date.now() : null; A.sfx(t.done ? 'ping' : 'click'); if (t.done) popup('Task complete', '#2CDB2C'); commit('todos'); return t;
+}
+export function saveNote({ id, title, body }) {
+  let n = id && state.notes.find(x => x.id === id);
+  if (n) Object.assign(n, { title, body, date: Date.now() });
+  else { n = { id: uuid(), title: title || (body || '').split('\n')[0].slice(0, 40) || 'Note', body: body || '', date: Date.now() }; state.notes.unshift(n); }
+  A.play('ev_scribble2', 0.5); commit('notes'); return n;
+}
+export function remember(text) {
+  const t = String(text).trim(); if (!t) return null;
+  const dup = state.memories.find(m => m.text.toLowerCase() === t.toLowerCase()); if (dup) return dup;
+  const m = { id: uuid().slice(0, 8), text: t, date: Date.now() }; state.memories.push(m);
+  if (state.memories.length > 80) state.memories.shift();
+  popup('Memory saved', '#17FFC1'); commit('memories', true); return m;
+}
+export function forget(id) { state.memories = state.memories.filter(m => m.id !== id); commit('memories', true); }
+
+// ---------------------------------------------------------------- SS14 announcements
+const SIGNERS = { reminder: 'Crew Scheduling, Nanotrasen', briefing: 'Central Command', focus: 'Station Productivity Office', event: 'Central Command' };
+export function announce(title, text, { kind = '', sign = '', banner = true, buttons = [] } = {}) {
+  push('announce', text, { title, sign, kind, buttons }); commit('chat');
+  if (banner) UI.banner(title, text, { kind, sign });
+}
+export function stationTitle() { return state.antag.emagged ? 'Syndicate Communication' : 'Central Command Update'; }
+
+// ---------------------------------------------------------------- morning briefing (SS14 shift start)
+const dayKey = (d = new Date()) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+export function briefingDue(now = new Date()) {
+  const s = state.settings; if (!s.briefingOn || state.meta.lastBriefing === dayKey(now)) return false;
+  const [h, m] = (s.briefingTime || '08:00').split(':').map(Number);
+  const at = new Date(now); at.setHours(h, m || 0, 0, 0);
+  if (now < at) return false;
+  if (now - at > 6 * 3600e3) { state.meta.lastBriefing = dayKey(now); commit('meta', true); return false; } // missed today's window
+  return true;
+}
+let briefing = false;
+export async function runBriefing(manual = false) {
+  if (briefing) return; briefing = true;
+  try {
+    const now = new Date(); state.meta.lastBriefing = dayKey(now); commit('meta', true);
+    const name = userName() || 'crew member';
+    const today = state.reminders.map(r => [r, nextOccurrence(r, new Date(now.getFullYear(), now.getMonth(), now.getDate()))]).filter(([, d]) => d && d.toDateString() === now.toDateString()).sort((a, b) => a[1] - b[1]);
+    const open = state.todos.filter(t => !t.done);
+    const bday = state.profile.birthday && new Date(state.profile.birthday).getMonth() === now.getMonth() && new Date(state.profile.birthday).getDate() === now.getDate();
+    const lines = [
+      `Good ${now.getHours() < 12 ? 'morning' : now.getHours() < 18 ? 'afternoon' : 'evening'}, ${name}. Shift start: ${fmtDate(now)}.`,
+      bday ? 'Central Command wishes you a happy birthday! Cake has been authorised.' : '',
+      today.length ? `Scheduled today: ${today.map(([r, d]) => `${fmtTime(d)} ${r.title}`).join(', ')}.` : 'No scheduled tasks today.',
+      open.length ? `Open tasks on your PDA: ${open.length} (${open.slice(0, 3).map(t => t.text).join(', ')}${open.length > 3 ? '…' : ''}).` : '',
+      `Station alert level: ${state.antag.emagged ? 'RED' : 'GREEN'}. Have a productive shift.`,
+    ].filter(Boolean);
+    A.alarm('briefing'); flash('happy');
+    announce(state.antag.emagged ? 'Syndicate Shift Briefing' : 'Shift Start Briefing', lines.join(' '), { sign: state.antag.emagged ? 'Syndicate Command' : SIGNERS.briefing, kind: state.antag.emagged ? 'syndicate' : '' });
+    if (state.settings.notifications && !manual) P.notify(`${paiName()} · Shift start`, lines[0]);
+    const s = state.settings;
+    if (state.apiKey && (s.briefingNews || s.briefingWeather)) {
+      const want = [s.briefingWeather && `today's weather for ${state.profile.homeCity || 'my area (ask me for my city if unknown)'} (now, high/low, rain)`, s.briefingNews && '3 top news headlines, one line each'].filter(Boolean).join(' and ');
+      state.thinking = true; commit('chat');
+      try {
+        const r = await AI.respond({ key: state.apiKey, model: s.model, system: systemPrompt(), tools: AI.tools(true, false).filter(t => t.name === 'web_search'),
+          messages: [{ role: 'user', content: `Give my shift-start briefing as a station announcement in your style: ${want}. Search once, keep it short.` }], onTool: runTool });
+        state.thinking = false; say(r.text || 'Briefing feed unavailable.', { sources: r.sources });
+      } catch (e) { push('system', e.message || String(e)); }
+      finally { state.thinking = false; commit('chat'); }
+    }
+  } finally { briefing = false; }
+}
+
+// ---------------------------------------------------------------- focus mode (pomodoro)
+export function startFocus(work = state.settings.focusWork, brk = state.settings.focusBreak) {
+  const f = state.focus; const now = new Date();
+  if (f.todayDate !== dayKey(now)) { f.todayDate = dayKey(now); f.todayCount = 0; }
+  Object.assign(f, { on: true, phase: 'work', work: Math.max(1, work), brk: Math.max(1, brk), end: Date.now() + Math.max(1, work) * 60000, cycle: 0 });
+  A.alarm('focus'); flash('happy');
+  announce('Focus Shift Started', `${userName() || 'Crew member'}, report to your station. Work for ${f.work} minutes, then take a ${f.brk} minute break. Station events are paused.`, { sign: SIGNERS.focus, banner: false });
+  commit('focus');
+}
+export function stopFocus() { state.focus.on = false; state.focus.end = null; A.sfx('button'); popup('Focus mode off'); commit('focus'); }
+function focusTick(now) {
+  const f = state.focus; if (!f.on || !f.end || now < f.end) return;
+  if (f.phase === 'work') {
+    f.cycle++; f.todayCount++; f.total = (f.total || 0) + 1;
+    const long = f.cycle % 4 === 0; const mins = long ? state.settings.focusLong : f.brk;
+    f.phase = 'break'; f.end = now + mins * 60000;
+    A.alarm('break'); flash('happy');
+    announce('Break Time', `Session ${f.todayCount} complete. The break room is open for ${mins} minutes${long ? ' (long break, you earned it)' : ''}. Stretch, drink some water.`, { sign: SIGNERS.focus });
+    if (state.settings.notifications) P.notify(`${paiName()} · Break time`, `Session done. Take ${mins} minutes.`);
+  } else {
+    f.phase = 'work'; f.end = now + (f.work || state.settings.focusWork) * 60000;
+    A.alarm('focus');
+    announce('Back To Work', `Break's over, ${userName() || 'crew member'}. Return to your station for ${f.work} minutes.`, { sign: SIGNERS.focus });
+    if (state.settings.notifications) P.notify(`${paiName()} · Focus`, 'Break over. Back to work!');
+  }
+  commit('focus');
 }

@@ -81,7 +81,7 @@ export function closeModal() { const m = document.getElementById('modal'); m.cla
 export function menu(anchor, items) {
   closeMenu();
   const el = document.createElement('div'); el.className = 'menu'; el.id = 'menu';
-  el.innerHTML = items.map(it => it.header ? `<div class="mh">${esc(it.header)}</div>` : `<div class="mi" data-i="${items.indexOf(it)}">${esc(it.label)}</div>`).join('');
+  el.innerHTML = items.map(it => it.header ? `<div class="mh">${esc(it.header)}</div>` : `<div class="mi" data-i="${items.indexOf(it)}">${it.html ? it.label : esc(it.label)}</div>`).join('');
   document.body.appendChild(el);
   const r = anchor.getBoundingClientRect(); const h = el.offsetHeight, w = el.offsetWidth;
   el.style.left = Math.min(r.left, innerWidth - w - 8) + 'px';
@@ -93,3 +93,14 @@ export function menu(anchor, items) {
 }
 export function closeMenu() { const m = document.getElementById('menu'); if (m) { document.removeEventListener('pointerdown', m._outside); m.remove(); } }
 
+
+/** Big SS14-style announcement across the top of the screen (tap to dismiss). */
+export function banner(title, text, { kind = '', sign = '', ms = 9000 } = {}) {
+  document.querySelectorAll('.sbanner').forEach(b => b.remove());
+  const el = document.createElement('div'); el.className = 'sbanner ' + kind;
+  el.innerHTML = `<div class="ah">${esc(title)}</div><div class="at">${esc(text)}</div>${sign ? `<div class="asig">${esc(sign)}</div>` : ''}`;
+  document.body.appendChild(el);
+  const close = () => { el.classList.add('out'); setTimeout(() => el.remove(), 300); };
+  el.addEventListener('click', close); setTimeout(close, ms);
+  return el;
+}

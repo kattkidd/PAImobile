@@ -15,12 +15,12 @@ export function idCard(p = state.profile) {
   const j = job(p.stationJob); const dc = deptColor(j.department);
   const pic = p.photo && p.showPhoto ? `<img src="${p.photo}" style="width:100%;height:100%;object-fit:cover" class="anim-stamp">`
     : `<div data-anim-char style="width:104px;height:104px;margin-bottom:-8px">${C.img(p.character, p.stationJob, 0)}</div>`;
-  return `<div class="idcard ${flip ? 'flip' : ''}" style="--dept:${dc}">
+  return `<div class="idcard ${flip ? 'flip' : ''} ${state.antag.effect?.type === 'traitor' ? 'stolen' : ''}" style="--dept:${dc}">
     <div class="top"><img class="px" src="img/${cardSprite(j)}.png" width="34" height="34"><span class="grow">NANOTRASEN ID</span>${UI.jobIcon(j)}<span>${esc(j.department)}</span></div>
     <div class="row-flex" style="gap:16px;padding:14px;align-items:flex-start">
       <div style="width:92px;height:110px;border:2px solid ${dc};background:linear-gradient(var(--row), color-mix(in srgb, ${dc} 35%, transparent));display:flex;align-items:flex-end;justify-content:center;overflow:hidden;flex:none">${pic}</div>
       <div class="grow" style="display:flex;flex-direction:column;gap:3px;min-height:110px">
-        <div class="b" style="font-size:20px">${esc(p.fullName || 'UNREGISTERED')}</div>
+        <div class="b" style="font-size:20px">${state.antag.effect?.type === 'traitor' ? '<span style="color:#FF6B6B">UNKNOWN</span>' : esc(p.fullName || 'UNREGISTERED')}</div>
         <div class="b" style="color:${deptText(j.department)}">(${esc(j.name)})</div>
         ${p.jobTitle ? `<div class="small dim">${esc(p.jobTitle)}</div>` : ''}${p.pronouns ? `<div class="small dim">${esc(p.pronouns)}</div>` : ''}
         ${p.birthday ? `<div class="small dim">DOB ${new Date(p.birthday).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}</div>` : ''}

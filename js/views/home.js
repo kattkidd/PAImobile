@@ -5,11 +5,21 @@ import * as A from '../audio.js';
 import * as C from '../character.js';
 import * as UI from '../ui.js';
 import * as P from '../platform.js';
+import * as PA from '../paper.js';
+import * as CP from '../chatplus.js';
 import { esc, icon, fmtTime, fmtDate, relative, fmtDuration, pick } from '../util.js';
 import { styled, verb, userVerb, job, deptText, NOT_INSTALLED } from '../ss14.js';
 
 const SUGGEST = ["What's the weather today?", 'Set a 10 minute timer', "What's on my calendar?", 'Remind me tomorrow at 9am to drink water', "What's in the news?"];
 
+function pendingChips() {
+  return CP.pending.map((f, i) => `<span class="filechip">${icon(f.kind === 'image' ? 'id' : 'clip', 11)} ${esc(f.name.length > 22 ? f.name.slice(0, 20) + '…' : f.name)} <b data-act="unattach" data-i="${i}" style="cursor:pointer;color:#FF6B6B">×</b></span>`).join('');
+}
+function refreshChips() { const el = document.getElementById('pendingfiles'); if (el) el.innerHTML = pendingChips(); }
+async function attachFiles(files) {
+  for (const f of files) { const err = await CP.addFile(f); if (err) X.popup(err, '#FF6B6B'); }
+  refreshChips(); document.getElementById('chatinput')?.focus();
+}
 function deviceBar() {
   const todo = X.deviceTodo(); if (!todo.length) return '';
   const cal = todo.filter(x => x.kind === 'cal'), clock = todo.filter(x => x.kind === 'clock');
@@ -36,14 +46,15 @@ function line(m) {
   const name = esc(userName() || 'You');
   const deptCol = deptText(job(state.profile.stationJob).department);
   switch (m.role) {
-    case 'user': return `<div class="line">${head()}<div><b style="color:${deptCol}">${name}</b> ${userVerb(m.text)}, “${styled(m.text, state)}”</div></div>`;
+    case 'user': return `<div class="line">${head()}<div><b style="color:${deptCol}">${name}</b> ${userVerb(m.text)}, “${styled(m.text, state)}”${(m.files || []).length ? `<div class="src">${m.files.map(f => `<span class="filechip">${icon('clip', 11)} ${esc(f)}</span>`).join('')}</div>` : ''}</div></div>`;
+    case 'announce': return `<div class="announce ${m.kind || ''}"><div class="ah">${esc(m.title || 'Station Announcement')}</div><div>${styled(m.text, state)}</div>${m.sign ? `<div class="asig">${esc(m.sign)}</div>` : ''}${(m.buttons || []).map(b => `<button class="btn s ${b.cls || ''}" data-act="${b.act}" ${b.data || ''}>${esc(b.label)}</button>`).join(' ')}</div>`;
     case 'userEmote': return `<div class="line">${head()}<div class="i"><b style="color:${deptCol}">${name}</b> ${esc(m.text)}</div></div>`;
     case 'emote': return `<div class="line"><span class="av" style="opacity:.85">${avatar()}</span><div class="i">${esc(X.paiName())} ${esc(m.text)}</div></div>`;
     case 'system': return `<div class="line sys">⚠ ${esc(m.text)}</div>`;
     case 'pai': {
       const src = (m.sources || []).slice(0, 5).map(s => `<a href="${esc(s.url)}" data-ext="1">${icon('link', 11)} ${esc(s.title)}</a>`).join('');
       return `<div class="line" data-mid="${m.id}"><span class="av">${avatar()}</span><div class="grow"><div><b style="color:var(--accent)">${esc(X.paiName())}</b> ${verb(m.text, m.id)}, “<span class="msgtext">${styled(m.text, state)}</span>”</div>
-        ${src ? `<div class="src">${src}</div>` : ''}<span class="dim" style="cursor:pointer;font-size:11px" data-act="readAloud" data-id="${m.id}">${icon('speaker', 12)}</span></div></div>`;
+        ${src ? `<div class="src">${src}</div>` : ''}${(m.papers || []).map(id => { const p = state.papers.find(x => x.id === id); return p ? `<div class="papertile inchat" data-act="paperOpen" data-id="${p.id}">${PA.paperCard(p, { big: false })}</div>` : ''; }).join('')}<span class="dim" style="cursor:pointer;font-size:11px;margin-right:10px" data-act="readAloud" data-id="${m.id}" title="Read aloud">${icon('speaker', 12)}</span><span class="dim" style="cursor:pointer;font-size:11px" data-act="copyMsg" data-id="${m.id}" title="Copy">${icon('paste', 12)}</span></div></div>`;
     }
   }
   return '';
@@ -63,6 +74,9 @@ function chips() {
   const out = [];
   if (X.isAI()) out.push(`<button class="btn s ghost chip" style="color:#5ED7AA" data-act="laws">${icon('flag', 12)} Laws: ${esc(X.activeLawset().name)}</button>`);
   const nr = nextReminder(); if (nr) out.push(`<button class="btn s ghost chip" data-act="go" data-v="calendar">${icon('bell', 12)} ${esc(nr.r.title)} · ${relative(nr.date)}</button>`);
+  if (state.focus.on) out.push(`<button class="btn s ghost chip" style="color:${state.focus.phase === 'work' ? 'var(--accent)' : '#2CDB2C'}" data-act="go" data-v="timers">${icon('bolt', 12)} ${state.focus.phase === 'work' ? 'Focus' : 'Break'} <span data-live-focus>${fmtDuration(Math.max(0, Math.round((state.focus.end - Date.now()) / 1000)))}</span></button>`);
+  if (state.antag.emagged) out.push(`<button class="btn s ghost chip" style="color:#f33" data-act="laws">${icon('skull', 12)} EMAGGED</button>`);
+  out.push(`<button class="btn s ghost chip" data-act="briefMe">${icon('sun', 12)} Briefing</button>`);
   const run = state.timers.filter(t => t.end && !t.finished);
   if (run.length) out.push(`<button class="btn s ghost chip" data-act="go" data-v="timers">${icon('timer', 12)} <span data-live-timer="${run[0].id}">${fmtDuration(timerRemaining(run[0]))}</span>${run.length > 1 ? ' +' + (run.length - 1) : ''}</button>`);
   if (!state.profile.fullName && !state.profile.preferredName) out.push(`<button class="btn s ghost chip" style="color:var(--gold)" data-act="go" data-v="id">${icon('id', 12)} Register your ID</button>`);
@@ -92,6 +106,9 @@ export default {
       </div>
       <div class="chatbox">${deviceBar()}
         <div class="chatlog" id="chatlog">${chatHTML()}</div>
+        <div class="chattools"><label class="btn s ghost" title="Attach a picture, PDF or text file">${icon('clip', 13)} Attach<input type="file" id="attachfile" multiple accept="image/*,application/pdf,text/*,.md,.csv,.json,.txt,.log,.py,.js,.gd,.cs" style="display:none"></label>
+          ${UI.btn(icon('paste', 13) + ' Clipboard', 'clipMenu', { cls: 's ghost', title: 'Do something with what you copied' })}
+          ${UI.btn(icon('mic', 13) + ' Talk', 'talk', { cls: 's ghost', title: 'Speak to ' + X.paiName() })}<span class="grow"></span><span id="pendingfiles">${pendingChips()}</span></div>
         <div class="inputbar">
           <span class="chan" data-act="emoteMenu" title="Emotes">${X.isAI() ? 'AI' : s.form === 'terminal' ? '&gt;_' : 'Say'} ▾</span>
           <textarea class="field" id="chatinput" rows="1" placeholder="Message ${esc(X.paiName())}… (Enter to send, *emote)" style="resize:none;min-height:38px;max-height:140px"></textarea>
@@ -101,10 +118,16 @@ export default {
   },
   mounted(root) {
     const log = root.querySelector('#chatlog'); log.scrollTop = log.scrollHeight;
+    root.querySelector('#attachfile')?.addEventListener('change', (e) => { const fs = [...e.target.files]; e.target.value = ''; attachFiles(fs); });
+    const box = root.querySelector('.chatbox');
+    box?.addEventListener('dragover', (e) => { e.preventDefault(); box.classList.add('dropping'); });
+    box?.addEventListener('dragleave', (e) => { if (!box.contains(e.relatedTarget)) box.classList.remove('dropping'); });
+    box?.addEventListener('drop', (e) => { e.preventDefault(); box.classList.remove('dropping'); attachFiles([...(e.dataTransfer?.files || [])]); });
+    root.querySelector('#chatinput')?.addEventListener('paste', (e) => { const fs = [...(e.clipboardData?.files || [])]; if (fs.length) { e.preventDefault(); attachFiles(fs); } });
     const inp = root.querySelector('#chatinput');
     inp.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.act.send(); } });
     inp.addEventListener('input', () => { A.keystroke(); inp.style.height = 'auto'; inp.style.height = Math.min(140, inp.scrollHeight) + 'px'; });
-    inp.focus();
+    if (!(navigator.maxTouchPoints > 0)) inp.focus();
     typewrite(root);
   },
   updateChat() {
@@ -121,6 +144,7 @@ export default {
   live() {
     const now = new Date();
     const ck = document.getElementById('clock'); if (ck) { const t = fmtTime(now); if (ck.textContent !== t) ck.textContent = t; }
+    const fl = document.querySelector('[data-live-focus]'); if (fl && state.focus.on) fl.textContent = fmtDuration(Math.max(0, Math.round((state.focus.end - Date.now()) / 1000)));
     for (const el of document.querySelectorAll('[data-live-timer]')) { const t = state.timers.find(x => x.id === el.dataset.liveTimer); if (t) el.textContent = fmtDuration(timerRemaining(t)); }
   },
   bubble(m) {
@@ -134,8 +158,33 @@ export default {
     devClock(a) { X.sendTimerToClock(a.dataset.id); },
     devSkip() { for (const x of X.deviceTodo()) { const r = state.reminders.find(y => y.id === x.id); if (r) r.calSig = `${r.title}|${r.date}|${r.repeat}|${r.notes}`; } import('../store.js').then(m => m.commit('reminders')); },
     send() {
-      const inp = document.getElementById('chatinput'); const t = inp.value; if (!t.trim()) return;
-      inp.value = ''; inp.style.height = 'auto'; X.send(t);
+      const inp = document.getElementById('chatinput'); const t = inp.value; if (!t.trim() && !CP.pending.length) return;
+      inp.value = ''; inp.style.height = 'auto'; X.send(t, { files: CP.takePending() }); refreshChips();
+    },
+    briefMe() { X.runBriefing(true); },
+    unattach(a) { CP.pending.splice(+a.dataset.i, 1); A.sfx('pop'); refreshChips(); },
+    copyMsg(a) { const m = state.messages.find(x => x.id === a.dataset.id); if (m) CP.copyText(m.text).then(ok => X.popup(ok ? 'Copied' : 'Copy failed', ok ? '#2CDB2C' : '#FF6B6B')); },
+    async clipMenu(a) {
+      const go = async (instr) => {
+        let text = ''; try { text = await CP.readClipboard(); } catch { }
+        if (!text?.trim()) { X.popup('Clipboard is empty (or PAI was not allowed to read it)', '#FF6B6B'); return; }
+        if (!instr) { const inp = document.getElementById('chatinput'); inp.value += text; inp.focus(); return; }
+        CP.addText('clipboard', text); X.send(instr, { files: CP.takePending().map(f => ({ ...f, name: 'clipboard' })) }); refreshChips();
+      };
+      UI.menu(a, [{ header: 'Do this with what I copied' }, ...CP.CLIP_ACTIONS.map(([l, instr]) => ({ label: l, run: () => go(instr) })), { label: 'Just paste it into the box', run: () => go(null) }]);
+    },
+    talk(a) {
+      if (CP.listening) { CP.stopListening(); return; }
+      if (!CP.canListen()) {
+        UI.modal('Talk to ' + X.paiName(), `<div style="padding:14px;line-height:1.6">${P.isDesktop() ? 'Windows has voice typing built in: click in the message box and press <b>Windows + H</b>, then talk. Turn on <b>Settings → Sound → Read replies aloud</b> so ' + esc(X.paiName()) + ' talks back.' : 'Voice input isn’t available in this browser. Tap the message box and use the <b>microphone on your keyboard</b> instead.'}</div>`);
+        return;
+      }
+      const inp = document.getElementById('chatinput'); a.classList.add('good'); a.innerHTML = `${icon('mic', 13)} Listening…`;
+      CP.listen({
+        onText: (t) => { inp.value = t; },
+        onEnd: (final) => { a.classList.remove('good'); a.innerHTML = `${icon('mic', 13)} Talk`; if (final) { inp.value = ''; X.send(final, { voice: true, files: CP.takePending() }); refreshChips(); } },
+        onError: (err) => { a.classList.remove('good'); a.innerHTML = `${icon('mic', 13)} Talk`; if (err !== 'aborted' && err !== 'no-speech') X.popup(err === 'not-allowed' ? 'Microphone permission was denied' : 'Voice input failed: ' + err, '#FF6B6B'); },
+      });
     },
     suggest(a) { X.send(a.dataset.text); },
     newChat() { A.sfx('print_rip'); X.clearChat(); },

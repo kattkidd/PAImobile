@@ -3,6 +3,7 @@ import { state } from './store.js';
 import { tone, STARLIGHT_RADIO } from './ss14.js';
 import { pick } from './util.js';
 import { musicURL, AUDIO_EXT as EXT } from './platform.js';
+import * as P from './platform.js';
 
 export let AUDIO = { speech: {}, emoteSets: {}, emotes: {}, species: {}, barks: [], music: [], ambience: [] };
 export async function loadAudio() {
@@ -36,7 +37,7 @@ export function unlockAudio() {
   } catch { }
   unlock();
 }
-function urlFor(name) { return name.startsWith('game:') ? `game/audio/${name.slice(5)}.${EXT}` : /^[pam][0-9a-f]{10}$/.test(name) ? `game/audio/${name}.${EXT}` : `sfx/${name}.${EXT}`; }
+function urlFor(name) { if (name.startsWith('ev_')) return `game/events/${name}.${EXT}`; return name.startsWith('game:') ? `game/audio/${name.slice(5)}.${EXT}` : /^[pam][0-9a-f]{10}$/.test(name) ? `game/audio/${name}.${EXT}` : `sfx/${name}.${EXT}`; }
 async function buffer(name) {
   if (buffers.has(name)) return buffers.get(name);
   if (!loading.has(name)) loading.set(name, (async () => {
@@ -230,10 +231,34 @@ export const ALARM_SOUNDS = [
   ['announce', 'Station announcement'], ['sl_announce2', 'Starlight announcement'], ['attention', 'Attention'], ['sl_attention', 'Starlight attention'],
   ['timer_done', 'Microwave ding'], ['ding', 'Ding'], ['chime', 'Chime'], ['ping', 'Ping'], ['goob_ping', 'Goob ping'], ['twobeep', 'Two beeps'],
   ['quickbeep', 'Quick beep'], ['n14_bark_ring', 'Wasteland ring'], ['welcome', 'Welcome'], ['power_on', 'Power on'],
+  ['ev_intercept', 'CentComm intercept'], ['ev_dock', 'Shuttle docked'], ['ev_shuttle', 'Shuttle called'], ['ev_aliens', 'Lifesigns detected'],
+  ['ev_amber', 'Amber alert (Goob)'], ['ev_war', 'War declared'], ['ev_nuke_alarm', 'Nuke alarm'], ['ev_radiation', 'Radiation storm'],
+  ['ev_meteors', 'Meteors'], ['ev_honk', 'Bike horn'], ['ev_stamp', 'Rubber stamp'], ['ev_traitor', 'Traitor greeting'], ['ev_roar', 'Dragon roar'],
 ];
+export const ALARM_KINDS = [['reminder', 'Reminders'], ['timer', 'Timers'], ['briefing', 'Morning briefing'], ['focus', 'Focus: back to work'], ['break', 'Focus: break time'], ['event', 'Station events']];
+// Your own sounds (uploaded files kept in this device's IndexedDB): ids look like "custom:abc123".
+export function customSounds() { return state.settings.customSounds || []; }
+const customURLs = new Map();
+async function customURL(id) {
+  if (customURLs.has(id)) return customURLs.get(id);
+  const blob = await P.idbGet(id); if (!blob) return null;
+  const u = URL.createObjectURL(blob); customURLs.set(id, u); return u;
+}
+export async function addCustomSound(file) {
+  if (file.size > 15 * 1024 * 1024) throw new Error('Sound files up to 15 MB please.');
+  const id = 'custom:' + Math.random().toString(36).slice(2, 10);
+  await P.idbPut(id, file);
+  (state.settings.customSounds ||= []).push({ id, name: file.name.replace(/\.[^.]+$/, '').slice(0, 40) });
+  return id;
+}
+export async function removeCustomSound(id) {
+  await P.idbDel(id); state.settings.customSounds = customSounds().filter(s => s.id !== id);
+  for (const [k] of ALARM_KINDS) if (state.settings[k + 'Sound'] === id) state.settings[k + 'Sound'] = 'announce';
+}
 export function alarmLabel(v) {
   if (!v || v === 'none') return 'Silent';
   if (v.startsWith('music:')) { const t = AUDIO.music.find(x => x.file === v.slice(6)); return t ? `♪ ${t.title}` : 'Song'; }
+  if (v.startsWith('custom:')) return customSounds().find(s => s.id === v)?.name || 'Your sound';
   return ALARM_SOUNDS.find(([id]) => id === v)?.[1] || v;
 }
 // One shared element, "unlocked" on the first tap: phones only let audio start without a tap if the element was played by a tap before.
@@ -265,9 +290,11 @@ export function stopAlarm() {
 export async function alarm(kind, override) {
   const s = state.settings; const v = override ?? s[kind + 'Sound'];
   if (!s.sounds || !v || v === 'none') return;
-  if (!v.startsWith('music:') || !alarmEl) return play(v, Math.min(1, s.alarmVolume + 0.1));
+  const long = v.startsWith('music:') || v.startsWith('custom:');
+  if (!long || !alarmEl) return play(v, Math.min(1, s.alarmVolume + 0.1));
   stopAlarm();
-  const src = await musicURL(v.slice(6));
+  const src = v.startsWith('custom:') ? await customURL(v) : await musicURL(v.slice(6));
+  if (!src) return play('announce');
   resumeMusic = music.playing; if (resumeMusic) music.pause();
   alarmEl.src = src; alarmEl.currentTime = 0; alarmEl.loop = true; alarmEl.muted = false; setVol(alarmEl, s.alarmVolume);
   alarmPlaying = true; music.changed();

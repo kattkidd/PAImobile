@@ -11,7 +11,9 @@ export function defaultSettings() {
     fork: 'vanilla', bootStyle: 'vanilla', accent: 'none', theme: 'nanotrasen', unitVoice: 'auto', unitBark: '',
     soundPack: 'ss14', personality: 'standard', radioBlips: false, highlightPing: true, emoteSounds: true,
     crtEffects: true, animations: true, trayOnClose: true, startWithWindows: false, notifications: true,
-    reminderSound: 'announce', timerSound: 'timer_done', alarmLength: 20, alarmVolume: 0.8, calendarSync: true, clockTimers: false, playWhenSilent: true, clockShortcut: 'PAI Timer',
+    reminderSound: 'announce', timerSound: 'timer_done', alarmLength: 20, alarmVolume: 0.8, calendarSync: true, clockTimers: false, playWhenSilent: true, memoryOn: true, briefingSound: 'ev_intercept', focusSound: 'ev_dock', breakSound: 'chime', eventSound: 'auto', customSounds: [],
+    briefingOn: true, briefingTime: '08:00', briefingNews: true, briefingWeather: true, focusWork: 25, focusBreak: 5, focusLong: 15,
+    events: 'normal', antagMode: 'rare', antagEffects: true, ttsVoice: '', ttsRate: 1.05, ttsPitch: 1.15, clockShortcut: 'PAI Timer',
     music: { enabled: true, muted: false, volume: 0.45, shuffle: true, playlists: [], ambience: null, ambienceVolume: 0.35, autoplay: true },
   };
 }
@@ -28,6 +30,13 @@ export const state = {
   reminders: [],     // {id, title, date(ms), notes, repeat: none|daily|weekly|monthly, lastFired}
   timers: [],        // {id, label, duration, end(ms)|null, paused(sec)|null, finished}
   messages: [],      // {id, role: user|pai|system|emote|userEmote, text, sources, date}
+  notes: [],         // {id, title, body, date}
+  todos: [],         // {id, text, done, date}
+  papers: [],        // {id, title, body, stamps:[{id, x, y, r}], date, author}
+  memories: [],      // {id, text, date}  long-term facts PAI keeps about you
+  focus: { on: false, phase: 'work', end: null, cycle: 0, todayDate: '', todayCount: 0, total: 0 },
+  antag: { emagged: false, until: 0, effect: null },
+  meta: { lastBriefing: '', lastEvent: 0 },
   settings: defaultSettings(),
   apiKey: '',
   lastResponseID: null,
@@ -49,6 +58,8 @@ export async function loadAll() {
     const d = defaultSettings();
     state.settings = { ...d, ...(s.settings || {}), music: { ...d.music, ...(s.settings?.music || {}) } };
     state.lastResponseID = s.lastResponseID || null;
+    for (const k of ['notes', 'todos', 'papers', 'memories']) state[k] = s[k] || [];
+    state.focus = { ...state.focus, ...(s.focus || {}) }; state.antag = { ...state.antag, ...(s.antag || {}) }; state.meta = { ...state.meta, ...(s.meta || {}) };
     if (!/^claude/.test(state.settings.model || '')) state.settings.model = 'claude-haiku-5-5'; // moved from OpenAI
   }
   state.apiKey = (await P.load('apikey')) || '';
@@ -59,6 +70,7 @@ export function commit(what = 'all', silent = false) {
   P.save('state', {
     profile: state.profile, reminders: state.reminders, timers: state.timers,
     messages: state.messages.slice(-300), settings: state.settings, lastResponseID: state.lastResponseID,
+    notes: state.notes, todos: state.todos, papers: state.papers, memories: state.memories, focus: state.focus, antag: state.antag, meta: state.meta,
   });
   if (!silent) emit(what);
 }
@@ -111,6 +123,7 @@ export const userName = () => {
 export function backupJSON(includeKey = true) {
   return JSON.stringify({ pai: 1, saved: new Date().toISOString(), state: {
     profile: state.profile, reminders: state.reminders, timers: state.timers, messages: state.messages.slice(-300), settings: state.settings,
+    notes: state.notes, todos: state.todos, papers: state.papers, memories: state.memories, focus: state.focus, meta: state.meta,
   }, apiKey: includeKey ? state.apiKey : undefined }, null, 1);
 }
 export async function restoreBackup(text) {

@@ -8,6 +8,7 @@ import * as UI from './ui.js';
 import { icon, esc, sleep } from './util.js';
 import { FORKS, job } from './ss14.js';
 import home from './views/home.js';
+import notes from './views/notes.js';
 import calendar from './views/calendar.js';
 import timers from './views/timers.js';
 import idview from './views/id.js';
@@ -16,8 +17,8 @@ import { runBoot } from './views/boot.js';
 import { runOnboarding } from './views/onboarding.js';
 import { openEditor } from './views/editor.js';
 
-const VIEWS = { home, calendar, timers, id: idview, settings };
-const TABS = [['home', 'cpu', null], ['calendar', 'calendar', 'Calendar'], ['timers', 'timer', 'Timers'], ['id', 'id', 'ID'], ['settings', 'gear', 'Settings']];
+const VIEWS = { home, calendar, timers, notes, id: idview, settings };
+const TABS = [['home', 'cpu', null], ['calendar', 'calendar', 'Calendar'], ['timers', 'timer', 'Timers'], ['notes', 'note', 'Notes'], ['id', 'id', 'ID'], ['settings', 'gear', 'Settings']];
 export let current = 'home';
 let forward = true;
 export const app = { openEditor, go, rerender, renderSide };
@@ -96,6 +97,8 @@ function bindGlobal() {
     afterSettingChange(path, true);
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { UI.closeModal(); UI.closeMenu(); } });
+  // Dropping a file anywhere else must not navigate the window away from PAI.
+  for (const ev of ['dragover', 'drop']) document.addEventListener(ev, (e) => { if (!e.target.closest?.('.chatbox')) e.preventDefault(); });
 }
 function afterSettingChange(path, silent = false) {
   if (path.startsWith('settings.music')) A.music.apply(prevMusic), prevMusic = { ...state.settings.music };
@@ -116,7 +119,8 @@ const GLOBAL = {
   musicNext: () => A.music.next(),
   musicPrev: () => A.music.previous(),
   mini: () => setMini(!document.body.classList.contains('mini')),
-  editChar: () => openEditor(),
+  editChar: () => { if (state.antag.effect?.original) import('./events.js').then(E => E.clearAntag(true)); openEditor(); },
+  antagResolve: () => import('./events.js').then(E => E.clearAntag()),
 };
 
 export function applyTheme() {
@@ -194,7 +198,7 @@ async function start() {
   await loadAll(); P.persistStorage();
   await Promise.all([C.loadCharacters(), A.loadAudio()]);
   if (!state.profile.character) { state.profile.character = C.starter(); commit('profile', true); }
-  applyTheme();
+  applyTheme(); import('./events.js').then(E => E.applyAntagLook());
   document.getElementById('scan').style.display = state.settings.crtEffects ? '' : 'none';
   bindGlobal(); bindFx();
   subscribe((what) => {
@@ -212,7 +216,7 @@ async function start() {
   if (state.settings.bootSequence) await runBoot();
   if (!state.settings.onboarded) await runOnboarding();
   document.getElementById('app').style.display = '';
-  document.getElementById('app').classList.add('crt-on');
+  { const app = document.getElementById('app'); app.classList.add('crt-on'); app.addEventListener('animationend', (e) => { if (e.animationName === 'crtOn') app.classList.remove('crt-on'); }); setTimeout(() => app.classList.remove('crt-on'), 1500); }
   renderSide(); go('home');
   prevMusic = { ...state.settings.music }; A.music.apply(null);
   setInterval(() => { X.tick(); VIEWS[current].live?.(); }, 1000);

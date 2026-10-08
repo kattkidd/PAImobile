@@ -79,7 +79,7 @@ export async function test(key, model) {
 
 const fn = (name, description, properties = {}, required = []) => ({ name, description, input_schema: { type: 'object', properties, required } });
 const str = (description) => ({ type: 'string', description });
-export function tools(webSearch) {
+export function tools(webSearch, memory = true) {
   const t = [
     fn('create_reminder', "Add a reminder to the user's PAI calendar. Their computer shows a notification at that time while PAI is running.", {
       title: str("Short reminder text, e.g. 'Call mom'"),
@@ -94,10 +94,25 @@ export function tools(webSearch) {
     }, ['seconds']),
     fn('list_timers', "List the user's running and paused timers (with ids)."),
     fn('cancel_timer', 'Cancel a timer by id.', { id: str('Timer id') }, ['id']),
+    fn('add_todo', "Add an item to the user's to-do checklist.", { text: str('The task') }, ['text']),
+    fn('list_todos', "List the user's to-do items (with ids and done state)."),
+    fn('complete_todo', 'Mark a to-do item done (or not done) by id.', { id: str('To-do id'), done: { type: 'boolean' } }, ['id']),
+    fn('save_note', "Save a note in the user's PDA notekeeper.", { title: str('Short title'), body: str('Note text') }, ['body']),
+    fn('list_notes', "Search or list the user's notes (with ids and text).", { query: str('Optional words to search for') }),
+    fn('write_paper', "Write an SS14-style paper document (memo, report, permit, form, certificate, letter, doctor's note…). It appears as a paper with optional rubber stamp in the Paperwork tab and in chat. Use simple markup: # heading, **bold**, - lists.", {
+      title: str('Document title'), body: str('Full document text'),
+      stamp: { type: 'string', enum: ['none', 'ok', 'deny', 'cap', 'centcom', 'hop', 'hos', 'cmo', 'ce', 'rd', 'qm', 'warden', 'detective', 'lawyer', 'chaplain', 'clown', 'mime', 'syndicate', 'greytide'], description: 'Rubber stamp to put on it (ok = APPROVED, deny = DENIED, cap = Captain…). Default none.' },
+    }, ['title', 'body']),
+    fn('remember', 'Save a lasting fact about the user to long-term memory (preferences, people, important details they want you to keep). Only when they share something worth keeping or ask you to remember.', { fact: str('The fact, short, in third person, e.g. "Has a cat named Biscuit"') }, ['fact']),
+    fn('forget', 'Delete a long-term memory by id (ids are listed in your instructions).', { id: str('Memory id') }, ['id']),
+    fn('start_focus', 'Start a focus (pomodoro) session: work minutes then a break, repeating.', { work_minutes: { type: 'integer' }, break_minutes: { type: 'integer' } }),
+    fn('stop_focus', 'Stop the focus session.'),
+    fn('station_event', 'Trigger a harmless SS14 station event on the user\'s screen for fun, only when they ask for one.', { event: { type: 'string', enum: ['meteors', 'rod', 'dragon', 'carp', 'bingle', 'gravity', 'power', 'ion', 'spiders', 'kudzu', 'clown', 'radiation', 'random'] } }, ['event']),
     fn('emote', 'Do an SS14 silicon emote (shows "PAI beeps." and plays the sound).', {
       emote: { type: 'string', enum: ['beep', 'boop', 'chime', 'ping', 'buzz', 'buzz-two', 'blink'] },
     }, ['emote']),
   ];
+  if (!memory) for (const n of ['remember', 'forget']) t.splice(t.findIndex(x => x.name === n), 1);
   // One search per message at most (each search costs about 1 cent).
   if (webSearch) t.push({ type: 'web_search_20250305', name: 'web_search', max_uses: 1 });
   return t;

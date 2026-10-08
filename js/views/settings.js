@@ -5,6 +5,7 @@ import * as A from '../audio.js';
 import * as UI from '../ui.js';
 import * as AI from '../ai.js';
 import * as P from '../platform.js';
+import * as CP from '../chatplus.js';
 import { esc, icon } from '../util.js';
 import { FORKS, THEMES, PERSONALITIES, UNIT_FORMS, CHASSIS, CORES, HOLOGRAMS, ACCENTS, accent, applyAccent, LAWSET_GROUPS, CUSTOM_LAWSET, AI_NAMES, COLORS, BOOT } from '../ss14.js';
 
@@ -90,16 +91,22 @@ function alarmSelect(kind) {
   const opt = (v, l) => `<option value="${esc(v)}" ${cur === v ? 'selected' : ''}>${esc(l)}</option>`;
   const songs = {};
   for (const t of A.AUDIO.music) (songs[t.playlist] ||= []).push(t);
-  return `<select class="field" data-model="settings.${kind}Sound">${opt('none', 'Silent')}<optgroup label="SS14 sounds">${A.ALARM_SOUNDS.map(([v, l]) => opt(v, l)).join('')}</optgroup>
+  const mine = A.customSounds();
+  return `<select class="field" data-model="settings.${kind}Sound">${kind === 'event' ? opt('auto', "Each event's own SS14 sound") : ''}${opt('none', 'Silent')}
+    ${mine.length ? `<optgroup label="Your sounds">${mine.map(m => opt(m.id, m.name)).join('')}</optgroup>` : ''}
+    <optgroup label="SS14 sounds">${A.ALARM_SOUNDS.map(([v, l]) => opt(v, l)).join('')}</optgroup>
     ${Object.entries(songs).map(([pl, ts]) => `<optgroup label="Songs · ${esc(pl)}">${ts.map(t => opt('music:' + t.file, `${t.title} (${t.artist})`)).join('')}</optgroup>`).join('')}</select>`;
 }
 function alarms() {
   const st = s();
-  return UI.section('Alarms', `<div class="srow"><span class="lab">Reminders</span>${alarmSelect('reminder')}${UI.btn(icon('play', 12), 'testAlarm', { cls: 's', data: 'data-k="reminder"', title: 'Preview' })}</div>
-    <div class="srow alt"><span class="lab">Timers</span>${alarmSelect('timer')}${UI.btn(icon('play', 12), 'testAlarm', { cls: 's', data: 'data-k="timer"', title: 'Preview' })}</div>
+  const rows = A.ALARM_KINDS.map(([k, l], i) => `<div class="srow ${i % 2 ? 'alt' : ''}"><span class="lab">${esc(l)}</span>${alarmSelect(k)}${UI.btn(icon('play', 12), 'testAlarm', { cls: 's', data: `data-k="${k}"`, title: 'Preview' })}</div>`).join('');
+  const mine = A.customSounds();
+  return UI.section('Alarms & notification sounds', `${rows}
     <div class="srow"><span class="lab">Song length</span><input type="range" min="5" max="120" step="5" value="${st.alarmLength}" data-model="settings.alarmLength"><span class="small dim" style="width:44px">${st.alarmLength}s</span></div>
-    <div class="srow alt"><span class="lab">Alarm volume</span><input type="range" min="0.1" max="1" step="0.05" value="${st.alarmVolume}" data-model="settings.alarmVolume"></div>`,
-    { footer: 'Pick any SS14 sound or any lobby song. Songs play until you tap the screen or the time runs out, then your music carries on. These play inside PAI; your phone’s own Calendar and Clock alerts use the phone’s sounds.' });
+    <div class="srow alt"><span class="lab">Alarm volume</span><input type="range" min="0.1" max="1" step="0.05" value="${st.alarmVolume}" data-model="settings.alarmVolume"></div>
+    <div class="srow"><label class="btn s good" style="cursor:pointer">${icon('plus', 12)} Add your own sound<input type="file" id="customsound" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac" style="display:none"></label><span class="small dim">MP3, M4A, WAV… up to 15 MB</span></div>
+    ${mine.map((m, i) => `<div class="srow ${i % 2 ? '' : 'alt'}">${icon('music', 14)}<span class="grow small">${esc(m.name)}</span>${UI.btn(icon('play', 12), 'testCustom', { cls: 's', data: `data-id="${m.id}"` })}${UI.btn(icon('trash', 12), 'delCustom', { cls: 's ghost', data: `data-id="${m.id}"` })}</div>`).join('')}`,
+    { footer: 'Pick any SS14 sound, any lobby song or a sound of your own for each kind of alert. Long sounds play until you tap the screen or the song length runs out. These play inside PAI; your phone’s Calendar and Clock apps use the phone’s own sounds.' });
 }
 function audio() {
   const st = s(); const m = A.music; const ms = st.music;
@@ -117,7 +124,10 @@ function audio() {
     { trailing: `${A.AUDIO.barks.length} barks`, footer: 'Barks from Nuclear 14 (Misfits & NC sets), Starlight and Goob Station.' }) : ''}
   ${UI.section('Sound pack', Object.entries(PACKS).map(([id, [l, d]], i) => UI.choice(l, d, st.soundPack === id, 'pack', `data-p="${id}"`, i % 2)).join(''), { footer: "Which fork's ID card, announcement and alert sounds to use." })}
   ${UI.section('Sound options', `${UI.toggle('All sounds', 'settings.sounds', st.sounds)}${UI.toggle('Keyboard typing sounds', 'settings.typingSounds', st.typingSounds)}${UI.toggle('Species emote sounds (*scream, *laugh…)', 'settings.emoteSounds', st.emoteSounds)}
-    ${UI.toggle('Starlight job radio blips when I talk', 'settings.radioBlips', st.radioBlips)}${UI.toggle('Goob chat ping on highlights', 'settings.highlightPing', st.highlightPing)}${UI.toggle('Read replies aloud (Windows voice)', 'settings.speakReplies', st.speakReplies)}`)}
+    ${UI.toggle('Starlight job radio blips when I talk', 'settings.radioBlips', st.radioBlips)}${UI.toggle('Goob chat ping on highlights', 'settings.highlightPing', st.highlightPing)}${UI.toggle('Read every reply aloud', 'settings.speakReplies', st.speakReplies)}
+    <div class="srow alt"><span class="lab">Speaking voice</span><select class="field" data-model="settings.ttsVoice"><option value="">Default</option>${CP.voices().map(v => `<option value="${esc(v.name)}" ${st.ttsVoice === v.name ? 'selected' : ''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}</select>${UI.btn(icon('play', 12), 'ttsTest', { cls: 's' })}</div>
+    <div class="srow"><span class="lab">Voice pitch</span><input type="range" min="0.5" max="2" step="0.05" value="${st.ttsPitch}" data-model="settings.ttsPitch"></div>
+    <div class="srow alt"><span class="lab">Voice speed</span><input type="range" min="0.6" max="1.8" step="0.05" value="${st.ttsRate}" data-model="settings.ttsRate"></div>`, { footer: 'Replies to things you say with the Talk button are always read aloud.' })}
   ${UI.section('Sound board', soundBoard(), { trailing: 'click to play' })}`;
 }
 function musicNow() {
@@ -136,7 +146,11 @@ function soundBoard() { return `<div class="row-flex" style="flex-wrap:wrap;padd
 const MODELS = [['claude-haiku-5-5', 'Cheap · Haiku'], ['claude-sonnet-5-5', 'Smart · Sonnet']];
 function mind() {
   const st = s();
-  return `${UI.section('Neural uplink', `<div class="srow"><span style="color:${state.apiKey ? '#2CDB2C' : 'var(--caution)'}">${state.apiKey ? '✔' : '✘'}</span><span class="grow">${state.apiKey ? 'Mind installed' : 'No pAI is installed.'}</span>${state.apiKey ? UI.btn('Remove', 'removeKey', { cls: 's caution' }) : ''}</div>
+  const mem = UI.section('Long-term memory', `${UI.toggle(`Let ${esc(X.paiName())} save things to remember about you`, 'settings.memoryOn', st.memoryOn !== false)}
+    <div class="srow alt"><input class="field" id="memnew" placeholder="Add something for ${esc(X.paiName())} to remember…">${UI.btn(icon('plus', 13), 'memAdd', { cls: 's good' })}</div>
+    ${state.memories.slice().reverse().map((m, i) => `<div class="srow ${i % 2 ? 'alt' : ''}">${icon('brain', 14)}<span class="grow small">${esc(m.text)}</span>${UI.btn(icon('trash', 12), 'memDel', { cls: 's ghost', data: `data-id="${m.id}"` })}</div>`).join('') || '<div class="srow small dim">Nothing yet. Say “remember that my sister is called Sam”.</div>'}`,
+    { trailing: `${state.memories.length} memories`, footer: 'Memories stay on this device and are sent with each message so replies can use them. They are included in backups.' });
+  return `${mem}${UI.section('Neural uplink', `<div class="srow"><span style="color:${state.apiKey ? '#2CDB2C' : 'var(--caution)'}">${state.apiKey ? '✔' : '✘'}</span><span class="grow">${state.apiKey ? 'Mind installed' : 'No pAI is installed.'}</span>${state.apiKey ? UI.btn('Remove', 'removeKey', { cls: 's caution' }) : ''}</div>
     <div class="srow alt"><input class="field" type="password" id="keydraft" placeholder="Paste Claude API key (sk-ant-…)" autocomplete="off">${UI.btn('Save', 'saveKey', { cls: 's good' })}</div>
     <div class="srow"><span class="lab">Brain</span><div class="row-flex grow" style="flex-wrap:wrap">${MODELS.map(([id, n]) => UI.btn(n, 'setModel', { cls: 's' + (st.model === id ? ' good' : ' ghost'), data: `data-m="${id}"` })).join('')}</div></div>
     ${UI.field('Model ID', 'settings.model', st.model, 'claude-haiku-5-5', { alt: true })}${UI.toggle('Web search', 'settings.webSearch', st.webSearch)}
@@ -168,7 +182,16 @@ function system() {
         4. Tap the <b>30</b> in it, choose <b>Select Variable → Shortcut Input</b>, then tap <b>minutes</b> and change it to <b>seconds</b>.<br>
         5. Tap <b>Done</b>. Then press <b>Test</b> above.</div>`,
       { footer: 'PAI opens Shortcuts for a moment to start the real Clock timer, then swipe back to PAI. The Clock app rings with your phone’s timer sound even if PAI is closed.' })}`;
-  return `${device}
+  const daily = UI.section('Shift briefing (morning)', `${UI.toggle('Give me a briefing every day', 'settings.briefingOn', st.briefingOn)}
+    <div class="srow alt"><span class="lab">At</span><input class="field" type="time" value="${esc(st.briefingTime)}" data-model="settings.briefingTime" style="max-width:140px">${UI.btn(icon('sun', 13) + ' Brief me now', 'briefNow', { cls: 's' })}</div>
+    ${UI.toggle('Include weather (uses your Home city on the ID tab)', 'settings.briefingWeather', st.briefingWeather)}${UI.toggle('Include news headlines', 'settings.briefingNews', st.briefingNews)}`,
+    { footer: 'Arrives the first time PAI is open after that time (within 6 hours). Weather and news need your Claude key and use one web search (about 1¢).' });
+  const chaos = UI.section('Station events & antags', `<div class="srow"><span class="lab">Station events</span><select class="field" data-model="settings.events">${[['off', 'Off'], ['rare', 'Rare (about 1 an hour)'], ['normal', 'Normal (every ~20 min)'], ['chaos', 'Chaos (every few minutes)']].map(([v, l]) => `<option value="${v}" ${st.events === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+    <div class="srow alt"><span class="lab">Antags</span><select class="field" data-model="settings.antagMode">${[['off', 'Off'], ['rare', 'Rare'], ['often', 'Often']].map(([v, l]) => `<option value="${v}" ${st.antagMode === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+    <div class="srow"><span class="lab">Try one</span><div class="row-flex grow" style="flex-wrap:wrap">${['meteors', 'rod', 'dragon', 'carp', 'bingle', 'gravity', 'power', 'ion', 'spiders', 'kudzu', 'clown', 'radiation'].map(e => UI.btn(e, 'tryEvent', { cls: 's ghost', data: `data-e="${e}"` })).join('')}</div></div>
+    <div class="srow alt"><span class="lab">Antags</span><div class="row-flex grow" style="flex-wrap:wrap">${['emag', 'traitor', 'changeling', 'nukies', 'wizard', 'revenant', 'ninja', 'thief'].map(e => UI.btn(e, 'tryAntag', { cls: 's ghost', data: `data-e="${e}"` })).join('')}${state.antag.emagged || state.antag.effect ? UI.btn('Clear antag effects', 'clearAntag', { cls: 's caution' }) : ''}</div></div>`,
+    { footer: 'Events and antags are harmless and short: nothing you saved is ever touched. They pause during focus mode and never happen while you are typing.' });
+  return `${daily}${chaos}${device}
   ${UI.section('Chat', `${UI.toggle('Highlight my name & job in chat', 'settings.highlights', st.highlights)}<div class="srow alt">${UI.btn('Run setup again', 'rerunSetup', { cls: 's' })}<span class="small dim">Takes effect next launch</span></div>`,
     { footer: "Highlights work like SS14's chat highlights: your name and your station job's keywords show in #17FFC1." })}
   ${UI.section('Backup & move', `<div class="row-flex" style="padding:10px;flex-wrap:wrap">${UI.btn(icon('plus', 13) + ' Save backup file', 'backup', { cls: 's good' })}
@@ -186,6 +209,11 @@ export default {
       <div class="content"><div class="col" style="max-width:860px">${{ customise, audio, mind, system }[page]()}</div></div>`;
   },
   mounted(root) {
+    root.querySelector('#customsound')?.addEventListener('change', async (e) => {
+      const f = e.target.files?.[0]; e.target.value = ''; if (!f) return;
+      try { await A.addCustomSound(f); A.sfx('ding'); X.popup('Sound added: pick it in any list above', '#2CDB2C'); commit('settings'); }
+      catch (err) { A.sfx('deny'); X.popup(err.message || 'Could not add that sound', '#FF6B6B'); }
+    });
     root.querySelector('#restorefile')?.addEventListener('change', (e) => {
       const f = e.target.files?.[0]; e.target.value = ''; if (!f) return;
       const rd = new FileReader(); rd.onload = async () => {
@@ -234,8 +262,17 @@ export default {
       catch (e) { testResult = '✗ ' + e.message; X.flash('sad'); A.sfx('buzz_two'); }
       el.textContent = testResult;
     },
-    testAlarm(a) { if (A.alarmPlaying) return A.stopAlarm(); if (Date.now() - A.lastStop < 600) return; A.alarm(a.dataset.k); },
+    testAlarm(a) { if (A.alarmPlaying) return A.stopAlarm(); if (Date.now() - A.lastStop < 600) return; const k = a.dataset.k; A.alarm(k, s()[k + 'Sound'] === 'auto' ? 'ev_meteors' : undefined); },
+    testCustom(a) { if (A.alarmPlaying) return A.stopAlarm(); if (Date.now() - A.lastStop < 600) return; A.alarm('reminder', a.dataset.id); },
+    async delCustom(a) { await A.removeCustomSound(a.dataset.id); A.sfx('pop'); commit('settings'); },
     async backup() { const d = new Date(); const ok = await P.saveFile(`PAI backup ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.json`, backupJSON(true)); if (ok) { A.sfx('print_rip'); X.popup('Backup saved', '#2CDB2C'); } },
+    memAdd() { const el = document.getElementById('memnew'); const t = el?.value.trim(); if (!t) return; X.remember(t); el.value = ''; A.sfx('ping'); re(); },
+    memDel(a) { X.forget(a.dataset.id); A.sfx('pop'); re(); },
+    ttsTest() { CP.speak(`Hello${state.profile.preferredName ? ', ' + state.profile.preferredName : ''}. All systems nominal.`); },
+    briefNow() { X.runBriefing(true); import('../main.js').then(m => m.go('home')); },
+    tryEvent(a) { import('../events.js').then(E => E.trigger(a.dataset.e, { forced: true })); },
+    tryAntag(a) { import('../events.js').then(E => E.antag(a.dataset.e, { forced: true })); },
+    clearAntag() { import('../events.js').then(E => { E.clearAntag(); re(); }); },
     icsAll() { X.sendToCalendar(); },
     clockTest() { P.openURL(X.clockURL(10)); },
     testNotify() { P.notify(`${X.paiName()} · Test`, 'Notifications are working. Beep boop!'); A.sfx('announce'); },

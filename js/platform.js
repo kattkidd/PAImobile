@@ -56,6 +56,18 @@ if (typeof document !== 'undefined') {
 export async function persistStorage() {
   try { if (navigator.storage?.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch { }
 }
+/** Save binary data (e.g. a PNG): Share sheet on phones, Save dialog on PC, download elsewhere. */
+export async function saveBlob(name, blob) {
+  const n = N();
+  if (n) {
+    try { const f = await n.os.showSaveDialog('Save', { defaultPath: name }); if (f) { await n.filesystem.writeBinaryFile(f, await blob.arrayBuffer()); return true; } return false; }
+    catch (e) { console.warn(e); }
+  }
+  const file = new File([blob], name, { type: blob.type });
+  if (navigator.canShare?.({ files: [file] }) && (isIOS() || /Android/i.test(navigator.userAgent))) { try { await navigator.share({ files: [file], title: name }); return true; } catch (e) { if (e.name === 'AbortError') return false; } }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000); return true;
+}
 /** Save a text file: Save dialog on PC, the Share sheet (Save to Files / AirDrop) on phones, a download elsewhere. */
 export async function saveFile(name, text, type = 'application/json') {
   const n = N();
@@ -171,7 +183,7 @@ export function reminderICS(reminders) {
     const d = new Date(r.date); const end = new Date(d.getTime() + 15 * 60000);
     lines.push('BEGIN:VEVENT', `UID:${r.id}@pai`, `DTSTAMP:${icsDate(now)}`, `DTSTART:${icsDate(d)}`, `DTEND:${icsDate(end)}`,
       `SUMMARY:${icsText(r.title)}`);
-    if (r.notes) lines.push(`DESCRIPTION:${icsText(r.notes)}`);
+    lines.push(`DESCRIPTION:${icsText((r.notes ? r.notes + '\n\n' : '') + 'Crew reminder logged by your pAI · Nanotrasen Crew Scheduling')}`);
     const rule = { daily: 'DAILY', weekly: 'WEEKLY', monthly: 'MONTHLY' }[r.repeat]; if (rule) lines.push(`RRULE:FREQ=${rule}`);
     lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsText(r.title)}`, 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT');
   }
@@ -210,3 +222,14 @@ export async function musicURL(file) {
     blobCache.set(file, url); return url;
   } catch (e) { console.warn('music file missing', file, e); return `game/audio/${file}.${AUDIO_EXT}`; }
 }
+
+// ---------------------------------------------------------------- IndexedDB (your own uploaded sounds)
+let dbp = null;
+function db() {
+  if (!dbp) dbp = new Promise((res, rej) => { const r = indexedDB.open('pai', 1); r.onupgradeneeded = () => r.result.createObjectStore('files'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  return dbp;
+}
+async function tx(mode, fn) { const d = await db(); return new Promise((res, rej) => { const t = d.transaction('files', mode); const st = t.objectStore('files'); const r = fn(st); t.oncomplete = () => res(r?.result); t.onerror = () => rej(t.error); }); }
+export const idbPut = (k, v) => tx('readwrite', s => s.put(v, k));
+export const idbGet = (k) => tx('readonly', s => s.get(k));
+export const idbDel = (k) => tx('readwrite', s => s.delete(k));

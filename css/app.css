@@ -266,3 +266,75 @@ body.mini .clock { font-size: 34px; }
 }
 @media (max-width: 760px) { #t_label { flex: 1 1 100% !important; } }
 #tapstart { position: fixed; inset: 0; z-index: 120; background: var(--space); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .25s; cursor: pointer; }
+
+/* ---------------------------------------------------------------- notes / to-do / paperwork */
+.check { width: 24px; height: 24px; flex: none; border: 2px solid var(--dim); background: transparent; color: #2CDB2C; display: grid; place-items: center; cursor: pointer; padding: 0; }
+.check.on { border-color: #2CDB2C; background: color-mix(in srgb, #2CDB2C 18%, transparent); }
+.todo.done span.grow { text-decoration: line-through; color: var(--dim); }
+.paper { position: relative; color: #1b1b1b; background: #ece6d4; border: 16px solid transparent; border-image: url(../game/events/paper_bg.png) 16 fill stretch; padding: 10px 16px 18px; font-size: 15px; line-height: 1.5; user-select: text; min-height: 200px; }
+.paper .ptitle { font-weight: 800; font-size: 20px; border-bottom: 2px solid rgba(0,0,0,.25); padding-bottom: 6px; margin-bottom: 10px; }
+.paper .pbody .ph1 { font-size: 19px; font-weight: 800; margin: 6px 0; } .paper .pbody .ph2 { font-size: 17px; font-weight: 700; margin: 4px 0; } .paper .pbody .ph3 { font-weight: 700; }
+.paper .pbody ul { margin: 4px 0 4px 20px; padding: 0; } .paper .pgap { height: 10px; }
+.paper .pfoot { margin-top: 14px; font-size: 12px; color: #6b6352; font-style: italic; }
+.paper .pstamps { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.pstamp { display: inline-flex; align-items: center; gap: 6px; border: 3px solid var(--sc); color: var(--sc); padding: 4px 12px 4px 6px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; background: color-mix(in srgb, var(--sc) 6%, transparent); mix-blend-mode: multiply; }
+.pstamp img { width: 32px; height: 32px; }
+.paperwrap { padding: 14px; background: #2a2a2e; max-height: 70vh; overflow: auto; }
+.paperwall { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; padding: 12px; }
+.papertile { cursor: pointer; transition: transform .15s; } .papertile:hover { transform: translateY(-3px) rotate(-1deg); }
+.papertile .paper.small { height: 190px; overflow: hidden; font-size: 11px; min-height: 0; border-width: 12px; border-image-slice: 18 fill; padding: 4px 8px; }
+.papertile .paper.small .ptitle { font-size: 13px; } .papertile .paper.small .pstamp { font-size: 9px; padding: 2px 6px 2px 2px; } .papertile .paper.small .pstamp img { width: 18px; height: 18px; }
+.papertile.inchat { width: 200px; margin: 6px 0; }
+.filechip { display: inline-flex; gap: 4px; align-items: center; background: var(--row); padding: 2px 8px; margin: 4px 4px 0 0; font-size: 12px; color: var(--dim); }
+.announce { border: 2px solid var(--gold); background: color-mix(in srgb, var(--gold) 8%, rgba(0,0,0,.4)); padding: 10px 12px; animation: lineIn .3s; line-height: 1.45; }
+.announce .ah { font-weight: 800; font-size: 16px; color: var(--gold); margin-bottom: 4px; letter-spacing: .5px; }
+.announce .asig { text-align: right; color: var(--gold); font-style: italic; margin-top: 4px; }
+.announce.alert { border-color: #FF4040; background: rgba(120,0,0,.35); } .announce.alert .ah, .announce.alert .asig { color: #FF6B6B; }
+.announce.syndicate { border-color: #c00; background: rgba(60,0,0,.6); } .announce.syndicate .ah { color: #f33; }
+.announce .btn { margin-top: 8px; }
+.chattools { display: flex; gap: 4px; padding: 6px 8px 0; background: var(--pd); align-items: center; flex-wrap: wrap; }
+.chattools .btn.s { min-height: 28px; font-size: 12px; }
+.chatbox.dropping { outline: 3px dashed var(--accent); outline-offset: -6px; }
+.sbanner { position: fixed; left: 50%; top: calc(14px + env(safe-area-inset-top)); transform: translateX(-50%); z-index: 110; width: min(560px, 94vw); background: rgba(20,20,26,.96); border: 2px solid var(--gold); padding: 12px 16px; box-shadow: 0 10px 40px rgba(0,0,0,.7); animation: bannerIn .35s cubic-bezier(.2,1.3,.4,1); cursor: pointer; line-height: 1.45; }
+.sbanner .ah { color: var(--gold); font-weight: 800; font-size: 17px; letter-spacing: .5px; } .sbanner .at { margin-top: 4px; } .sbanner .asig { color: var(--gold); text-align: right; font-style: italic; margin-top: 4px; font-size: 13px; }
+.sbanner.alert { border-color: #FF4040; } .sbanner.alert .ah, .sbanner.alert .asig { color: #FF6B6B; }
+.sbanner.syndicate { border-color: #c00; background: rgba(40,0,0,.96); } .sbanner.syndicate .ah, .sbanner.syndicate .asig { color: #f33; }
+.sbanner.out { opacity: 0; transform: translate(-50%, -20px); transition: all .3s; }
+@keyframes bannerIn { from { opacity: 0; transform: translate(-50%, -30px); } }
+
+/* ---------------------------------------------------------------- station events / antags */
+#fxlayer { position: fixed; inset: 0; z-index: 112; pointer-events: none; overflow: hidden; }
+.fxsprite { position: absolute; left: 0; top: 0; image-rendering: pixelated; background-repeat: no-repeat; will-change: transform; }
+.fxsprite.clickable { pointer-events: auto; cursor: crosshair; }
+@keyframes fxframes { to { background-position-x: var(--fw); } }
+.fxsprite.hop { filter: drop-shadow(0 4px 2px rgba(0,0,0,.5)); }
+.fxsprite.bounce { animation: fxbounce .6s ease-in-out infinite alternate !important; }
+@keyframes fxbounce { to { margin-top: -18px; } }
+.fxsprite.grow { animation: fxgrow .5s ease-out; } @keyframes fxgrow { from { opacity: 0; scale: .2; } }
+.fxsprite.ghosty { opacity: .8; filter: drop-shadow(0 0 10px #8cf); }
+.fxsprite.spark { filter: drop-shadow(0 0 8px #ff0) brightness(1.4); }
+.fxsprite.big { filter: drop-shadow(0 10px 8px rgba(0,0,0,.6)); }
+.fxcrack { position: fixed; width: 190px; height: 190px; pointer-events: none; z-index: 104; background:
+  linear-gradient(35deg, transparent 48%, rgba(255,255,255,.55) 49%, transparent 51%), linear-gradient(-60deg, transparent 47%, rgba(255,255,255,.45) 48%, transparent 50%),
+  linear-gradient(100deg, transparent 49%, rgba(255,255,255,.4) 50%, transparent 51%), radial-gradient(circle, rgba(255,255,255,.35) 0 6px, transparent 7px); animation: fadeIn .1s; }
+body.fx-shake #app { animation: fxshake .12s linear infinite; }
+@keyframes fxshake { 0% { transform: translate(0,0); } 25% { transform: translate(-6px, 3px); } 50% { transform: translate(5px,-4px); } 75% { transform: translate(-3px,-2px); } }
+body.fx-float #main .win, body.fx-float #main .section, body.fx-float #main .srow, body.fx-float #main .line, body.fx-float #side .tab { animation: fxfloat 3s ease-in-out infinite alternate; }
+body.fx-float #main .srow:nth-child(odd), body.fx-float #main .line:nth-child(odd), body.fx-float #side .tab:nth-child(odd) { animation-duration: 2.3s; animation-direction: alternate-reverse; }
+@keyframes fxfloat { from { transform: translate(0,0) rotate(0); } to { transform: translate(8px,-14px) rotate(2.5deg); } }
+body.fx-glitch #app { animation: fxglitch .18s steps(2) infinite; }
+@keyframes fxglitch { 0% { filter: hue-rotate(0) saturate(2); transform: translateX(0); } 50% { filter: hue-rotate(160deg) invert(.15); transform: translateX(4px) skewX(3deg); } 100% { filter: hue-rotate(300deg); transform: translateX(-3px); } }
+body.fx-rainbow #app { animation: fxrainbow 1s linear infinite; } @keyframes fxrainbow { to { filter: hue-rotate(360deg) saturate(1.6); } }
+body.fx-flash::after { content: ''; position: fixed; inset: 0; background: #fff; z-index: 120; animation: fxflash 1.2s ease-out forwards; pointer-events: none; }
+@keyframes fxflash { from { opacity: 1; } to { opacity: 0; } }
+body.fx-defile .line .msgtext, body.fx-defile .line b { animation: fxdefile .3s steps(3) infinite; }
+@keyframes fxdefile { 0% { filter: blur(0); opacity: 1; } 50% { filter: blur(1.2px); opacity: .5; letter-spacing: 2px; } }
+body.fx-drain #app { filter: brightness(.45) saturate(.6); transition: filter 2s; }
+.fxdark { position: fixed; inset: 0; pointer-events: auto; background: radial-gradient(circle 120px at var(--x) var(--y), transparent 0, rgba(0,0,0,.2) 60%, rgba(0,0,0,.96) 100%); }
+.fxrad { position: fixed; inset: 0; pointer-events: auto; background: rgba(60,255,60,.18); animation: fxrad 1.4s ease-in-out infinite alternate; }
+@keyframes fxrad { to { background: rgba(60,255,60,.32); } }
+.fxapc { position: absolute; left: 50%; bottom: calc(110px + env(safe-area-inset-bottom)); transform: translateX(-50%); font-size: 17px; padding: 12px 24px; pointer-events: auto; }
+body.emagged { --accent: #ff3b3b; --gold: #ff5555; }
+body.emagged .clock { text-shadow: 0 0 10px rgba(255,0,0,.6); }
+.idcard.stolen::after { content: 'STOLEN'; position: absolute; right: 18px; top: 52px; border: 4px solid #d22; color: #d22; font-weight: 900; font-size: 26px; padding: 2px 12px; transform: rotate(-14deg); letter-spacing: 3px; background: rgba(0,0,0,.25); }
+.idcard { position: relative; }
